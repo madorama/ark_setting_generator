@@ -828,7 +828,6 @@ items =
     , shellFragment
     , silicaPearls
     , silicate
-    , silicate
     , silk
     , sparkpowder
     , stimulant
