@@ -15,6 +15,7 @@ import Response exposing (..)
 import SelectList exposing (SelectList)
 import Style
 import Util.Html exposing (checkBox)
+import Util.String as String
 
 
 type alias Model =
@@ -31,12 +32,16 @@ init _ =
 
 type Msg
     = ClickSaveGameIni
-    | ChangeQuantity (SelectList ItemMaxQuantity) String
+    | ChangeQuantity (SelectList ItemMaxQuantity) Int
     | CheckIgnoreMultiplier (SelectList ItemMaxQuantity) Bool
     | CheckAllIgnoreMultiplier Bool
     | CheckApplyChange (SelectList ItemMaxQuantity) Bool
     | CheckAllApplyChange Bool
     | CheckAllowUnlimitedRespecs Bool
+    | CheckDisableStructurePlacementCollision Bool
+    | ChangeMatingInterval Float
+    | ChangeMatingSpeed Float
+    | ChangeBabyCuddleInterval Float
 
 
 update : Msg -> Model -> Response Model Msg
@@ -51,7 +56,7 @@ update msg model =
                 | gameIni =
                     model.gameIni
                         |> GameIni.setOverrideItemMaxQuantities
-                            (SelectList.updateSelected (\x -> I.setMaxQuantity (String.toInt maxQuantity |> Maybe.withDefault (I.maxQuantity x)) x) sl
+                            (SelectList.updateSelected (I.setMaxQuantity maxQuantity) sl
                                 |> SelectList.toList
                             )
             }
@@ -105,6 +110,38 @@ update msg model =
             }
                 |> withNone
 
+        CheckDisableStructurePlacementCollision checked ->
+            { model
+                | gameIni =
+                    model.gameIni
+                        |> GameIni.setDisableStructurePlacementCollision checked
+            }
+                |> withNone
+
+        ChangeMatingInterval f ->
+            { model
+                | gameIni =
+                    model.gameIni
+                        |> GameIni.setMatingIntervalMultiplier f
+            }
+                |> withNone
+
+        ChangeMatingSpeed f ->
+            { model
+                | gameIni =
+                    model.gameIni
+                        |> GameIni.setMatingSpeedMultiplier f
+            }
+                |> withNone
+
+        ChangeBabyCuddleInterval f ->
+            { model
+                | gameIni =
+                    model.gameIni
+                        |> GameIni.setBabyCuddleIntervalMultiplier f
+            }
+                |> withNone
+
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -149,7 +186,7 @@ viewSettings : Model -> Html Msg
 viewSettings model =
     column div
         [ Attr.css
-            [ property "gap" "1rem"
+            [ property "gap" "0.5rem"
             ]
         ]
         [ checkBox
@@ -161,6 +198,17 @@ viewSettings model =
             , checked = model.gameIni.allowUnlimitedRespecs
             , onCheck = CheckAllowUnlimitedRespecs
             }
+        , checkBox
+            [ Attr.css
+                [ property "user-select" "none"
+                ]
+            ]
+            { label = text "建造物配置時の衝突を無効化"
+            , checked = model.gameIni.disableStructurePlacementCollision
+            , onCheck = CheckDisableStructurePlacementCollision
+            }
+        , viewSettingMatures model
+        , viewSettingImprints model
         , row div
             []
             [ h3 []
@@ -189,6 +237,76 @@ viewSettings model =
         ]
 
 
+threeColumnGrid : Attribute msg
+threeColumnGrid =
+    Attr.css
+        [ property "display" "grid"
+        , property "grid-template-columns" "1fr 1fr 1fr"
+        , property "gap" "0.5rem"
+        ]
+
+
+viewSettingMatures : Model -> Html Msg
+viewSettingMatures model =
+    column div
+        [ Attr.css
+            [ property "gap" "0.5rem"
+            ]
+        ]
+        [ row div
+            [ threeColumnGrid
+            ]
+            [ text "交配可能間隔倍率"
+            , input
+                [ Attr.type_ "number"
+                , Attr.step "0.001"
+                , Attr.value <| String.fromFloat model.gameIni.matingIntervalMultiplier
+                , Ev.onChange <| String.toFloat >> Maybe.withDefault model.gameIni.matingIntervalMultiplier >> ChangeMatingInterval
+                ]
+                []
+            ]
+        , row div
+            [ threeColumnGrid
+            ]
+            [ text "交配速度倍率"
+            , input
+                [ Attr.type_ "number"
+                , Attr.step "0.001"
+                , Attr.value <| String.fromFloat model.gameIni.matingSpeedMultiplier
+                , Ev.onChange <| String.toFloat >> Maybe.withDefault model.gameIni.matingSpeedMultiplier >> ChangeMatingSpeed
+                ]
+                []
+            ]
+        ]
+
+
+viewSettingImprints : Model -> Html Msg
+viewSettingImprints model =
+    let
+        defaultCuddleIntervalSeconds =
+            8 * 60 * 60
+    in
+    column div
+        [ Attr.css
+            [ property "gap" "0.5rem"
+            ]
+        ]
+        [ row div
+            [ threeColumnGrid
+            ]
+            [ text "ケア間隔倍率"
+            , input
+                [ Attr.type_ "number"
+                , Attr.step "0.001"
+                , Attr.value <| String.fromFloat model.gameIni.babyCuddleIntervalMultiplier
+                , Ev.onChange <| String.toFloat >> Maybe.withDefault model.gameIni.babyCuddleIntervalMultiplier >> ChangeBabyCuddleInterval
+                ]
+                []
+            , text <| String.createTimeString (defaultCuddleIntervalSeconds * model.gameIni.babyCuddleIntervalMultiplier)
+            ]
+        ]
+
+
 viewItemMaxQuantities : Model -> Html Msg
 viewItemMaxQuantities model =
     column div
@@ -206,11 +324,7 @@ viewItemMaxQuantity sl =
             SelectList.selected sl
     in
     row div
-        [ Attr.css
-            [ property "gap" "0.5rem"
-            , property "display" "grid"
-            , property "grid-template-columns" "1fr 1fr 1fr"
-            ]
+        [ threeColumnGrid
         ]
         [ checkBox
             [ centerY
@@ -222,10 +336,7 @@ viewItemMaxQuantity sl =
         , input
             [ Attr.value <| String.fromInt (I.maxQuantity selected)
             , Attr.type_ "number"
-            , Attr.css
-                [ property "padding" "0.25rem"
-                ]
-            , Ev.onChange (ChangeQuantity sl)
+            , Ev.onChange <| String.toInt >> Maybe.withDefault (I.maxQuantity selected) >> ChangeQuantity sl
             ]
             []
         , checkBox

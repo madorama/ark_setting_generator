@@ -15,7 +15,9 @@ testGameIni =
             let
                 gameIni =
                     { defaultGameIni
-                        | overrideItemMaxQuantities =
+                        | matingSpeedMultiplier = 12.3456789
+                        , babyCuddleIntervalMultiplier = 0.01
+                        , overrideItemMaxQuantities =
                             [ ItemMaxQuantity.create
                                 { item = Ark.Resource.stone
                                 , maxQuantity = 500
@@ -40,6 +42,10 @@ testGameIni =
                 expected =
                     [ "[/Script/ShooterGame.ShooterGameMode]"
                     , "bAllowUnlimitedRespecs=false"
+                    , "bDisableStructurePlacementCollision=false"
+                    , "MatingIntervalMultiplier=1.000000"
+                    , "MatingSpeedMultiplier=12.345679"
+                    , "BabyCuddleIntervalMultiplier=0.010000"
                     , "ConfigOverrideItemMaxQuantity=(ItemClassString=\"" ++ Ark.Resource.stone.class ++ "\",Quantity=(MaxItemQuantity=500,bIgnoreMultiplier=false))"
                     , "ConfigOverrideItemMaxQuantity=(ItemClassString=\"" ++ Ark.Resource.fiber.class ++ "\",Quantity=(MaxItemQuantity=1000,bIgnoreMultiplier=true))"
                     ]

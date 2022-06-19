@@ -96,3 +96,31 @@ setOverrideItemMaxQuantities itemMaxQuantities gameIni =
     { gameIni
         | overrideItemMaxQuantities = itemMaxQuantities
     }
+
+
+setDisableStructurePlacementCollision : Bool -> GameIni -> GameIni
+setDisableStructurePlacementCollision b gameIni =
+    { gameIni
+        | disableStructurePlacementCollision = b
+    }
+
+
+setMatingIntervalMultiplier : Float -> GameIni -> GameIni
+setMatingIntervalMultiplier f gameIni =
+    { gameIni
+        | matingIntervalMultiplier = f
+    }
+
+
+setMatingSpeedMultiplier : Float -> GameIni -> GameIni
+setMatingSpeedMultiplier f gameIni =
+    { gameIni
+        | matingSpeedMultiplier = f
+    }
+
+
+setBabyCuddleIntervalMultiplier : Float -> GameIni -> GameIni
+setBabyCuddleIntervalMultiplier f gameIni =
+    { gameIni
+        | babyCuddleIntervalMultiplier = f
+    }

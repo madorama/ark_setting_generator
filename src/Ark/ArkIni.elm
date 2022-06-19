@@ -5,6 +5,7 @@ module Ark.ArkIni exposing
     , Value
     , bool
     , create
+    , float
     , int
     , keyValue
     , object
@@ -13,6 +14,8 @@ module Ark.ArkIni exposing
     , toIni
     )
 
+import FormatNumber
+import FormatNumber.Locales exposing (Decimals(..), usLocale)
 import Ini
 import Util.String as String
 
@@ -20,6 +23,7 @@ import Util.String as String
 type Value
     = VBool Bool
     | VInt Int
+    | VFloat Float
     | VString String
     | VRaw String
 
@@ -32,6 +36,11 @@ bool =
 int : Int -> Value
 int =
     VInt
+
+
+float : Float -> Value
+float =
+    VFloat
 
 
 string : String -> Value
@@ -122,6 +131,14 @@ valueToString v =
 
         VInt n ->
             String.fromInt n
+
+        VFloat f ->
+            FormatNumber.format
+                { usLocale
+                    | decimals = Exact 6
+                    , thousandSeparator = ""
+                }
+                f
 
         VString s ->
             "\"" ++ s ++ "\""
