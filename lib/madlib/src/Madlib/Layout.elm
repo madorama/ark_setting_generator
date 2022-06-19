@@ -1,11 +1,13 @@
 module Madlib.Layout exposing
-    ( centerX
+    ( bottom
+    , centerX
     , centerY
     , centering
     , column
     , columnReverse
     , gridArea
     , hero
+    , rightAdjust
     , row
     , rowReverse
     )
@@ -13,6 +15,16 @@ module Madlib.Layout exposing
 import Origami exposing (property, with)
 import Origami.Html exposing (Attribute, Html)
 import Origami.Html.Attributes as Attr
+
+
+rightAdjust : Attribute msg
+rightAdjust =
+    Attr.class "right"
+
+
+bottom : Attribute msg
+bottom =
+    Attr.class "bottom"
 
 
 centerX : Attribute msg
@@ -52,6 +64,8 @@ flexColumn isReverse toHtml attrs =
                 )
             , with ".center-x" [ property "align-items" "center" ]
             , with ".center-y" [ property "justify-content" "center" ]
+            , with ".right" [ property "align-items" "flex-end" ]
+            , with ".bottom" [ property "justify-content" "flex-end" ]
             ]
         , Attr.batchAttributes attrs
         ]
@@ -76,6 +90,8 @@ flexRow isReverse toHtml attrs =
                 )
             , with ".center-x" [ property "justify-content" "center" ]
             , with ".center-y" [ property "align-items" "center" ]
+            , with ".right" [ property "justify-content" "flex-end" ]
+            , with ".bottom" [ property "align-items" "flex-end" ]
             ]
         , Attr.batchAttributes attrs
         ]

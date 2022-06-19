@@ -135,31 +135,36 @@ viewMain model =
             [ Ev.onClick ClickSaveGameIni
             ]
             [ text "Game.iniを保存" ]
-        , column div
-            [ Attr.css
-                [ property "gap" "1rem"
-                ]
+        , viewSettings model
+        ]
+
+
+viewSettings : Model -> Html Msg
+viewSettings model =
+    column div
+        [ Attr.css
+            [ property "gap" "1rem"
             ]
-            [ row div
-                []
-                [ h3 [] [ text "アイテムスタック数のオーバーライド" ]
-                , row label
-                    [ centerY
-                    , Attr.css
-                        [ property "user-select" "none"
-                        ]
-                    ]
-                    [ input
-                        [ Attr.type_ "checkbox"
-                        , Attr.checked (isAllIgnoreMultiplier model.itemMaxQuantities)
-                        , Ev.onCheck CheckAllIgnoreMultiplier
-                        ]
-                        []
-                    , text "全てのスタックサイズ倍率を無視する"
+        ]
+        [ row div
+            []
+            [ h3 [] [ text "アイテムスタック数のオーバーライド" ]
+            , row label
+                [ centerY
+                , Attr.css
+                    [ property "user-select" "none"
                     ]
                 ]
-            , viewItemMaxQuantities model
+                [ input
+                    [ Attr.type_ "checkbox"
+                    , Attr.checked (isAllIgnoreMultiplier model.itemMaxQuantities)
+                    , Ev.onCheck CheckAllIgnoreMultiplier
+                    ]
+                    []
+                , text "全てのスタックサイズ倍率を無視する"
+                ]
             ]
+        , viewItemMaxQuantities model
         ]
 
 
@@ -187,12 +192,17 @@ viewItemMaxQuantity sl =
             ]
         ]
         [ column div
-            [ centerY ]
+            [ centerY
+            , rightAdjust
+            ]
             [ text selected.item.name
             ]
         , input
             [ Attr.value <| String.fromInt selected.maxQuantity
             , Attr.type_ "number"
+            , Attr.css
+                [ property "padding" "0.25rem"
+                ]
             , Ev.onChange (ChangeQuantity sl)
             ]
             []

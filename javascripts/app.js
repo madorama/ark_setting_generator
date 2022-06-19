@@ -5936,6 +5936,20 @@ var $author$project$Madlib$Layout$flexColumn = F3(
 							_List_fromArray(
 								[
 									A2($miyamoen$elm_origami$Origami$property, 'justify-content', 'center')
+								])),
+							A2(
+							$miyamoen$elm_origami$Origami$with,
+							'.right',
+							_List_fromArray(
+								[
+									A2($miyamoen$elm_origami$Origami$property, 'align-items', 'flex-end')
+								])),
+							A2(
+							$miyamoen$elm_origami$Origami$with,
+							'.bottom',
+							_List_fromArray(
+								[
+									A2($miyamoen$elm_origami$Origami$property, 'justify-content', 'flex-end')
 								]))
 						])),
 					$miyamoen$elm_origami$Origami$Html$Attributes$batchAttributes(attrs)
@@ -7153,17 +7167,50 @@ var $miyamoen$elm_origami$Origami$VirtualDom$toPlainNode = function (vdom) {
 	}
 };
 var $miyamoen$elm_origami$Origami$Html$toHtml = $miyamoen$elm_origami$Origami$VirtualDom$toPlainNode;
-var $author$project$Main$CheckAllIgnoreMultiplier = function (a) {
-	return {$: 3, a: a};
-};
 var $author$project$Main$ClickSaveGameIni = {$: 0};
 var $miyamoen$elm_origami$Origami$Html$button = $miyamoen$elm_origami$Origami$Html$node('button');
+var $miyamoen$elm_origami$Origami$Html$h1 = $miyamoen$elm_origami$Origami$Html$node('h1');
+var $elm$virtual_dom$VirtualDom$Normal = function (a) {
+	return {$: 0, a: a};
+};
+var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
 var $miyamoen$elm_origami$Origami$VirtualDom$plainAttribute = function (attr) {
 	return A2(
 		$miyamoen$elm_origami$Origami$VirtualDom$Attribute,
 		_List_fromArray(
 			[attr]),
 		_List_Nil);
+};
+var $miyamoen$elm_origami$Origami$VirtualDom$on = F2(
+	function (eventName, handler) {
+		return $miyamoen$elm_origami$Origami$VirtualDom$plainAttribute(
+			A2($elm$virtual_dom$VirtualDom$on, eventName, handler));
+	});
+var $miyamoen$elm_origami$Origami$Html$Events$on = F2(
+	function (event, decoder) {
+		return A2(
+			$miyamoen$elm_origami$Origami$VirtualDom$on,
+			event,
+			$elm$virtual_dom$VirtualDom$Normal(decoder));
+	});
+var $miyamoen$elm_origami$Origami$Html$Events$onClick = function (msg) {
+	return A2(
+		$miyamoen$elm_origami$Origami$Html$Events$on,
+		'click',
+		$elm$json$Json$Decode$succeed(msg));
+};
+var $miyamoen$elm_origami$Origami$VirtualDom$PlainNode = function (a) {
+	return {$: 4, a: a};
+};
+var $elm$core$Basics$composeL = F3(
+	function (g, f, x) {
+		return g(
+			f(x));
+	});
+var $miyamoen$elm_origami$Origami$VirtualDom$text = A2($elm$core$Basics$composeL, $miyamoen$elm_origami$Origami$VirtualDom$PlainNode, $elm$virtual_dom$VirtualDom$text);
+var $miyamoen$elm_origami$Origami$Html$text = $miyamoen$elm_origami$Origami$VirtualDom$text;
+var $author$project$Main$CheckAllIgnoreMultiplier = function (a) {
+	return {$: 3, a: a};
 };
 var $miyamoen$elm_origami$Origami$VirtualDom$property = F2(
 	function (key, value) {
@@ -7188,14 +7235,8 @@ var $miyamoen$elm_origami$Origami$Html$Attributes$boolProperty = F2(
 			$elm$json$Json$Encode$bool(bool));
 	});
 var $miyamoen$elm_origami$Origami$Html$Attributes$checked = $miyamoen$elm_origami$Origami$Html$Attributes$boolProperty('checked');
-var $miyamoen$elm_origami$Origami$Html$h1 = $miyamoen$elm_origami$Origami$Html$node('h1');
 var $miyamoen$elm_origami$Origami$Html$h3 = $miyamoen$elm_origami$Origami$Html$node('h3');
 var $miyamoen$elm_origami$Origami$Html$input = $miyamoen$elm_origami$Origami$Html$node('input');
-var $elm$core$Basics$composeL = F3(
-	function (g, f, x) {
-		return g(
-			f(x));
-	});
 var $elm$core$Basics$not = _Basics_not;
 var $elm$core$List$all = F2(
 	function (isOkay, list) {
@@ -7209,22 +7250,6 @@ var $author$project$Main$isAllIgnoreMultiplier = $elm$core$List$all(
 		return $.cx;
 	});
 var $miyamoen$elm_origami$Origami$Html$label = $miyamoen$elm_origami$Origami$Html$node('label');
-var $elm$virtual_dom$VirtualDom$Normal = function (a) {
-	return {$: 0, a: a};
-};
-var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
-var $miyamoen$elm_origami$Origami$VirtualDom$on = F2(
-	function (eventName, handler) {
-		return $miyamoen$elm_origami$Origami$VirtualDom$plainAttribute(
-			A2($elm$virtual_dom$VirtualDom$on, eventName, handler));
-	});
-var $miyamoen$elm_origami$Origami$Html$Events$on = F2(
-	function (event, decoder) {
-		return A2(
-			$miyamoen$elm_origami$Origami$VirtualDom$on,
-			event,
-			$elm$virtual_dom$VirtualDom$Normal(decoder));
-	});
 var $elm$json$Json$Decode$field = _Json_decodeField;
 var $elm$json$Json$Decode$at = F2(
 	function (fields, decoder) {
@@ -7241,12 +7266,6 @@ var $miyamoen$elm_origami$Origami$Html$Events$onCheck = function (tagger) {
 		$miyamoen$elm_origami$Origami$Html$Events$on,
 		'change',
 		A2($elm$json$Json$Decode$map, tagger, $miyamoen$elm_origami$Origami$Html$Events$targetChecked));
-};
-var $miyamoen$elm_origami$Origami$Html$Events$onClick = function (msg) {
-	return A2(
-		$miyamoen$elm_origami$Origami$Html$Events$on,
-		'click',
-		$elm$json$Json$Decode$succeed(msg));
 };
 var $author$project$Madlib$Layout$flexRow = F3(
 	function (isReverse, toHtml, attrs) {
@@ -7274,17 +7293,26 @@ var $author$project$Madlib$Layout$flexRow = F3(
 							_List_fromArray(
 								[
 									A2($miyamoen$elm_origami$Origami$property, 'align-items', 'center')
+								])),
+							A2(
+							$miyamoen$elm_origami$Origami$with,
+							'.right',
+							_List_fromArray(
+								[
+									A2($miyamoen$elm_origami$Origami$property, 'justify-content', 'flex-end')
+								])),
+							A2(
+							$miyamoen$elm_origami$Origami$with,
+							'.bottom',
+							_List_fromArray(
+								[
+									A2($miyamoen$elm_origami$Origami$property, 'align-items', 'flex-end')
 								]))
 						])),
 					$miyamoen$elm_origami$Origami$Html$Attributes$batchAttributes(attrs)
 				]));
 	});
 var $author$project$Madlib$Layout$row = $author$project$Madlib$Layout$flexRow(false);
-var $miyamoen$elm_origami$Origami$VirtualDom$PlainNode = function (a) {
-	return {$: 4, a: a};
-};
-var $miyamoen$elm_origami$Origami$VirtualDom$text = A2($elm$core$Basics$composeL, $miyamoen$elm_origami$Origami$VirtualDom$PlainNode, $elm$virtual_dom$VirtualDom$text);
-var $miyamoen$elm_origami$Origami$Html$text = $miyamoen$elm_origami$Origami$VirtualDom$text;
 var $miyamoen$elm_origami$Origami$Html$Attributes$type_ = $miyamoen$elm_origami$Origami$Html$Attributes$stringProperty('type');
 var $miyamoen$select_list$Select$allAfter = function (_v0) {
 	var before = _v0.a;
@@ -7381,6 +7409,7 @@ var $author$project$Madlib$Html$Events$onChange = function (f) {
 					['target', 'value']),
 				$elm$json$Json$Decode$string)));
 };
+var $author$project$Madlib$Layout$rightAdjust = $miyamoen$elm_origami$Origami$Html$Attributes$class('right');
 var $miyamoen$select_list$Types$selected = function (_v0) {
 	var a = _v0.b;
 	return a;
@@ -7408,7 +7437,7 @@ var $author$project$Main$viewItemMaxQuantity = function (sl) {
 				$author$project$Madlib$Layout$column,
 				$miyamoen$elm_origami$Origami$Html$div,
 				_List_fromArray(
-					[$author$project$Madlib$Layout$centerY]),
+					[$author$project$Madlib$Layout$centerY, $author$project$Madlib$Layout$rightAdjust]),
 				_List_fromArray(
 					[
 						$miyamoen$elm_origami$Origami$Html$text(selected.cC.Y)
@@ -7420,6 +7449,11 @@ var $author$project$Main$viewItemMaxQuantity = function (sl) {
 						$miyamoen$elm_origami$Origami$Html$Attributes$value(
 						$elm$core$String$fromInt(selected.c)),
 						$miyamoen$elm_origami$Origami$Html$Attributes$type_('number'),
+						$miyamoen$elm_origami$Origami$Html$Attributes$css(
+						_List_fromArray(
+							[
+								A2($miyamoen$elm_origami$Origami$property, 'padding', '0.25rem')
+							])),
 						$author$project$Madlib$Html$Events$onChange(
 						$author$project$Main$ChangeQuantity(sl))
 					]),
@@ -7466,6 +7500,63 @@ var $author$project$Main$viewItemMaxQuantities = function (model) {
 			]),
 		A2($miyamoen$select_list$SelectList$selectedMapForList, $author$project$Main$viewItemMaxQuantity, model.z));
 };
+var $author$project$Main$viewSettings = function (model) {
+	return A3(
+		$author$project$Madlib$Layout$column,
+		$miyamoen$elm_origami$Origami$Html$div,
+		_List_fromArray(
+			[
+				$miyamoen$elm_origami$Origami$Html$Attributes$css(
+				_List_fromArray(
+					[
+						A2($miyamoen$elm_origami$Origami$property, 'gap', '1rem')
+					]))
+			]),
+		_List_fromArray(
+			[
+				A3(
+				$author$project$Madlib$Layout$row,
+				$miyamoen$elm_origami$Origami$Html$div,
+				_List_Nil,
+				_List_fromArray(
+					[
+						A2(
+						$miyamoen$elm_origami$Origami$Html$h3,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$miyamoen$elm_origami$Origami$Html$text('アイテムスタック数のオーバーライド')
+							])),
+						A3(
+						$author$project$Madlib$Layout$row,
+						$miyamoen$elm_origami$Origami$Html$label,
+						_List_fromArray(
+							[
+								$author$project$Madlib$Layout$centerY,
+								$miyamoen$elm_origami$Origami$Html$Attributes$css(
+								_List_fromArray(
+									[
+										A2($miyamoen$elm_origami$Origami$property, 'user-select', 'none')
+									]))
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$miyamoen$elm_origami$Origami$Html$input,
+								_List_fromArray(
+									[
+										$miyamoen$elm_origami$Origami$Html$Attributes$type_('checkbox'),
+										$miyamoen$elm_origami$Origami$Html$Attributes$checked(
+										$author$project$Main$isAllIgnoreMultiplier(model.z)),
+										$miyamoen$elm_origami$Origami$Html$Events$onCheck($author$project$Main$CheckAllIgnoreMultiplier)
+									]),
+								_List_Nil),
+								$miyamoen$elm_origami$Origami$Html$text('全てのスタックサイズ倍率を無視する')
+							]))
+					])),
+				$author$project$Main$viewItemMaxQuantities(model)
+			]));
+};
 var $author$project$Main$viewMain = function (model) {
 	return A3(
 		$author$project$Madlib$Layout$column,
@@ -7499,61 +7590,7 @@ var $author$project$Main$viewMain = function (model) {
 					[
 						$miyamoen$elm_origami$Origami$Html$text('Game.iniを保存')
 					])),
-				A3(
-				$author$project$Madlib$Layout$column,
-				$miyamoen$elm_origami$Origami$Html$div,
-				_List_fromArray(
-					[
-						$miyamoen$elm_origami$Origami$Html$Attributes$css(
-						_List_fromArray(
-							[
-								A2($miyamoen$elm_origami$Origami$property, 'gap', '1rem')
-							]))
-					]),
-				_List_fromArray(
-					[
-						A3(
-						$author$project$Madlib$Layout$row,
-						$miyamoen$elm_origami$Origami$Html$div,
-						_List_Nil,
-						_List_fromArray(
-							[
-								A2(
-								$miyamoen$elm_origami$Origami$Html$h3,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$miyamoen$elm_origami$Origami$Html$text('アイテムスタック数のオーバーライド')
-									])),
-								A3(
-								$author$project$Madlib$Layout$row,
-								$miyamoen$elm_origami$Origami$Html$label,
-								_List_fromArray(
-									[
-										$author$project$Madlib$Layout$centerY,
-										$miyamoen$elm_origami$Origami$Html$Attributes$css(
-										_List_fromArray(
-											[
-												A2($miyamoen$elm_origami$Origami$property, 'user-select', 'none')
-											]))
-									]),
-								_List_fromArray(
-									[
-										A2(
-										$miyamoen$elm_origami$Origami$Html$input,
-										_List_fromArray(
-											[
-												$miyamoen$elm_origami$Origami$Html$Attributes$type_('checkbox'),
-												$miyamoen$elm_origami$Origami$Html$Attributes$checked(
-												$author$project$Main$isAllIgnoreMultiplier(model.z)),
-												$miyamoen$elm_origami$Origami$Html$Events$onCheck($author$project$Main$CheckAllIgnoreMultiplier)
-											]),
-										_List_Nil),
-										$miyamoen$elm_origami$Origami$Html$text('全てのスタックサイズ倍率を無視する')
-									]))
-							])),
-						$author$project$Main$viewItemMaxQuantities(model)
-					]))
+				$author$project$Main$viewSettings(model)
 			]));
 };
 var $author$project$Main$view = function (model) {
