@@ -784,11 +784,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.ax.X === region.a3.X)
+	if (region.aC.X === region.a7.X)
 	{
-		return 'on line ' + region.ax.X;
+		return 'on line ' + region.aC.X;
 	}
-	return 'on lines ' + region.ax.X + ' through ' + region.a3.X;
+	return 'on lines ' + region.aC.X + ' through ' + region.a7.X;
 }
 
 
@@ -1857,7 +1857,7 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.cA,
+		impl.cB,
 		impl.da,
 		impl.c5,
 		function() { return function() {} }
@@ -2705,8 +2705,8 @@ var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
 		D: func(record.D),
-		ay: record.ay,
-		au: record.au
+		aD: record.aD,
+		az: record.az
 	}
 });
 
@@ -2975,10 +2975,10 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 
 		var value = result.a;
 		var message = !tag ? value : tag < 3 ? value.a : value.D;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.ay;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.aD;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.au) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.az) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3928,7 +3928,7 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.cA,
+		impl.cB,
 		impl.da,
 		impl.c5,
 		function(sendToApp, initialModel) {
@@ -3964,11 +3964,11 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.cA,
+		impl.cB,
 		impl.da,
 		impl.c5,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.aw && impl.aw(sendToApp)
+			var divertHrefToApp = impl.aB && impl.aB(sendToApp)
 			var view = impl.db;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
@@ -3977,7 +3977,7 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.cf);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.ch);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
@@ -4043,7 +4043,7 @@ function _Browser_application(impl)
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		aw: function(sendToApp)
+		aB: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4059,9 +4059,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.bF === next.bF
-							&& curr.bg === next.bg
-							&& curr.bB.a === next.bB.a
+							&& curr.bI === next.bI
+							&& curr.bk === next.bk
+							&& curr.bE.a === next.bE.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -4069,9 +4069,9 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		cA: function(flags)
+		cB: function(flags)
 		{
-			return A3(impl.cA, flags, _Browser_getUrl(), key);
+			return A3(impl.cB, flags, _Browser_getUrl(), key);
 		},
 		db: impl.db,
 		da: impl.da,
@@ -4141,17 +4141,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { cw: 'hidden', ci: 'visibilitychange' }
+		? { cy: 'hidden', ck: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { cw: 'mozHidden', ci: 'mozvisibilitychange' }
+		? { cy: 'mozHidden', ck: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { cw: 'msHidden', ci: 'msvisibilitychange' }
+		? { cy: 'msHidden', ck: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { cw: 'webkitHidden', ci: 'webkitvisibilitychange' }
-		: { cw: 'hidden', ci: 'visibilitychange' };
+		? { cy: 'webkitHidden', ck: 'webkitvisibilitychange' }
+		: { cy: 'hidden', ck: 'visibilitychange' };
 }
 
 
@@ -4232,12 +4232,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		bR: _Browser_getScene(),
-		b5: {
-			b7: _Browser_window.pageXOffset,
-			b8: _Browser_window.pageYOffset,
-			b6: _Browser_doc.documentElement.clientWidth,
-			bf: _Browser_doc.documentElement.clientHeight
+		bU: _Browser_getScene(),
+		b8: {
+			ca: _Browser_window.pageXOffset,
+			cb: _Browser_window.pageYOffset,
+			b9: _Browser_doc.documentElement.clientWidth,
+			bj: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4247,8 +4247,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		b6: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		bf: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		b9: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		bj: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4271,15 +4271,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			bR: {
-				b6: node.scrollWidth,
-				bf: node.scrollHeight
+			bU: {
+				b9: node.scrollWidth,
+				bj: node.scrollHeight
 			},
-			b5: {
-				b7: node.scrollLeft,
-				b8: node.scrollTop,
-				b6: node.clientWidth,
-				bf: node.clientHeight
+			b8: {
+				ca: node.scrollLeft,
+				cb: node.scrollTop,
+				b9: node.clientWidth,
+				bj: node.clientHeight
 			}
 		};
 	});
@@ -4309,18 +4309,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			bR: _Browser_getScene(),
-			b5: {
-				b7: x,
-				b8: y,
-				b6: _Browser_doc.documentElement.clientWidth,
-				bf: _Browser_doc.documentElement.clientHeight
+			bU: _Browser_getScene(),
+			b8: {
+				ca: x,
+				cb: y,
+				b9: _Browser_doc.documentElement.clientWidth,
+				bj: _Browser_doc.documentElement.clientHeight
 			},
-			co: {
-				b7: x + rect.left,
-				b8: y + rect.top,
-				b6: rect.width,
-				bf: rect.height
+			cq: {
+				ca: x + rect.left,
+				cb: y + rect.top,
+				b9: rect.width,
+				bj: rect.height
 			}
 		};
 	});
@@ -4976,25 +4976,25 @@ var $elm$core$Array$treeFromBuilder = F2(
 	});
 var $elm$core$Array$builderToArray = F2(
 	function (reverseNodeList, builder) {
-		if (!builder.i) {
+		if (!builder.j) {
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
-				$elm$core$Elm$JsArray$length(builder.k),
+				$elm$core$Elm$JsArray$length(builder.l),
 				$elm$core$Array$shiftStep,
 				$elm$core$Elm$JsArray$empty,
-				builder.k);
+				builder.l);
 		} else {
-			var treeLen = builder.i * $elm$core$Array$branchFactor;
+			var treeLen = builder.j * $elm$core$Array$branchFactor;
 			var depth = $elm$core$Basics$floor(
 				A2($elm$core$Basics$logBase, $elm$core$Array$branchFactor, treeLen - 1));
-			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.l) : builder.l;
-			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.i);
+			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.m) : builder.m;
+			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.j);
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
-				$elm$core$Elm$JsArray$length(builder.k) + treeLen,
+				$elm$core$Elm$JsArray$length(builder.l) + treeLen,
 				A2($elm$core$Basics$max, 5, depth * $elm$core$Array$shiftStep),
 				tree,
-				builder.k);
+				builder.l);
 		}
 	});
 var $elm$core$Basics$idiv = _Basics_idiv;
@@ -5007,7 +5007,7 @@ var $elm$core$Array$initializeHelp = F5(
 				return A2(
 					$elm$core$Array$builderToArray,
 					false,
-					{l: nodeList, i: (len / $elm$core$Array$branchFactor) | 0, k: tail});
+					{m: nodeList, j: (len / $elm$core$Array$branchFactor) | 0, l: tail});
 			} else {
 				var leaf = $elm$core$Array$Leaf(
 					A3($elm$core$Elm$JsArray$initialize, $elm$core$Array$branchFactor, fromIndex, fn));
@@ -5074,7 +5074,7 @@ var $elm$url$Url$Http = 0;
 var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {a9: fragment, bg: host, bx: path, bB: port_, bF: protocol, bH: query};
+		return {bd: fragment, bk: host, bA: path, bE: port_, bI: protocol, bK: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5353,6 +5353,7 @@ var $elm$core$Task$perform = F2(
 			A2($elm$core$Task$map, toMessage, task));
 	});
 var $elm$browser$Browser$document = _Browser_document;
+var $author$project$Ark$ItemMaxQuantity$ItemMaxQuantity = $elm$core$Basics$identity;
 var $elm$core$List$append = F2(
 	function (xs, ys) {
 		if (!ys.b) {
@@ -5539,15 +5540,16 @@ var $author$project$Ark$Seed$stimberrySeed = {a: 'Blueprint\'/Game/PrimalEarth/C
 var $author$project$Ark$Seed$tintoberrySeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Tintoberry.PrimalItemConsumable_Seed_Tintoberry\'', b: 'PrimalItemConsumable_Seed_Tintoberry_C', c: 100, Y: 'ティントベリーの種'};
 var $author$project$Ark$Seed$items = _List_fromArray(
 	[$author$project$Ark$Seed$amarberrySeed, $author$project$Ark$Seed$azulberrySeed, $author$project$Ark$Seed$mejoberrySeed, $author$project$Ark$Seed$narcoberrySeed, $author$project$Ark$Seed$stimberrySeed, $author$project$Ark$Seed$tintoberrySeed, $author$project$Ark$Seed$citronalSeed, $author$project$Ark$Seed$longrassSeed, $author$project$Ark$Seed$rockarrotSeed, $author$project$Ark$Seed$savorootSeed, $author$project$Ark$Seed$plantSpeciesXSeed, $author$project$Ark$Seed$plantSpeciesYSeed, $author$project$Ark$Seed$plantSpeciesZSeed]);
-var $author$project$Ark$Item$defaultItemMaxQuantities = function () {
+var $author$project$Ark$ItemMaxQuantity$defaultItemMaxQuantities = function () {
 	var items = $elm$core$List$concat(
 		_List_fromArray(
 			[$author$project$Ark$Resource$items, $author$project$Ark$Consumable$items, $author$project$Ark$Seed$items]));
-	var gen = function (item) {
-		return {cc: true, cx: false, cC: item, c: item.c};
+	var gen = function (x) {
+		return {af: true, ag: false, at: x, c: x.c};
 	};
 	return A2($elm$core$List$map, gen, items);
 }();
+var $author$project$Ark$GameIni$defaultGameIni = {aJ: false, aK: false, am: false, aN: false, aO: 1.0, aP: 1.0, aQ: 1.0, aR: 1.0, aS: 1.0, aT: 1.0, aU: 1.0, aZ: 1.0, a_: 1.0, a$: 1.0, a0: 1.0, a3: 3.2, a4: false, a5: false, a6: 1.0, ba: 1.0, bc: false, bg: 1.0, bh: 1.0, br: 1.0, bt: 1.0, bu: 1.0, bv: 100, ay: $author$project$Ark$ItemMaxQuantity$defaultItemMaxQuantities, bz: 1.0, bC: 1.0, bD: 1.0, bJ: false, b$: 180, b2: 1.0, b6: 1.0, b7: false};
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $etaque$elm_response$Response$res = F2(
@@ -5559,7 +5561,7 @@ var $etaque$elm_response$Response$withNone = function (model) {
 };
 var $author$project$Main$init = function (_v0) {
 	return $etaque$elm_response$Response$withNone(
-		{aG: false, p: $author$project$Ark$Item$defaultItemMaxQuantities});
+		{i: $author$project$Ark$GameIni$defaultGameIni});
 };
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
@@ -5572,6 +5574,10 @@ var $author$project$Ark$ArkIni$KeyValue = F2(
 	});
 var $author$project$Ark$ArkIni$VBool = function (a) {
 	return {$: 0, a: a};
+};
+var $author$project$Ark$ItemMaxQuantity$applyChange = function (_v0) {
+	var x = _v0;
+	return x.af;
 };
 var $author$project$Ark$ArkIni$ArkIni = $elm$core$Basics$identity;
 var $author$project$Ark$ArkIni$create = $elm$core$Basics$identity;
@@ -5595,29 +5601,44 @@ var $author$project$Ark$ArkIni$VInt = function (a) {
 var $author$project$Ark$ArkIni$VString = function (a) {
 	return {$: 2, a: a};
 };
+var $author$project$Ark$ItemMaxQuantity$ignoreMultiplier = function (_v0) {
+	var x = _v0;
+	return x.ag;
+};
+var $author$project$Ark$ItemMaxQuantity$item = function (_v0) {
+	var x = _v0;
+	return x.at;
+};
+var $author$project$Ark$ItemMaxQuantity$maxQuantity = function (_v0) {
+	var x = _v0;
+	return x.c;
+};
 var $author$project$Ark$Generator$toConfigOverrideItemMaxQuantity = function (itemMaxQuantity) {
 	return $author$project$Ark$ArkIni$Object(
 		{
 			Y: 'ConfigOverrideItemMaxQuantity',
-			ai: _List_fromArray(
+			ak: _List_fromArray(
 				[
 					A2(
 					$author$project$Ark$ArkIni$KeyValue,
 					'ItemClassString',
-					$author$project$Ark$ArkIni$VString(itemMaxQuantity.cC.b)),
+					$author$project$Ark$ArkIni$VString(
+						$author$project$Ark$ItemMaxQuantity$item(itemMaxQuantity).b)),
 					$author$project$Ark$ArkIni$Object(
 					{
 						Y: 'Quantity',
-						ai: _List_fromArray(
+						ak: _List_fromArray(
 							[
 								A2(
 								$author$project$Ark$ArkIni$KeyValue,
 								'MaxItemQuantity',
-								$author$project$Ark$ArkIni$VInt(itemMaxQuantity.c)),
+								$author$project$Ark$ArkIni$VInt(
+									$author$project$Ark$ItemMaxQuantity$maxQuantity(itemMaxQuantity))),
 								A2(
 								$author$project$Ark$ArkIni$KeyValue,
 								'bIgnoreMultiplier',
-								$author$project$Ark$ArkIni$VBool(itemMaxQuantity.cx))
+								$author$project$Ark$ArkIni$VBool(
+									$author$project$Ark$ItemMaxQuantity$ignoreMultiplier(itemMaxQuantity)))
 							])
 					})
 				])
@@ -5626,11 +5647,11 @@ var $author$project$Ark$Generator$toConfigOverrideItemMaxQuantity = function (it
 var $author$project$Ark$Generator$toArkGameIni = function (data) {
 	return $author$project$Ark$ArkIni$create(
 		{
-			bS: _List_fromArray(
+			bV: _List_fromArray(
 				[
 					{
 					Y: '/Script/ShooterGame.ShooterGameMode',
-					ai: $elm$core$List$concat(
+					ak: $elm$core$List$concat(
 						_List_fromArray(
 							[
 								_List_fromArray(
@@ -5638,17 +5659,12 @@ var $author$project$Ark$Generator$toArkGameIni = function (data) {
 									A2(
 									$author$project$Ark$ArkIni$KeyValue,
 									'bAllowUnlimitedRespecs',
-									$author$project$Ark$ArkIni$VBool(data.aG))
+									$author$project$Ark$ArkIni$VBool(data.am))
 								]),
 								A2(
 								$elm$core$List$map,
 								$author$project$Ark$Generator$toConfigOverrideItemMaxQuantity,
-								A2(
-									$elm$core$List$filter,
-									function ($) {
-										return $.cc;
-									},
-									data.bv))
+								A2($elm$core$List$filter, $author$project$Ark$ItemMaxQuantity$applyChange, data.ay))
 							]))
 				}
 				])
@@ -5680,7 +5696,7 @@ var $author$project$Ark$ArkIni$arkObjectValueToString = function (arkObjectValue
 		return k + ('=' + $author$project$Ark$ArkIni$valueToString(val));
 	} else {
 		var o = arkObjectValue.a;
-		return o.Y + ('=' + $author$project$Ark$ArkIni$objectValuesToString(o.ai));
+		return o.Y + ('=' + $author$project$Ark$ArkIni$objectValuesToString(o.ak));
 	}
 };
 var $author$project$Ark$ArkIni$objectValuesToString = function (values) {
@@ -5700,7 +5716,7 @@ var $author$project$Ark$ArkIni$arkObjectValueToKeyValue = function (v) {
 		var o = v.a;
 		return _Utils_Tuple2(
 			o.Y,
-			$author$project$Ark$ArkIni$objectValuesToString(o.ai));
+			$author$project$Ark$ArkIni$objectValuesToString(o.ak));
 	}
 };
 var $author$project$Ini$Ini = $elm$core$Basics$identity;
@@ -5709,15 +5725,15 @@ var $author$project$Ark$ArkIni$toIni = function (_v0) {
 	var arkIni = _v0;
 	return $author$project$Ini$create(
 		{
-			bS: A2(
+			bV: A2(
 				$elm$core$List$map,
 				function (x) {
 					return {
-						cD: A2($elm$core$List$map, $author$project$Ark$ArkIni$arkObjectValueToKeyValue, x.ai),
+						cD: A2($elm$core$List$map, $author$project$Ark$ArkIni$arkObjectValueToKeyValue, x.ak),
 						Y: x.Y
 					};
 				},
-				arkIni.bS)
+				arkIni.bV)
 		});
 };
 var $author$project$Ini$generateKeyValue = function (_v0) {
@@ -5742,19 +5758,46 @@ var $author$project$Ini$toString = function (_v0) {
 	return A2(
 		$elm$core$String$join,
 		'\n\n',
-		A2($elm$core$List$map, $author$project$Ini$generateSection, ini.bS));
+		A2($elm$core$List$map, $author$project$Ini$generateSection, ini.bV));
 };
 var $author$project$Ark$Generator$gameIni = function (data) {
 	return $author$project$Ini$toString(
 		$author$project$Ark$ArkIni$toIni(
 			$author$project$Ark$Generator$toArkGameIni(data)));
 };
-var $author$project$Ark$GameIni$defaultGameIni = {aE: false, aF: false, aG: false, aJ: false, aK: 1.0, aL: 1.0, aM: 1.0, aN: 1.0, aO: 1.0, aP: 1.0, aQ: 1.0, aV: 1.0, aW: 1.0, aX: 1.0, aY: 1.0, a$: 3.2, a0: false, a1: false, a2: 1.0, a6: 1.0, a8: false, bc: 1.0, bd: 1.0, bn: 1.0, bp: 1.0, bq: 1.0, br: 100, bv: $author$project$Ark$Item$defaultItemMaxQuantities, bw: 1.0, bz: 1.0, bA: 1.0, bG: false, bY: 180, b$: 1.0, b3: 1.0, b4: false};
-var $author$project$Main$generateGameIni = function (model) {
-	return _Utils_update(
-		$author$project$Ark$GameIni$defaultGameIni,
-		{aG: model.aG, bv: model.p});
-};
+var $author$project$Ark$GameIni$setAllowUnlimitedRespecs = F2(
+	function (b, gameIni) {
+		return _Utils_update(
+			gameIni,
+			{am: b});
+	});
+var $author$project$Ark$ItemMaxQuantity$setApplyChange = F2(
+	function (b, _v0) {
+		var itemMaxQuantity = _v0;
+		return _Utils_update(
+			itemMaxQuantity,
+			{af: b});
+	});
+var $author$project$Ark$ItemMaxQuantity$setIgnoreMultiplier = F2(
+	function (b, _v0) {
+		var itemMaxQuantity = _v0;
+		return _Utils_update(
+			itemMaxQuantity,
+			{ag: b});
+	});
+var $author$project$Ark$ItemMaxQuantity$setMaxQuantity = F2(
+	function (n, _v0) {
+		var itemMaxQuantity = _v0;
+		return _Utils_update(
+			itemMaxQuantity,
+			{c: n});
+	});
+var $author$project$Ark$GameIni$setOverrideItemMaxQuantities = F2(
+	function (itemMaxQuantities, gameIni) {
+		return _Utils_update(
+			gameIni,
+			{ay: itemMaxQuantities});
+	});
 var $elm$time$Time$Posix = $elm$core$Basics$identity;
 var $elm$time$Time$millisToPosix = $elm$core$Basics$identity;
 var $elm$file$File$Download$string = F3(
@@ -5778,24 +5821,6 @@ var $miyamoen$select_list$Types$toList = function (_v0) {
 		A2($elm$core$List$cons, a, after));
 };
 var $miyamoen$select_list$SelectList$toList = $miyamoen$select_list$Types$toList;
-var $author$project$Main$updateApplyChange = F2(
-	function (b, itemMaxQuantity) {
-		return _Utils_update(
-			itemMaxQuantity,
-			{cc: b});
-	});
-var $author$project$Main$updateIgnoreMultiplier = F2(
-	function (b, itemMaxQuantity) {
-		return _Utils_update(
-			itemMaxQuantity,
-			{cx: b});
-	});
-var $author$project$Main$updateMaxQuantity = F2(
-	function (n, itemMaxQuantity) {
-		return _Utils_update(
-			itemMaxQuantity,
-			{c: n});
-	});
 var $miyamoen$select_list$Types$SelectList = F3(
 	function (a, b, c) {
 		return {$: 0, a: a, b: b, c: c};
@@ -5835,8 +5860,7 @@ var $author$project$Main$update = F2(
 						$elm$file$File$Download$string,
 						'game.ini',
 						'text/plain',
-						$author$project$Ark$Generator$gameIni(
-							$author$project$Main$generateGameIni(model))),
+						$author$project$Ark$Generator$gameIni(model.i)),
 					model);
 			case 1:
 				var sl = msg.a;
@@ -5845,19 +5869,22 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							p: $miyamoen$select_list$SelectList$toList(
-								A2(
-									$miyamoen$select_list$SelectList$updateSelected,
-									function (x) {
-										return A2(
-											$author$project$Main$updateMaxQuantity,
-											A2(
-												$elm$core$Maybe$withDefault,
-												x.c,
-												$elm$core$String$toInt(maxQuantity)),
-											x);
-									},
-									sl))
+							i: A2(
+								$author$project$Ark$GameIni$setOverrideItemMaxQuantities,
+								$miyamoen$select_list$SelectList$toList(
+									A2(
+										$miyamoen$select_list$SelectList$updateSelected,
+										function (x) {
+											return A2(
+												$author$project$Ark$ItemMaxQuantity$setMaxQuantity,
+												A2(
+													$elm$core$Maybe$withDefault,
+													$author$project$Ark$ItemMaxQuantity$maxQuantity(x),
+													$elm$core$String$toInt(maxQuantity)),
+												x);
+										},
+										sl)),
+								model.i)
 						}));
 			case 2:
 				var sl = msg.a;
@@ -5866,11 +5893,14 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							p: $miyamoen$select_list$SelectList$toList(
-								A2(
-									$miyamoen$select_list$SelectList$updateSelected,
-									$author$project$Main$updateIgnoreMultiplier(checked),
-									sl))
+							i: A2(
+								$author$project$Ark$GameIni$setOverrideItemMaxQuantities,
+								$miyamoen$select_list$SelectList$toList(
+									A2(
+										$miyamoen$select_list$SelectList$updateSelected,
+										$author$project$Ark$ItemMaxQuantity$setIgnoreMultiplier(checked),
+										sl)),
+								model.i)
 						}));
 			case 3:
 				var checked = msg.a;
@@ -5878,10 +5908,13 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							p: A2(
-								$elm$core$List$map,
-								$author$project$Main$updateIgnoreMultiplier(checked),
-								model.p)
+							i: A2(
+								$author$project$Ark$GameIni$setOverrideItemMaxQuantities,
+								A2(
+									$elm$core$List$map,
+									$author$project$Ark$ItemMaxQuantity$setIgnoreMultiplier(checked),
+									model.i.ay),
+								model.i)
 						}));
 			case 4:
 				var sl = msg.a;
@@ -5890,11 +5923,14 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							p: $miyamoen$select_list$SelectList$toList(
-								A2(
-									$miyamoen$select_list$SelectList$updateSelected,
-									$author$project$Main$updateApplyChange(checked),
-									sl))
+							i: A2(
+								$author$project$Ark$GameIni$setOverrideItemMaxQuantities,
+								$miyamoen$select_list$SelectList$toList(
+									A2(
+										$miyamoen$select_list$SelectList$updateSelected,
+										$author$project$Ark$ItemMaxQuantity$setApplyChange(checked),
+										sl)),
+								model.i)
 						}));
 			case 5:
 				var checked = msg.a;
@@ -5902,17 +5938,22 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							p: A2(
-								$elm$core$List$map,
-								$author$project$Main$updateApplyChange(checked),
-								model.p)
+							i: A2(
+								$author$project$Ark$GameIni$setOverrideItemMaxQuantities,
+								A2(
+									$elm$core$List$map,
+									$author$project$Ark$ItemMaxQuantity$setApplyChange(checked),
+									model.i.ay),
+								model.i)
 						}));
 			default:
 				var checked = msg.a;
 				return $etaque$elm_response$Response$withNone(
 					_Utils_update(
 						model,
-						{aG: checked}));
+						{
+							i: A2($author$project$Ark$GameIni$setAllowUnlimitedRespecs, checked, model.i)
+						}));
 		}
 	});
 var $miyamoen$elm_origami$Origami$VirtualDom$Attribute = F2(
@@ -7391,7 +7432,7 @@ var $author$project$Util$Html$checkBox = F2(
 					_List_fromArray(
 						[
 							$miyamoen$elm_origami$Origami$Html$Attributes$type_('checkbox'),
-							$miyamoen$elm_origami$Origami$Html$Attributes$checked(opt.cj),
+							$miyamoen$elm_origami$Origami$Html$Attributes$checked(opt.cl),
 							$miyamoen$elm_origami$Origami$Html$Events$onCheck(opt.cT)
 						]),
 					_List_Nil),
@@ -7533,19 +7574,22 @@ var $author$project$Main$viewItemMaxQuantity = function (sl) {
 						_List_fromArray(
 							[
 								$miyamoen$elm_origami$Origami$Html$Attributes$type_('checkbox'),
-								$miyamoen$elm_origami$Origami$Html$Attributes$checked(selected.cc),
+								$miyamoen$elm_origami$Origami$Html$Attributes$checked(
+								$author$project$Ark$ItemMaxQuantity$applyChange(selected)),
 								$miyamoen$elm_origami$Origami$Html$Events$onCheck(
 								$author$project$Main$CheckApplyChange(sl))
 							]),
 						_List_Nil),
-						$miyamoen$elm_origami$Origami$Html$text(selected.cC.Y)
+						$miyamoen$elm_origami$Origami$Html$text(
+						$author$project$Ark$ItemMaxQuantity$item(selected).Y)
 					])),
 				A2(
 				$miyamoen$elm_origami$Origami$Html$input,
 				_List_fromArray(
 					[
 						$miyamoen$elm_origami$Origami$Html$Attributes$value(
-						$elm$core$String$fromInt(selected.c)),
+						$elm$core$String$fromInt(
+							$author$project$Ark$ItemMaxQuantity$maxQuantity(selected))),
 						$miyamoen$elm_origami$Origami$Html$Attributes$type_('number'),
 						$miyamoen$elm_origami$Origami$Html$Attributes$css(
 						_List_fromArray(
@@ -7575,7 +7619,8 @@ var $author$project$Main$viewItemMaxQuantity = function (sl) {
 						_List_fromArray(
 							[
 								$miyamoen$elm_origami$Origami$Html$Attributes$type_('checkbox'),
-								$miyamoen$elm_origami$Origami$Html$Attributes$checked(selected.cx),
+								$miyamoen$elm_origami$Origami$Html$Attributes$checked(
+								$author$project$Ark$ItemMaxQuantity$ignoreMultiplier(selected)),
 								$miyamoen$elm_origami$Origami$Html$Events$onCheck(
 								$author$project$Main$CheckIgnoreMultiplier(sl))
 							]),
@@ -7596,7 +7641,7 @@ var $author$project$Main$viewItemMaxQuantities = function (model) {
 						A2($miyamoen$elm_origami$Origami$property, 'gap', '0.5rem')
 					]))
 			]),
-		A2($miyamoen$select_list$SelectList$selectedMapForList, $author$project$Main$viewItemMaxQuantity, model.p));
+		A2($miyamoen$select_list$SelectList$selectedMapForList, $author$project$Main$viewItemMaxQuantity, model.i.ay));
 };
 var $author$project$Main$viewSettings = function (model) {
 	return A3(
@@ -7623,7 +7668,7 @@ var $author$project$Main$viewSettings = function (model) {
 							]))
 					]),
 				{
-					cj: model.aG,
+					cl: model.i.am,
 					cE: $miyamoen$elm_origami$Origami$Html$text('マインドワイプトニックのクールダウンを無くす'),
 					cT: $author$project$Main$CheckAllowUnlimitedRespecs
 				}),
@@ -7657,12 +7702,7 @@ var $author$project$Main$viewSettings = function (model) {
 											[
 												$miyamoen$elm_origami$Origami$Html$Attributes$type_('checkbox'),
 												$miyamoen$elm_origami$Origami$Html$Attributes$checked(
-												A2(
-													$elm$core$List$all,
-													function ($) {
-														return $.cc;
-													},
-													model.p)),
+												A2($elm$core$List$all, $author$project$Ark$ItemMaxQuantity$applyChange, model.i.ay)),
 												$miyamoen$elm_origami$Origami$Html$Events$onCheck($author$project$Main$CheckAllApplyChange)
 											]),
 										_List_Nil),
@@ -7689,12 +7729,7 @@ var $author$project$Main$viewSettings = function (model) {
 									[
 										$miyamoen$elm_origami$Origami$Html$Attributes$type_('checkbox'),
 										$miyamoen$elm_origami$Origami$Html$Attributes$checked(
-										A2(
-											$elm$core$List$all,
-											function ($) {
-												return $.cx;
-											},
-											model.p)),
+										A2($elm$core$List$all, $author$project$Ark$ItemMaxQuantity$ignoreMultiplier, model.i.ay)),
 										$miyamoen$elm_origami$Origami$Html$Events$onCheck($author$project$Main$CheckAllIgnoreMultiplier)
 									]),
 								_List_Nil),
@@ -7742,7 +7777,7 @@ var $author$project$Main$viewMain = function (model) {
 };
 var $author$project$Main$view = function (model) {
 	return {
-		cf: _List_fromArray(
+		ch: _List_fromArray(
 			[
 				$miyamoen$elm_origami$Origami$Html$toHtml(
 				A3(
@@ -7764,6 +7799,6 @@ var $author$project$Main$view = function (model) {
 	};
 };
 var $author$project$Main$main = $elm$browser$Browser$document(
-	{cA: $author$project$Main$init, c5: $author$project$Main$subscriptions, da: $author$project$Main$update, db: $author$project$Main$view});
+	{cB: $author$project$Main$init, c5: $author$project$Main$subscriptions, da: $author$project$Main$update, db: $author$project$Main$view});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(0))(0)}});}(this));

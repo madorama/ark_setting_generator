@@ -1,8 +1,8 @@
 module Main exposing (..)
 
-import Ark.GameIni exposing (GameIni, defaultGameIni)
+import Ark.GameIni as GameIni exposing (GameIni, defaultGameIni)
 import Ark.Generator as Generator
-import Ark.Item as Item exposing (ItemMaxQuantity)
+import Ark.ItemMaxQuantity as I exposing (ItemMaxQuantity)
 import Browser exposing (Document)
 import File.Download as Download
 import Madlib.Html.Events as Ev
@@ -18,15 +18,13 @@ import Util.Html exposing (checkBox)
 
 
 type alias Model =
-    { itemMaxQuantities : List ItemMaxQuantity
-    , allowUnlimitedRespecs : Bool
+    { gameIni : GameIni
     }
 
 
 init : () -> Response Model Msg
 init _ =
-    { itemMaxQuantities = Item.defaultItemMaxQuantities
-    , allowUnlimitedRespecs = False
+    { gameIni = defaultGameIni
     }
         |> withNone
 
@@ -41,83 +39,69 @@ type Msg
     | CheckAllowUnlimitedRespecs Bool
 
 
-generateGameIni : Model -> GameIni
-generateGameIni model =
-    { defaultGameIni
-        | allowUnlimitedRespecs = model.allowUnlimitedRespecs
-        , overrideItemMaxQuantities = model.itemMaxQuantities
-    }
-
-
-updateMaxQuantity : Int -> ItemMaxQuantity -> ItemMaxQuantity
-updateMaxQuantity n itemMaxQuantity =
-    { itemMaxQuantity
-        | maxQuantity = n
-    }
-
-
-updateIgnoreMultiplier : Bool -> ItemMaxQuantity -> ItemMaxQuantity
-updateIgnoreMultiplier b itemMaxQuantity =
-    { itemMaxQuantity
-        | ignoreMultiplier = b
-    }
-
-
-updateApplyChange : Bool -> ItemMaxQuantity -> ItemMaxQuantity
-updateApplyChange b itemMaxQuantity =
-    { itemMaxQuantity
-        | applyChange = b
-    }
-
-
 update : Msg -> Model -> Response Model Msg
 update msg model =
     case msg of
         ClickSaveGameIni ->
             model
-                |> withCmd (Download.string "game.ini" "text/plain" (Generator.gameIni <| generateGameIni model))
+                |> withCmd (Download.string "game.ini" "text/plain" (Generator.gameIni model.gameIni))
 
         ChangeQuantity sl maxQuantity ->
             { model
-                | itemMaxQuantities =
-                    SelectList.updateSelected (\x -> updateMaxQuantity (String.toInt maxQuantity |> Maybe.withDefault x.maxQuantity) x) sl
-                        |> SelectList.toList
+                | gameIni =
+                    model.gameIni
+                        |> GameIni.setOverrideItemMaxQuantities
+                            (SelectList.updateSelected (\x -> I.setMaxQuantity (String.toInt maxQuantity |> Maybe.withDefault (I.maxQuantity x)) x) sl
+                                |> SelectList.toList
+                            )
             }
                 |> withNone
 
         CheckIgnoreMultiplier sl checked ->
             { model
-                | itemMaxQuantities =
-                    SelectList.updateSelected (updateIgnoreMultiplier checked) sl
-                        |> SelectList.toList
+                | gameIni =
+                    model.gameIni
+                        |> GameIni.setOverrideItemMaxQuantities
+                            (SelectList.updateSelected (I.setIgnoreMultiplier checked) sl
+                                |> SelectList.toList
+                            )
             }
                 |> withNone
 
         CheckAllIgnoreMultiplier checked ->
             { model
-                | itemMaxQuantities =
-                    List.map (updateIgnoreMultiplier checked) model.itemMaxQuantities
+                | gameIni =
+                    model.gameIni
+                        |> GameIni.setOverrideItemMaxQuantities
+                            (List.map (I.setIgnoreMultiplier checked) model.gameIni.overrideItemMaxQuantities)
             }
                 |> withNone
 
         CheckApplyChange sl checked ->
             { model
-                | itemMaxQuantities =
-                    SelectList.updateSelected (updateApplyChange checked) sl
-                        |> SelectList.toList
+                | gameIni =
+                    model.gameIni
+                        |> GameIni.setOverrideItemMaxQuantities
+                            (SelectList.updateSelected (I.setApplyChange checked) sl
+                                |> SelectList.toList
+                            )
             }
                 |> withNone
 
         CheckAllApplyChange checked ->
             { model
-                | itemMaxQuantities =
-                    List.map (updateApplyChange checked) model.itemMaxQuantities
+                | gameIni =
+                    model.gameIni
+                        |> GameIni.setOverrideItemMaxQuantities
+                            (List.map (I.setApplyChange checked) model.gameIni.overrideItemMaxQuantities)
             }
                 |> withNone
 
         CheckAllowUnlimitedRespecs checked ->
             { model
-                | allowUnlimitedRespecs = checked
+                | gameIni =
+                    model.gameIni
+                        |> GameIni.setAllowUnlimitedRespecs checked
             }
                 |> withNone
 
@@ -174,7 +158,7 @@ viewSettings model =
                 ]
             ]
             { label = text "マインドワイプトニックのクールダウンを無くす"
-            , checked = model.allowUnlimitedRespecs
+            , checked = model.gameIni.allowUnlimitedRespecs
             , onCheck = CheckAllowUnlimitedRespecs
             }
         , row div
@@ -187,7 +171,7 @@ viewSettings model =
                     ]
                     [ input
                         [ Attr.type_ "checkbox"
-                        , Attr.checked (List.all .applyChange model.itemMaxQuantities)
+                        , Attr.checked (List.all I.applyChange model.gameIni.overrideItemMaxQuantities)
                         , Ev.onCheck CheckAllApplyChange
                         ]
                         []
@@ -202,7 +186,7 @@ viewSettings model =
                 ]
                 [ input
                     [ Attr.type_ "checkbox"
-                    , Attr.checked (List.all .ignoreMultiplier model.itemMaxQuantities)
+                    , Attr.checked (List.all I.ignoreMultiplier model.gameIni.overrideItemMaxQuantities)
                     , Ev.onCheck CheckAllIgnoreMultiplier
                     ]
                     []
@@ -220,10 +204,10 @@ viewItemMaxQuantities model =
             [ property "gap" "0.5rem"
             ]
         ]
-        (SelectList.selectedMapForList viewItemMaxQuantity model.itemMaxQuantities)
+        (SelectList.selectedMapForList viewItemMaxQuantity model.gameIni.overrideItemMaxQuantities)
 
 
-viewItemMaxQuantity : SelectList Item.ItemMaxQuantity -> Html Msg
+viewItemMaxQuantity : SelectList ItemMaxQuantity -> Html Msg
 viewItemMaxQuantity sl =
     let
         selected =
@@ -241,14 +225,14 @@ viewItemMaxQuantity sl =
             ]
             [ input
                 [ Attr.type_ "checkbox"
-                , Attr.checked selected.applyChange
+                , Attr.checked <| I.applyChange selected
                 , Ev.onCheck (CheckApplyChange sl)
                 ]
                 []
-            , text selected.item.name
+            , text <| (I.item selected).name
             ]
         , input
-            [ Attr.value <| String.fromInt selected.maxQuantity
+            [ Attr.value <| String.fromInt (I.maxQuantity selected)
             , Attr.type_ "number"
             , Attr.css
                 [ property "padding" "0.25rem"
@@ -264,7 +248,7 @@ viewItemMaxQuantity sl =
             ]
             [ input
                 [ Attr.type_ "checkbox"
-                , Attr.checked selected.ignoreMultiplier
+                , Attr.checked <| I.ignoreMultiplier selected
                 , Ev.onCheck (CheckIgnoreMultiplier sl)
                 ]
                 []

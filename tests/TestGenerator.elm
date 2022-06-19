@@ -2,6 +2,7 @@ module TestGenerator exposing (..)
 
 import Ark.GameIni exposing (defaultGameIni)
 import Ark.Generator as Generator
+import Ark.ItemMaxQuantity as ItemMaxQuantity
 import Ark.Resource
 import Expect
 import Test exposing (..)
@@ -15,21 +16,24 @@ testGameIni =
                 gameIni =
                     { defaultGameIni
                         | overrideItemMaxQuantities =
-                            [ { item = Ark.Resource.stone
-                              , maxQuantity = 500
-                              , ignoreMultiplier = False
-                              , applyChange = True
-                              }
-                            , { item = Ark.Resource.fiber
-                              , maxQuantity = 1000
-                              , ignoreMultiplier = True
-                              , applyChange = True
-                              }
-                            , { item = Ark.Resource.blackPearl
-                              , maxQuantity = 1
-                              , ignoreMultiplier = False
-                              , applyChange = False
-                              }
+                            [ ItemMaxQuantity.create
+                                { item = Ark.Resource.stone
+                                , maxQuantity = 500
+                                , ignoreMultiplier = False
+                                , applyChange = True
+                                }
+                            , ItemMaxQuantity.create
+                                { item = Ark.Resource.fiber
+                                , maxQuantity = 1000
+                                , ignoreMultiplier = True
+                                , applyChange = True
+                                }
+                            , ItemMaxQuantity.create
+                                { item = Ark.Resource.blackPearl
+                                , maxQuantity = 1
+                                , ignoreMultiplier = False
+                                , applyChange = False
+                                }
                             ]
                     }
 

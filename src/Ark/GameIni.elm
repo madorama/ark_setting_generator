@@ -1,6 +1,6 @@
 module Ark.GameIni exposing (..)
 
-import Ark.Item as Item exposing (ItemMaxQuantity)
+import Ark.ItemMaxQuantity as Item exposing (ItemMaxQuantity)
 
 
 type alias GameIni =
@@ -81,4 +81,18 @@ defaultGameIni =
     , useCorpseLocator = False
     , useCorpseLifeSpanMultiplier = 1.0
     , allowFlyerSpeedLeveling = False
+    }
+
+
+setAllowUnlimitedRespecs : Bool -> GameIni -> GameIni
+setAllowUnlimitedRespecs b gameIni =
+    { gameIni
+        | allowUnlimitedRespecs = b
+    }
+
+
+setOverrideItemMaxQuantities : List ItemMaxQuantity -> GameIni -> GameIni
+setOverrideItemMaxQuantities itemMaxQuantities gameIni =
+    { gameIni
+        | overrideItemMaxQuantities = itemMaxQuantities
     }
