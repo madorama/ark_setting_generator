@@ -44,7 +44,8 @@ type Msg
 generateGameIni : Model -> GameIni
 generateGameIni model =
     { defaultGameIni
-        | overrideItemMaxQuantities = model.itemMaxQuantities
+        | allowUnlimitedRespecs = model.allowUnlimitedRespecs
+        , overrideItemMaxQuantities = model.itemMaxQuantities
     }
 
 

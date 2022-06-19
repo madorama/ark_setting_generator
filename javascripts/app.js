@@ -5753,7 +5753,7 @@ var $author$project$Ark$GameIni$defaultGameIni = {aE: false, aF: false, aG: fals
 var $author$project$Main$generateGameIni = function (model) {
 	return _Utils_update(
 		$author$project$Ark$GameIni$defaultGameIni,
-		{bv: model.p});
+		{aG: model.aG, bv: model.p});
 };
 var $elm$time$Time$Posix = $elm$core$Basics$identity;
 var $elm$time$Time$millisToPosix = $elm$core$Basics$identity;
