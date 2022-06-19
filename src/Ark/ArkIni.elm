@@ -1,9 +1,15 @@
 module Ark.ArkIni exposing
     ( ArkIni
     , ArkObject
-    , ArkObjectValue(..)
-    , Value(..)
+    , ArkObjectValue
+    , Value
+    , bool
     , create
+    , int
+    , keyValue
+    , object
+    , raw
+    , string
     , toIni
     )
 
@@ -18,9 +24,38 @@ type Value
     | VRaw String
 
 
+bool : Bool -> Value
+bool =
+    VBool
+
+
+int : Int -> Value
+int =
+    VInt
+
+
+string : String -> Value
+string =
+    VString
+
+
+raw : String -> Value
+raw =
+    VRaw
+
+
 type ArkObjectValue
     = KeyValue String Value
     | Object ArkObject
+
+
+keyValue =
+    KeyValue
+
+
+object : ArkObject -> ArkObjectValue
+object =
+    Object
 
 
 type alias ArkObject =

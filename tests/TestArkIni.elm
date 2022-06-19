@@ -1,6 +1,6 @@
 module TestArkIni exposing (..)
 
-import Ark.ArkIni as ArkIni exposing (ArkObjectValue(..), Value(..))
+import Ark.ArkIni as ArkIni exposing (bool, int, keyValue, object, raw, string)
 import Expect
 import Ini
 import Test exposing (..)
@@ -16,18 +16,18 @@ testToIni =
                         { sections =
                             [ { name = "ArkIni"
                               , values =
-                                    [ KeyValue "int" (VInt 42)
-                                    , KeyValue "bool" (VBool True)
-                                    , KeyValue "str" (VString "value")
-                                    , Object
+                                    [ keyValue "int" (int 42)
+                                    , keyValue "bool" (bool True)
+                                    , keyValue "str" (string "value")
+                                    , object
                                         { name = "object"
                                         , values =
-                                            [ KeyValue "key1" (VRaw "value1")
-                                            , KeyValue "key2" (VInt 2)
-                                            , Object
+                                            [ keyValue "key1" (raw "value1")
+                                            , keyValue "key2" (int 2)
+                                            , object
                                                 { name = "nestedObject"
                                                 , values =
-                                                    [ KeyValue "k" (VRaw "v")
+                                                    [ keyValue "k" (raw "v")
                                                     ]
                                                 }
                                             ]

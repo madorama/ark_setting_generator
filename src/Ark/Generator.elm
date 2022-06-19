@@ -1,6 +1,6 @@
 module Ark.Generator exposing (gameIni)
 
-import Ark.ArkIni as ArkIni exposing (ArkIni, ArkObjectValue(..), Value(..))
+import Ark.ArkIni as ArkIni exposing (ArkIni, ArkObjectValue, bool, int, keyValue, object, string)
 import Ark.GameIni exposing (GameIni)
 import Ark.ItemMaxQuantity as I exposing (ItemMaxQuantity)
 import Ini exposing (KeyValue)
@@ -19,7 +19,7 @@ toArkGameIni data =
         { sections =
             [ { name = "/Script/ShooterGame.ShooterGameMode"
               , values =
-                    [ [ KeyValue "bAllowUnlimitedRespecs" (VBool data.allowUnlimitedRespecs)
+                    [ [ keyValue "bAllowUnlimitedRespecs" (bool data.allowUnlimitedRespecs)
                       ]
                     , data.overrideItemMaxQuantities
                         |> List.filter I.applyChange
@@ -33,15 +33,15 @@ toArkGameIni data =
 
 toConfigOverrideItemMaxQuantity : ItemMaxQuantity -> ArkObjectValue
 toConfigOverrideItemMaxQuantity itemMaxQuantity =
-    Object
+    ArkIni.object
         { name = "ConfigOverrideItemMaxQuantity"
         , values =
-            [ KeyValue "ItemClassString" (VString (I.item itemMaxQuantity).class)
-            , Object
+            [ keyValue "ItemClassString" (string (I.item itemMaxQuantity).class)
+            , object
                 { name = "Quantity"
                 , values =
-                    [ KeyValue "MaxItemQuantity" (VInt <| I.maxQuantity itemMaxQuantity)
-                    , KeyValue "bIgnoreMultiplier" (VBool <| I.ignoreMultiplier itemMaxQuantity)
+                    [ keyValue "MaxItemQuantity" (int <| I.maxQuantity itemMaxQuantity)
+                    , keyValue "bIgnoreMultiplier" (bool <| I.ignoreMultiplier itemMaxQuantity)
                     ]
                 }
             ]
