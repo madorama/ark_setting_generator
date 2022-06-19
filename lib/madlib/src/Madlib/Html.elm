@@ -1,30 +1,29 @@
 module Madlib.Html exposing (..)
 
-import Origami.Html exposing (Html, Attribute, text, node)
-import Origami.Html.Attributes as Attr
+import Origami.Html exposing (Html, text)
 
 
 none : Html msg
 none =
-  text ""
+    text ""
 
 
 when : Bool -> Html msg -> Html msg
 when c html =
-  if c then
-    html
+    if c then
+        html
 
-  else
-    none
+    else
+        none
 
 
 unless : Bool -> Html msg -> Html msg
 unless =
-  not >> when
+    not >> when
 
 
 maybe : Maybe a -> (a -> Html msg) -> Html msg
 maybe m f =
-  m
-    |> Maybe.map f
-    |> Maybe.withDefault none
+    m
+        |> Maybe.map f
+        |> Maybe.withDefault none

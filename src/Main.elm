@@ -7,8 +7,7 @@ import Browser exposing (Document)
 import File.Download as Download
 import Madlib.Html.Events as Ev
 import Madlib.Layout exposing (..)
-import Madlib.Style exposing (gridTemplateAreas)
-import Origami exposing (batch, noStyle, property, with)
+import Origami exposing (property)
 import Origami.Html exposing (..)
 import Origami.Html.Attributes as Attr
 import Origami.Html.Events as Ev
