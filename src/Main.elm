@@ -74,32 +74,25 @@ update msg model =
                 |> withCmd (Download.string "game.ini" "text/plain" (Generator.gameIni <| generateGameIni model))
 
         ChangeQuantity sl maxQuantity ->
-            let
-                newSelectList =
-                    SelectList.updateSelected (\x -> updateMaxQuantity (String.toInt maxQuantity |> Maybe.withDefault x.maxQuantity) x) sl
-            in
             { model
-                | itemMaxQuantities = SelectList.toList newSelectList
+                | itemMaxQuantities =
+                    SelectList.updateSelected (\x -> updateMaxQuantity (String.toInt maxQuantity |> Maybe.withDefault x.maxQuantity) x) sl
+                        |> SelectList.toList
             }
                 |> withNone
 
         CheckIgnoreMultiplier sl checked ->
-            let
-                newSelectList =
-                    SelectList.updateSelected (updateIgnoreMultiplier checked) sl
-            in
             { model
-                | itemMaxQuantities = SelectList.toList newSelectList
+                | itemMaxQuantities =
+                    SelectList.updateSelected (updateIgnoreMultiplier checked) sl
+                        |> SelectList.toList
             }
                 |> withNone
 
         CheckAllIgnoreMultiplier checked ->
-            let
-                newItemMaxQuantities =
-                    List.map (updateIgnoreMultiplier checked) model.itemMaxQuantities
-            in
             { model
-                | itemMaxQuantities = newItemMaxQuantities
+                | itemMaxQuantities =
+                    List.map (updateIgnoreMultiplier checked) model.itemMaxQuantities
             }
                 |> withNone
 

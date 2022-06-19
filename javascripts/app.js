@@ -5834,47 +5834,48 @@ var $author$project$Main$update = F2(
 			case 1:
 				var sl = msg.a;
 				var maxQuantity = msg.b;
-				var newSelectList = A2(
-					$miyamoen$select_list$SelectList$updateSelected,
-					function (x) {
-						return A2(
-							$author$project$Main$updateMaxQuantity,
-							A2(
-								$elm$core$Maybe$withDefault,
-								x.c,
-								$elm$core$String$toInt(maxQuantity)),
-							x);
-					},
-					sl);
 				return $etaque$elm_response$Response$withNone(
 					_Utils_update(
 						model,
 						{
-							p: $miyamoen$select_list$SelectList$toList(newSelectList)
+							p: $miyamoen$select_list$SelectList$toList(
+								A2(
+									$miyamoen$select_list$SelectList$updateSelected,
+									function (x) {
+										return A2(
+											$author$project$Main$updateMaxQuantity,
+											A2(
+												$elm$core$Maybe$withDefault,
+												x.c,
+												$elm$core$String$toInt(maxQuantity)),
+											x);
+									},
+									sl))
 						}));
 			case 2:
 				var sl = msg.a;
 				var checked = msg.b;
-				var newSelectList = A2(
-					$miyamoen$select_list$SelectList$updateSelected,
-					$author$project$Main$updateIgnoreMultiplier(checked),
-					sl);
 				return $etaque$elm_response$Response$withNone(
 					_Utils_update(
 						model,
 						{
-							p: $miyamoen$select_list$SelectList$toList(newSelectList)
+							p: $miyamoen$select_list$SelectList$toList(
+								A2(
+									$miyamoen$select_list$SelectList$updateSelected,
+									$author$project$Main$updateIgnoreMultiplier(checked),
+									sl))
 						}));
 			case 3:
 				var checked = msg.a;
-				var newItemMaxQuantities = A2(
-					$elm$core$List$map,
-					$author$project$Main$updateIgnoreMultiplier(checked),
-					model.p);
 				return $etaque$elm_response$Response$withNone(
 					_Utils_update(
 						model,
-						{p: newItemMaxQuantities}));
+						{
+							p: A2(
+								$elm$core$List$map,
+								$author$project$Main$updateIgnoreMultiplier(checked),
+								model.p)
+						}));
 			case 4:
 				var sl = msg.a;
 				var checked = msg.b;
