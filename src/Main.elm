@@ -164,34 +164,26 @@ viewSettings model =
         , row div
             []
             [ h3 []
-                [ row label
+                [ checkBox
                     [ Attr.css
                         [ property "user-select" "none"
                         ]
                     ]
-                    [ input
-                        [ Attr.type_ "checkbox"
-                        , Attr.checked (List.all I.applyChange model.gameIni.overrideItemMaxQuantities)
-                        , Ev.onCheck CheckAllApplyChange
-                        ]
-                        []
-                    , text "アイテムスタック数のオーバーライド"
-                    ]
+                    { label = text "アイテムスタック数のオーバーライド"
+                    , checked = List.all I.applyChange model.gameIni.overrideItemMaxQuantities
+                    , onCheck = CheckAllApplyChange
+                    }
                 ]
-            , row label
+            , checkBox
                 [ centerY
                 , Attr.css
                     [ property "user-select" "none"
                     ]
                 ]
-                [ input
-                    [ Attr.type_ "checkbox"
-                    , Attr.checked (List.all I.ignoreMultiplier model.gameIni.overrideItemMaxQuantities)
-                    , Ev.onCheck CheckAllIgnoreMultiplier
-                    ]
-                    []
-                , text "全てのスタックサイズ倍率を無視する"
-                ]
+                { label = text "全てのスタックサイズ倍率を無視する"
+                , checked = List.all I.ignoreMultiplier model.gameIni.overrideItemMaxQuantities
+                , onCheck = CheckAllIgnoreMultiplier
+                }
             ]
         , viewItemMaxQuantities model
         ]
@@ -220,17 +212,13 @@ viewItemMaxQuantity sl =
             , property "grid-template-columns" "1fr 1fr 1fr"
             ]
         ]
-        [ row label
+        [ checkBox
             [ centerY
             ]
-            [ input
-                [ Attr.type_ "checkbox"
-                , Attr.checked <| I.applyChange selected
-                , Ev.onCheck (CheckApplyChange sl)
-                ]
-                []
-            , text <| (I.item selected).name
-            ]
+            { label = text <| (I.item selected).name
+            , checked = I.applyChange selected
+            , onCheck = CheckApplyChange sl
+            }
         , input
             [ Attr.value <| String.fromInt (I.maxQuantity selected)
             , Attr.type_ "number"
@@ -240,20 +228,16 @@ viewItemMaxQuantity sl =
             , Ev.onChange (ChangeQuantity sl)
             ]
             []
-        , row label
+        , checkBox
             [ centerY
             , Attr.css
                 [ property "user-select" "none"
                 ]
             ]
-            [ input
-                [ Attr.type_ "checkbox"
-                , Attr.checked <| I.ignoreMultiplier selected
-                , Ev.onCheck (CheckIgnoreMultiplier sl)
-                ]
-                []
-            , text "スタックサイズ倍率を無視する"
-            ]
+            { label = text "スタックサイズ倍率を無視する"
+            , checked = I.ignoreMultiplier selected
+            , onCheck = CheckIgnoreMultiplier sl
+            }
         ]
 
 

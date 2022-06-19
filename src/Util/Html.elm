@@ -1,6 +1,7 @@
 module Util.Html exposing (checkBox)
 
 import Madlib.Layout exposing (..)
+import Origami exposing (property)
 import Origami.Html exposing (..)
 import Origami.Html.Attributes as Attr
 import Origami.Html.Events as Ev
@@ -16,7 +17,9 @@ type alias CheckBoxOption msg =
 checkBox : List (Attribute msg) -> CheckBoxOption msg -> Html msg
 checkBox attrs opt =
     row label
-        attrs
+        [ centerY
+        , Attr.batchAttributes attrs
+        ]
         [ input
             [ Attr.type_ "checkbox"
             , Attr.checked opt.checked
