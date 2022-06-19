@@ -784,11 +784,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.aj.S === region.aM.S)
+	if (region.ax.X === region.a3.X)
 	{
-		return 'on line ' + region.aj.S;
+		return 'on line ' + region.ax.X;
 	}
-	return 'on lines ' + region.aj.S + ' through ' + region.aM.S;
+	return 'on lines ' + region.ax.X + ' through ' + region.a3.X;
 }
 
 
@@ -1857,9 +1857,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.b_,
-		impl.ci,
-		impl.cf,
+		impl.cA,
+		impl.c6,
+		impl.c1,
 		function() { return function() {} }
 	);
 });
@@ -2704,9 +2704,9 @@ var _VirtualDom_mapEventTuple = F2(function(func, tuple)
 var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
-		x: func(record.x),
-		ak: record.ak,
-		ag: record.ag
+		D: func(record.D),
+		ay: record.ay,
+		au: record.au
 	}
 });
 
@@ -2974,11 +2974,11 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 		// 3 = Custom
 
 		var value = result.a;
-		var message = !tag ? value : tag < 3 ? value.a : value.x;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.ak;
+		var message = !tag ? value : tag < 3 ? value.a : value.D;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.ay;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.ag) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.au) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3928,11 +3928,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.b_,
-		impl.ci,
-		impl.cf,
+		impl.cA,
+		impl.c6,
+		impl.c1,
 		function(sendToApp, initialModel) {
-			var view = impl.cj;
+			var view = impl.c7;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3964,12 +3964,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.b_,
-		impl.ci,
-		impl.cf,
+		impl.cA,
+		impl.c6,
+		impl.c1,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.ai && impl.ai(sendToApp)
-			var view = impl.cj;
+			var divertHrefToApp = impl.aw && impl.aw(sendToApp)
+			var view = impl.c7;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3977,12 +3977,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.bN);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.cg);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.ch) && (_VirtualDom_doc.title = title = doc.ch);
+				(title !== doc.c5) && (_VirtualDom_doc.title = title = doc.c5);
 			});
 		}
 	);
@@ -4038,12 +4038,12 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.b5;
-	var onUrlRequest = impl.b6;
+	var onUrlChange = impl.cR;
+	var onUrlRequest = impl.cS;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		ai: function(sendToApp)
+		aw: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4059,9 +4059,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.bi === next.bi
-							&& curr.aX === next.aX
-							&& curr.be.a === next.be.a
+							&& curr.bG === next.bG
+							&& curr.bg === next.bg
+							&& curr.bC.a === next.bC.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -4069,13 +4069,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		b_: function(flags)
+		cA: function(flags)
 		{
-			return A3(impl.b_, flags, _Browser_getUrl(), key);
+			return A3(impl.cA, flags, _Browser_getUrl(), key);
 		},
-		cj: impl.cj,
-		ci: impl.ci,
-		cf: impl.cf
+		c7: impl.c7,
+		c6: impl.c6,
+		c1: impl.c1
 	});
 }
 
@@ -4141,17 +4141,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { bW: 'hidden', bP: 'visibilitychange' }
+		? { cw: 'hidden', cj: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { bW: 'mozHidden', bP: 'mozvisibilitychange' }
+		? { cw: 'mozHidden', cj: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { bW: 'msHidden', bP: 'msvisibilitychange' }
+		? { cw: 'msHidden', cj: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { bW: 'webkitHidden', bP: 'webkitvisibilitychange' }
-		: { bW: 'hidden', bP: 'visibilitychange' };
+		? { cw: 'webkitHidden', cj: 'webkitvisibilitychange' }
+		: { cw: 'hidden', cj: 'visibilitychange' };
 }
 
 
@@ -4232,12 +4232,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		bt: _Browser_getScene(),
-		bF: {
-			bH: _Browser_window.pageXOffset,
-			bI: _Browser_window.pageYOffset,
-			bG: _Browser_doc.documentElement.clientWidth,
-			aW: _Browser_doc.documentElement.clientHeight
+		bT: _Browser_getScene(),
+		b7: {
+			b9: _Browser_window.pageXOffset,
+			ca: _Browser_window.pageYOffset,
+			b8: _Browser_doc.documentElement.clientWidth,
+			bf: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4247,8 +4247,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		bG: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		aW: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		b8: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		bf: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4271,15 +4271,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			bt: {
-				bG: node.scrollWidth,
-				aW: node.scrollHeight
+			bT: {
+				b8: node.scrollWidth,
+				bf: node.scrollHeight
 			},
-			bF: {
-				bH: node.scrollLeft,
-				bI: node.scrollTop,
-				bG: node.clientWidth,
-				aW: node.clientHeight
+			b7: {
+				b9: node.scrollLeft,
+				ca: node.scrollTop,
+				b8: node.clientWidth,
+				bf: node.clientHeight
 			}
 		};
 	});
@@ -4309,18 +4309,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			bt: _Browser_getScene(),
-			bF: {
-				bH: x,
-				bI: y,
-				bG: _Browser_doc.documentElement.clientWidth,
-				aW: _Browser_doc.documentElement.clientHeight
+			bT: _Browser_getScene(),
+			b7: {
+				b9: x,
+				ca: y,
+				b8: _Browser_doc.documentElement.clientWidth,
+				bf: _Browser_doc.documentElement.clientHeight
 			},
-			bS: {
-				bH: x + rect.left,
-				bI: y + rect.top,
-				bG: rect.width,
-				aW: rect.height
+			co: {
+				b9: x + rect.left,
+				ca: y + rect.top,
+				b8: rect.width,
+				bf: rect.height
 			}
 		};
 	});
@@ -5074,7 +5074,7 @@ var $elm$url$Url$Http = 0;
 var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {aS: fragment, aX: host, ba: path, be: port_, bi: protocol, bk: query};
+		return {a9: fragment, bg: host, by: path, bC: port_, bG: protocol, bI: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5364,179 +5364,179 @@ var $elm$core$List$append = F2(
 var $elm$core$List$concat = function (lists) {
 	return A3($elm$core$List$foldr, $elm$core$List$append, _List_Nil, lists);
 };
-var $author$project$Ark$Consumable$aggeravicMushroom = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Items/Consumables/PrimalItemResource_CommonMushroom.PrimalItemResource_CommonMushroom\'', b: 'PrimalItemResource_CommonMushroom_C', c: 100, d: 'アガーラビック・マッシュルーム'};
-var $author$project$Ark$Consumable$amarberry = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Berry_Amarberry.PrimalItemConsumable_Berry_Amarberry\'', b: 'PrimalItemConsumable_Berry_Amarberry_C', c: 100, d: 'アマルベリー'};
-var $author$project$Ark$Consumable$aquaticMushroom = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Mushroom_Aquatic.PrimalItemConsumable_Mushroom_Aquatic\'', b: 'PrimalItemConsumable_Mushroom_Aquatic_C', c: 100, d: 'アクアティック・マッシュルーム'};
-var $author$project$Ark$Consumable$ascerbicMushroom = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Mushroom_Ascerbic.PrimalItemConsumable_Mushroom_Ascerbic\'', b: 'PrimalItemConsumable_Mushroom_Ascerbic_C', c: 100, d: 'アサービック・マッシュルーム'};
-var $author$project$Ark$Consumable$auricMushroom = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Mushroom_Auric.PrimalItemConsumable_Mushroom_Auric\'', b: 'PrimalItemConsumable_Mushroom_Auric_C', c: 100, d: '金のマッシュルーム'};
-var $author$project$Ark$Consumable$azulberry = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Berry_Azulberry.PrimalItemConsumable_Berry_Azulberry\'', b: 'PrimalItemConsumable_Berry_Azulberry_C', c: 100, d: 'アズールベリー'};
-var $author$project$Ark$Consumable$basicAugmentedKibble = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_XSmall_EX.PrimalItemConsumable_Kibble_Base_XSmall_EX\'', b: 'PrimalItemConsumable_Kibble_Base_XSmall_EX_C', c: 100, d: '増強キブル(基本)'};
-var $author$project$Ark$Consumable$basicKibble = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_XSmall.PrimalItemConsumable_Kibble_Base_XSmall\'', b: 'PrimalItemConsumable_Kibble_Base_XSmall_C', c: 100, d: 'キブル(基本)'};
-var $author$project$Ark$Consumable$battleTartare = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Soup_BattleTartare.PrimalItemConsumable_Soup_BattleTartare\'', b: 'PrimalItemConsumable_Soup_BattleTartare_C', c: 100, d: 'バトルタルタルステーキ'};
-var $author$project$Ark$Consumable$beerJar = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_BeerJar.PrimalItemConsumable_BeerJar\'', b: 'PrimalItemConsumable_BeerJar_C', c: 20, d: 'ビール瓶'};
-var $author$project$Ark$Consumable$beerLiquid = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Beer.PrimalItemResource_Beer\'', b: 'PrimalItemResource_Beer_C', c: 100, d: 'ビール液'};
-var $author$project$Ark$Consumable$bioToxin = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_JellyVenom.PrimalItemConsumable_JellyVenom\'', b: 'PrimalItemConsumable_JellyVenom_C', c: 100, d: 'バイオトキシン'};
-var $author$project$Ark$Consumable$brothofEnlightenment = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_TheHorn.PrimalItemConsumable_TheHorn\'', b: 'PrimalItemConsumable_TheHorn_C', c: 100, d: '啓発の煮汁'};
-var $author$project$Ark$Consumable$bugRepellant = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_BugRepellant.PrimalItemConsumable_BugRepellant\'', b: 'PrimalItemConsumable_BugRepellant_C', c: 100, d: '防虫剤'};
-var $author$project$Ark$Consumable$cactusBroth = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CactusBuffSoup.PrimalItemConsumable_CactusBuffSoup\'', b: 'PrimalItemConsumable_CactusBuffSoup_C', c: 100, d: 'サボテンスープ'};
-var $author$project$Ark$Consumable$cactusSap = {a: 'Blueprint\'/Game/ScorchedEarth/CoreBlueprints/Consumables/PrimalItemConsumable_CactusSap.PrimalItemConsumable_CactusSap\'', b: 'PrimalItemConsumable_CactusSap_C', c: 100, d: 'サボテンの樹液'};
-var $author$project$Ark$Consumable$calienSoup = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Soup_CalienSoup.PrimalItemConsumable_Soup_CalienSoup\'', b: 'PrimalItemConsumable_Soup_CalienSoup_C', c: 100, d: 'カリエンスープ'};
-var $author$project$Ark$Consumable$canteenEmpty = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CanteenCraftable.PrimalItemConsumable_CanteenCraftable\'', b: 'PrimalItemConsumable_CanteenCraftable_C', c: 1, d: '水筒(空)'};
-var $author$project$Ark$Consumable$canteenFull = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CanteenRefill.PrimalItemConsumable_CanteenRefill\'', b: 'PrimalItemConsumable_CanteenRefill_C', c: 1, d: '水筒(フル)'};
-var $author$project$Ark$Consumable$citronal = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Veggie_Citronal.PrimalItemConsumable_Veggie_Citronal\'', b: 'PrimalItemConsumable_Veggie_Citronal_C', c: 100, d: 'レモン'};
-var $author$project$Ark$Consumable$cookedFishMeat = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CookedMeat_Fish.PrimalItemConsumable_CookedMeat_Fish\'', b: 'PrimalItemConsumable_CookedMeat_Fish_C', c: 30, d: 'こんがり魚'};
-var $author$project$Ark$Consumable$cookedLambChop = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CookedLambChop.PrimalItemConsumable_CookedLambChop\'', b: 'PrimalItemConsumable_CookedLambChop_C', c: 30, d: 'ラムチョップ'};
-var $author$project$Ark$Consumable$cookedMeat = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CookedMeat.PrimalItemConsumable_CookedMeat\'', b: 'PrimalItemConsumable_CookedMeat_C', c: 50, d: 'こんがり肉'};
-var $author$project$Ark$Consumable$cookedMeatJerky = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CookedMeat_Jerky.PrimalItemConsumable_CookedMeat_Jerky\'', b: 'PrimalItemConsumable_CookedMeat_Jerky_C', c: 50, d: '干し肉'};
-var $author$project$Ark$Consumable$cookedPrimeFishMeat = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CookedPrimeMeat_Fish.PrimalItemConsumable_CookedPrimeMeat_Fish\'', b: 'PrimalItemConsumable_CookedPrimeMeat_Fish_C', c: 30, d: 'こんがり大トロ'};
-var $author$project$Ark$Consumable$cookedPrimeMeat = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CookedPrimeMeat.PrimalItemConsumable_CookedPrimeMeat\'', b: 'PrimalItemConsumable_CookedPrimeMeat_C', c: 30, d: '霜降りこんがり肉'};
-var $author$project$Ark$Consumable$enduroStew = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Soup_EnduroStew.PrimalItemConsumable_Soup_EnduroStew\'', b: 'PrimalItemConsumable_Soup_EnduroStew_C', c: 100, d: 'エンデュロシチュー'};
-var $author$project$Ark$Consumable$energyBrew = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_StaminaSoup.PrimalItemConsumable_StaminaSoup\'', b: 'PrimalItemConsumable_StaminaSoup_C', c: 100, d: 'エナジーブリュー'};
-var $author$project$Ark$Consumable$evilEmote = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/BaseBPs/PrimalItemConsumable_UnlockEmote_Evil.PrimalItemConsumable_UnlockEmote_Evil\'', b: 'PrimalItemConsumable_UnlockEmote_Evil_C', c: 100, d: 'イービルエモート'};
-var $author$project$Ark$Consumable$exceptionalAugmentedKibble = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_XLarge_EX.PrimalItemConsumable_Kibble_Base_XLarge_EX\'', b: 'PrimalItemConsumable_Kibble_Base_XLarge_EX_C', c: 100, d: '増強キブル(超級)'};
-var $author$project$Ark$Consumable$exceptionalKibble = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_XLarge.PrimalItemConsumable_Kibble_Base_XLarge\'', b: 'PrimalItemConsumable_Kibble_Base_XLarge_C', c: 100, d: 'キブル(超級)'};
-var $author$project$Ark$Consumable$extraordinaryAugmentedKibble = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_Special_EX.PrimalItemConsumable_Kibble_Base_Special_EX\'', b: 'PrimalItemConsumable_Kibble_Base_Special_EX_C', c: 100, d: '増強キブル(特級)'};
-var $author$project$Ark$Consumable$extraordinaryKibble = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_Special.PrimalItemConsumable_Kibble_Base_Special\'', b: 'PrimalItemConsumable_Kibble_Base_Special_C', c: 100, d: 'キブル(特級)'};
-var $author$project$Ark$Consumable$filledFishBasket = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/PrimalItem_FishBasketFilled.PrimalItem_FishBasketFilled\'', b: 'PrimalItem_FishBasketFilled_C', c: 1, d: '魚籠'};
-var $author$project$Ark$Consumable$focalChili = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Soup_FocalChili.PrimalItemConsumable_Soup_FocalChili\'', b: 'PrimalItemConsumable_Soup_FocalChili_C', c: 100, d: 'フォーカルチリ'};
-var $author$project$Ark$Consumable$friaCurry = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Soup_FriaCurry.PrimalItemConsumable_Soup_FriaCurry\'', b: 'PrimalItemConsumable_Soup_FriaCurry_C', c: 100, d: 'フリアカレー'};
-var $author$project$Ark$Consumable$gachaCrystal = {a: 'Blueprint\'/Game/Extinction/Dinos/Gacha/PrimalItemConsumable_GachaPod.PrimalItemConsumable_GachaPod\'', b: 'PrimalItemConsumable_GachaPod_C', c: 1, d: 'ガチャ・クリスタル'};
-var $author$project$Ark$Consumable$giantBeeHoney = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Honey.PrimalItemConsumable_Honey\'', b: 'PrimalItemConsumable_Honey_C', c: 1, d: '巨大ハチのハチミツ'};
-var $author$project$Ark$Consumable$icedCanteenEmpty = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_IcedCanteen.PrimalItemConsumable_IcedCanteen\'', b: 'PrimalItemConsumable_IcedCanteen_C', c: 1, d: '凍らせた水筒(空)'};
-var $author$project$Ark$Consumable$icedCanteenFull = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_IcedCanteenRefill.PrimalItemConsumable_IcedCanteenRefill\'', b: 'PrimalItemConsumable_IcedCanteenRefill_C', c: 1, d: '凍らせた水筒(フル)'};
-var $author$project$Ark$Consumable$icedWaterJarEmpty = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_IcedWaterJar.PrimalItemConsumable_IcedWaterJar\'', b: 'PrimalItemConsumable_IcedWaterJar_C', c: 1, d: '凍らせた水瓶(空)'};
-var $author$project$Ark$Consumable$icedWaterJarFull = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_IcedWaterJarRefill.PrimalItemConsumable_IcedWaterJarRefill\'', b: 'PrimalItemConsumable_IcedWaterJarRefill_C', c: 1, d: '凍らせた水瓶(フル)'};
-var $author$project$Ark$Consumable$lazarusChowder = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Soup_LazarusChowder.PrimalItemConsumable_Soup_LazarusChowder\'', b: 'PrimalItemConsumable_Soup_LazarusChowder_C', c: 100, d: 'ラザルスチャウダー'};
-var $author$project$Ark$Consumable$lesserAntidote = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/BaseBPs/PrimalItemConsumable_CureLow.PrimalItemConsumable_CureLow\'', b: 'PrimalItemConsumable_CureLow_C', c: 100, d: '解毒剤(弱)'};
-var $author$project$Ark$Consumable$longrass = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Veggie_Longrass.PrimalItemConsumable_Veggie_Longrass\'', b: 'PrimalItemConsumable_Veggie_Longrass_C', c: 100, d: 'トウモロコシ'};
-var $author$project$Ark$Consumable$medicalBrew = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_HealSoup.PrimalItemConsumable_HealSoup\'', b: 'PrimalItemConsumable_HealSoup_C', c: 100, d: 'メディカルブリュー'};
-var $author$project$Ark$Consumable$mejoberry = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Berry_Mejoberry.PrimalItemConsumable_Berry_Mejoberry\'', b: 'PrimalItemConsumable_Berry_Mejoberry_C', c: 100, d: 'メジョベリー'};
-var $author$project$Ark$Consumable$mindwipeTonic = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/BaseBPs/PrimalItemConsumableRespecSoup.PrimalItemConsumableRespecSoup\'', b: 'PrimalItemConsumableRespecSoup_C', c: 100, d: 'マインドワイプトニック'};
-var $author$project$Ark$Consumable$mushroomBrew = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Soup_MushroomSoup.PrimalItemConsumable_Soup_MushroomSoup\'', b: 'PrimalItemConsumable_Soup_MushroomSoup_C', c: 100, d: 'マッシュルームブリュー'};
-var $author$project$Ark$Consumable$namelessVenom = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Resources/PrimalItemConsumable_NamelessVenom.PrimalItemConsumable_NamelessVenom\'', b: 'PrimalItemConsumable_NamelessVenom_C', c: 1, d: 'ネームレスの毒'};
-var $author$project$Ark$Consumable$narcoberry = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Berry_Narcoberry.PrimalItemConsumable_Berry_Narcoberry\'', b: 'PrimalItemConsumable_Berry_Narcoberry_C', c: 100, d: 'ナルコベリー'};
-var $author$project$Ark$Consumable$primeMeatJerky = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CookedPrimeMeat_Jerky.PrimalItemConsumable_CookedPrimeMeat_Jerky\'', b: 'PrimalItemConsumable_CookedPrimeMeat_Jerky_C', c: 30, d: '霜降り干し肉'};
-var $author$project$Ark$Consumable$rawFishMeat = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_RawMeat_Fish.PrimalItemConsumable_RawMeat_Fish\'', b: 'PrimalItemConsumable_RawMeat_Fish_C', c: 20, d: '魚肉'};
-var $author$project$Ark$Consumable$rawMeat = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_RawMeat.PrimalItemConsumable_RawMeat\'', b: 'PrimalItemConsumable_RawMeat_C', c: 40, d: '生肉'};
-var $author$project$Ark$Consumable$rawMutton = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_RawMutton.PrimalItemConsumable_RawMutton\'', b: 'PrimalItemConsumable_RawMutton_C', c: 1, d: '羊肉'};
-var $author$project$Ark$Consumable$rawPrimeFishMeat = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_RawPrimeMeat_Fish.PrimalItemConsumable_RawPrimeMeat_Fish\'', b: 'PrimalItemConsumable_RawPrimeMeat_Fish_C', c: 1, d: '大トロ'};
-var $author$project$Ark$Consumable$rawPrimeMeat = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_RawPrimeMeat.PrimalItemConsumable_RawPrimeMeat\'', b: 'PrimalItemConsumable_RawPrimeMeat_C', c: 1, d: '霜降り肉'};
-var $author$project$Ark$Consumable$reaperPheromoneGland = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Resources/PrimalItemResource_XenomorphPheromoneGland.PrimalItemResource_XenomorphPheromoneGland\'', b: 'PrimalItemResource_XenomorphPheromoneGland_C', c: 100, d: 'リーパーのフェロモン腺'};
-var $author$project$Ark$Consumable$regularAugmentedKibble = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_Medium_EX.PrimalItemConsumable_Kibble_Base_Medium_EX\'', b: 'PrimalItemConsumable_Kibble_Base_Medium_EX_C', c: 100, d: '増強キブル(通常)'};
-var $author$project$Ark$Consumable$regularKibble = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_Medium.PrimalItemConsumable_Kibble_Base_Medium\'', b: 'PrimalItemConsumable_Kibble_Base_Medium_C', c: 100, d: 'キブル(通常)'};
-var $author$project$Ark$Consumable$rockarrot = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Veggie_Rockarrot.PrimalItemConsumable_Veggie_Rockarrot\'', b: 'PrimalItemConsumable_Veggie_Rockarrot_C', c: 100, d: 'ニンジン'};
-var $author$project$Ark$Consumable$savoroot = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Veggie_Savoroot.PrimalItemConsumable_Veggie_Savoroot\'', b: 'PrimalItemConsumable_Veggie_Savoroot_C', c: 100, d: 'ジャガイモ'};
-var $author$project$Ark$Consumable$shadowSteakSaute = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Soup_ShadowSteak.PrimalItemConsumable_Soup_ShadowSteak\'', b: 'PrimalItemConsumable_Soup_ShadowSteak_C', c: 100, d: 'シャドウステーキ'};
-var $author$project$Ark$Consumable$simpleAugmentedKibble = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_Small_EX.PrimalItemConsumable_Kibble_Base_Small_EX\'', b: 'PrimalItemConsumable_Kibble_Base_Small_EX_C', c: 100, d: '増強キブル(簡易)'};
-var $author$project$Ark$Consumable$simpleKibble = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_Small.PrimalItemConsumable_Kibble_Base_Small\'', b: 'PrimalItemConsumable_Kibble_Base_Small_C', c: 100, d: 'キブル(簡易)'};
-var $author$project$Ark$Consumable$soap = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/BaseBPs/PrimalItemConsumableSoap.PrimalItemConsumableSoap\'', b: 'PrimalItemConsumableSoap_C', c: 100, d: '石鹸'};
-var $author$project$Ark$Consumable$spoiledMeat = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_SpoiledMeat.PrimalItemConsumable_SpoiledMeat\'', b: 'PrimalItemConsumable_SpoiledMeat_C', c: 100, d: '腐った肉'};
-var $author$project$Ark$Consumable$stimberry = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Berry_Stimberry.PrimalItemConsumable_Berry_Stimberry\'', b: 'PrimalItemConsumable_Berry_Stimberry_C', c: 100, d: 'スティムベリー'};
-var $author$project$Ark$Consumable$superiorAugmentedKibble = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_Large_EX.PrimalItemConsumable_Kibble_Base_Large_EX\'', b: 'PrimalItemConsumable_Kibble_Base_Large_EX_C', c: 100, d: '増強キブル(優)'};
-var $author$project$Ark$Consumable$superiorKibble = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_Large.PrimalItemConsumable_Kibble_Base_Large\'', b: 'PrimalItemConsumable_Kibble_Base_Large_C', c: 100, d: 'キブル(優)'};
-var $author$project$Ark$Consumable$sweetVegetableCake = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_SweetVeggieCake.PrimalItemConsumable_SweetVeggieCake\'', b: 'PrimalItemConsumable_SweetVeggieCake_C', c: 10, d: 'スイートベジタブルケーキ'};
-var $author$project$Ark$Consumable$tintoberry = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Berry_Tintoberry.PrimalItemConsumable_Berry_Tintoberry\'', b: 'PrimalItemConsumable_Berry_Tintoberry_C', c: 100, d: 'ティントベリー'};
-var $author$project$Ark$Consumable$unassembledEnforcer = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Items/PrimalItem_Spawner_Enforcer.PrimalItem_Spawner_Enforcer\'', b: 'PrimalItem_Spawner_Enforcer_C', c: 1, d: '未完成エンフォーサー'};
-var $author$project$Ark$Consumable$unassembledMek = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Items/PrimalItem_Spawner_Mek.PrimalItem_Spawner_Mek\'', b: 'PrimalItem_Spawner_Mek_C', c: 1, d: '未完成MEK'};
-var $author$project$Ark$Consumable$waterJarEmpty = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_WaterJarCraftable.PrimalItemConsumable_WaterJarCraftable\'', b: 'PrimalItemConsumable_WaterJarCraftable_C', c: 1, d: '水瓶(空)'};
-var $author$project$Ark$Consumable$waterJarFull = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_WaterJarRefill.PrimalItemConsumable_WaterJarRefill\'', b: 'PrimalItemConsumable_WaterJarRefill_C', c: 1, d: '水瓶(フル)'};
-var $author$project$Ark$Consumable$waterskinEmpty = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_WaterskinCraftable.PrimalItemConsumable_WaterskinCraftable\'', b: 'PrimalItemConsumable_WaterskinCraftable_C', c: 1, d: '皮袋(空)'};
-var $author$project$Ark$Consumable$waterskinFilled = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_WaterskinRefill.PrimalItemConsumable_WaterskinRefill\'', b: 'PrimalItemConsumable_WaterskinRefill_C', c: 1, d: '皮袋(フル)'};
-var $author$project$Ark$Consumable$wyvernMilk = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/BaseBPs/PrimalItemConsumable_WyvernMilk.PrimalItemConsumable_WyvernMilk\'', b: 'PrimalItemConsumable_WyvernMilk_C', c: 1, d: 'ワイバーンミルク'};
+var $author$project$Ark$Consumable$aggeravicMushroom = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Items/Consumables/PrimalItemResource_CommonMushroom.PrimalItemResource_CommonMushroom\'', b: 'PrimalItemResource_CommonMushroom_C', c: 100, Y: 'アガーラビック・マッシュルーム'};
+var $author$project$Ark$Consumable$amarberry = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Berry_Amarberry.PrimalItemConsumable_Berry_Amarberry\'', b: 'PrimalItemConsumable_Berry_Amarberry_C', c: 100, Y: 'アマルベリー'};
+var $author$project$Ark$Consumable$aquaticMushroom = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Mushroom_Aquatic.PrimalItemConsumable_Mushroom_Aquatic\'', b: 'PrimalItemConsumable_Mushroom_Aquatic_C', c: 100, Y: 'アクアティック・マッシュルーム'};
+var $author$project$Ark$Consumable$ascerbicMushroom = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Mushroom_Ascerbic.PrimalItemConsumable_Mushroom_Ascerbic\'', b: 'PrimalItemConsumable_Mushroom_Ascerbic_C', c: 100, Y: 'アサービック・マッシュルーム'};
+var $author$project$Ark$Consumable$auricMushroom = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Mushroom_Auric.PrimalItemConsumable_Mushroom_Auric\'', b: 'PrimalItemConsumable_Mushroom_Auric_C', c: 100, Y: '金のマッシュルーム'};
+var $author$project$Ark$Consumable$azulberry = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Berry_Azulberry.PrimalItemConsumable_Berry_Azulberry\'', b: 'PrimalItemConsumable_Berry_Azulberry_C', c: 100, Y: 'アズールベリー'};
+var $author$project$Ark$Consumable$basicAugmentedKibble = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_XSmall_EX.PrimalItemConsumable_Kibble_Base_XSmall_EX\'', b: 'PrimalItemConsumable_Kibble_Base_XSmall_EX_C', c: 100, Y: '増強キブル(基本)'};
+var $author$project$Ark$Consumable$basicKibble = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_XSmall.PrimalItemConsumable_Kibble_Base_XSmall\'', b: 'PrimalItemConsumable_Kibble_Base_XSmall_C', c: 100, Y: 'キブル(基本)'};
+var $author$project$Ark$Consumable$battleTartare = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Soup_BattleTartare.PrimalItemConsumable_Soup_BattleTartare\'', b: 'PrimalItemConsumable_Soup_BattleTartare_C', c: 100, Y: 'バトルタルタルステーキ'};
+var $author$project$Ark$Consumable$beerJar = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_BeerJar.PrimalItemConsumable_BeerJar\'', b: 'PrimalItemConsumable_BeerJar_C', c: 20, Y: 'ビール瓶'};
+var $author$project$Ark$Consumable$beerLiquid = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Beer.PrimalItemResource_Beer\'', b: 'PrimalItemResource_Beer_C', c: 100, Y: 'ビール液'};
+var $author$project$Ark$Consumable$bioToxin = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_JellyVenom.PrimalItemConsumable_JellyVenom\'', b: 'PrimalItemConsumable_JellyVenom_C', c: 100, Y: 'バイオトキシン'};
+var $author$project$Ark$Consumable$brothofEnlightenment = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_TheHorn.PrimalItemConsumable_TheHorn\'', b: 'PrimalItemConsumable_TheHorn_C', c: 100, Y: '啓発の煮汁'};
+var $author$project$Ark$Consumable$bugRepellant = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_BugRepellant.PrimalItemConsumable_BugRepellant\'', b: 'PrimalItemConsumable_BugRepellant_C', c: 100, Y: '防虫剤'};
+var $author$project$Ark$Consumable$cactusBroth = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CactusBuffSoup.PrimalItemConsumable_CactusBuffSoup\'', b: 'PrimalItemConsumable_CactusBuffSoup_C', c: 100, Y: 'サボテンスープ'};
+var $author$project$Ark$Consumable$cactusSap = {a: 'Blueprint\'/Game/ScorchedEarth/CoreBlueprints/Consumables/PrimalItemConsumable_CactusSap.PrimalItemConsumable_CactusSap\'', b: 'PrimalItemConsumable_CactusSap_C', c: 100, Y: 'サボテンの樹液'};
+var $author$project$Ark$Consumable$calienSoup = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Soup_CalienSoup.PrimalItemConsumable_Soup_CalienSoup\'', b: 'PrimalItemConsumable_Soup_CalienSoup_C', c: 100, Y: 'カリエンスープ'};
+var $author$project$Ark$Consumable$canteenEmpty = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CanteenCraftable.PrimalItemConsumable_CanteenCraftable\'', b: 'PrimalItemConsumable_CanteenCraftable_C', c: 1, Y: '水筒(空)'};
+var $author$project$Ark$Consumable$canteenFull = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CanteenRefill.PrimalItemConsumable_CanteenRefill\'', b: 'PrimalItemConsumable_CanteenRefill_C', c: 1, Y: '水筒(フル)'};
+var $author$project$Ark$Consumable$citronal = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Veggie_Citronal.PrimalItemConsumable_Veggie_Citronal\'', b: 'PrimalItemConsumable_Veggie_Citronal_C', c: 100, Y: 'レモン'};
+var $author$project$Ark$Consumable$cookedFishMeat = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CookedMeat_Fish.PrimalItemConsumable_CookedMeat_Fish\'', b: 'PrimalItemConsumable_CookedMeat_Fish_C', c: 30, Y: 'こんがり魚'};
+var $author$project$Ark$Consumable$cookedLambChop = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CookedLambChop.PrimalItemConsumable_CookedLambChop\'', b: 'PrimalItemConsumable_CookedLambChop_C', c: 30, Y: 'ラムチョップ'};
+var $author$project$Ark$Consumable$cookedMeat = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CookedMeat.PrimalItemConsumable_CookedMeat\'', b: 'PrimalItemConsumable_CookedMeat_C', c: 50, Y: 'こんがり肉'};
+var $author$project$Ark$Consumable$cookedMeatJerky = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CookedMeat_Jerky.PrimalItemConsumable_CookedMeat_Jerky\'', b: 'PrimalItemConsumable_CookedMeat_Jerky_C', c: 50, Y: '干し肉'};
+var $author$project$Ark$Consumable$cookedPrimeFishMeat = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CookedPrimeMeat_Fish.PrimalItemConsumable_CookedPrimeMeat_Fish\'', b: 'PrimalItemConsumable_CookedPrimeMeat_Fish_C', c: 30, Y: 'こんがり大トロ'};
+var $author$project$Ark$Consumable$cookedPrimeMeat = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CookedPrimeMeat.PrimalItemConsumable_CookedPrimeMeat\'', b: 'PrimalItemConsumable_CookedPrimeMeat_C', c: 30, Y: '霜降りこんがり肉'};
+var $author$project$Ark$Consumable$enduroStew = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Soup_EnduroStew.PrimalItemConsumable_Soup_EnduroStew\'', b: 'PrimalItemConsumable_Soup_EnduroStew_C', c: 100, Y: 'エンデュロシチュー'};
+var $author$project$Ark$Consumable$energyBrew = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_StaminaSoup.PrimalItemConsumable_StaminaSoup\'', b: 'PrimalItemConsumable_StaminaSoup_C', c: 100, Y: 'エナジーブリュー'};
+var $author$project$Ark$Consumable$evilEmote = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/BaseBPs/PrimalItemConsumable_UnlockEmote_Evil.PrimalItemConsumable_UnlockEmote_Evil\'', b: 'PrimalItemConsumable_UnlockEmote_Evil_C', c: 100, Y: 'イービルエモート'};
+var $author$project$Ark$Consumable$exceptionalAugmentedKibble = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_XLarge_EX.PrimalItemConsumable_Kibble_Base_XLarge_EX\'', b: 'PrimalItemConsumable_Kibble_Base_XLarge_EX_C', c: 100, Y: '増強キブル(超級)'};
+var $author$project$Ark$Consumable$exceptionalKibble = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_XLarge.PrimalItemConsumable_Kibble_Base_XLarge\'', b: 'PrimalItemConsumable_Kibble_Base_XLarge_C', c: 100, Y: 'キブル(超級)'};
+var $author$project$Ark$Consumable$extraordinaryAugmentedKibble = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_Special_EX.PrimalItemConsumable_Kibble_Base_Special_EX\'', b: 'PrimalItemConsumable_Kibble_Base_Special_EX_C', c: 100, Y: '増強キブル(特級)'};
+var $author$project$Ark$Consumable$extraordinaryKibble = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_Special.PrimalItemConsumable_Kibble_Base_Special\'', b: 'PrimalItemConsumable_Kibble_Base_Special_C', c: 100, Y: 'キブル(特級)'};
+var $author$project$Ark$Consumable$filledFishBasket = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/PrimalItem_FishBasketFilled.PrimalItem_FishBasketFilled\'', b: 'PrimalItem_FishBasketFilled_C', c: 1, Y: '魚籠'};
+var $author$project$Ark$Consumable$focalChili = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Soup_FocalChili.PrimalItemConsumable_Soup_FocalChili\'', b: 'PrimalItemConsumable_Soup_FocalChili_C', c: 100, Y: 'フォーカルチリ'};
+var $author$project$Ark$Consumable$friaCurry = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Soup_FriaCurry.PrimalItemConsumable_Soup_FriaCurry\'', b: 'PrimalItemConsumable_Soup_FriaCurry_C', c: 100, Y: 'フリアカレー'};
+var $author$project$Ark$Consumable$gachaCrystal = {a: 'Blueprint\'/Game/Extinction/Dinos/Gacha/PrimalItemConsumable_GachaPod.PrimalItemConsumable_GachaPod\'', b: 'PrimalItemConsumable_GachaPod_C', c: 1, Y: 'ガチャ・クリスタル'};
+var $author$project$Ark$Consumable$giantBeeHoney = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Honey.PrimalItemConsumable_Honey\'', b: 'PrimalItemConsumable_Honey_C', c: 1, Y: '巨大ハチのハチミツ'};
+var $author$project$Ark$Consumable$icedCanteenEmpty = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_IcedCanteen.PrimalItemConsumable_IcedCanteen\'', b: 'PrimalItemConsumable_IcedCanteen_C', c: 1, Y: '凍らせた水筒(空)'};
+var $author$project$Ark$Consumable$icedCanteenFull = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_IcedCanteenRefill.PrimalItemConsumable_IcedCanteenRefill\'', b: 'PrimalItemConsumable_IcedCanteenRefill_C', c: 1, Y: '凍らせた水筒(フル)'};
+var $author$project$Ark$Consumable$icedWaterJarEmpty = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_IcedWaterJar.PrimalItemConsumable_IcedWaterJar\'', b: 'PrimalItemConsumable_IcedWaterJar_C', c: 1, Y: '凍らせた水瓶(空)'};
+var $author$project$Ark$Consumable$icedWaterJarFull = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_IcedWaterJarRefill.PrimalItemConsumable_IcedWaterJarRefill\'', b: 'PrimalItemConsumable_IcedWaterJarRefill_C', c: 1, Y: '凍らせた水瓶(フル)'};
+var $author$project$Ark$Consumable$lazarusChowder = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Soup_LazarusChowder.PrimalItemConsumable_Soup_LazarusChowder\'', b: 'PrimalItemConsumable_Soup_LazarusChowder_C', c: 100, Y: 'ラザルスチャウダー'};
+var $author$project$Ark$Consumable$lesserAntidote = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/BaseBPs/PrimalItemConsumable_CureLow.PrimalItemConsumable_CureLow\'', b: 'PrimalItemConsumable_CureLow_C', c: 100, Y: '解毒剤(弱)'};
+var $author$project$Ark$Consumable$longrass = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Veggie_Longrass.PrimalItemConsumable_Veggie_Longrass\'', b: 'PrimalItemConsumable_Veggie_Longrass_C', c: 100, Y: 'トウモロコシ'};
+var $author$project$Ark$Consumable$medicalBrew = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_HealSoup.PrimalItemConsumable_HealSoup\'', b: 'PrimalItemConsumable_HealSoup_C', c: 100, Y: 'メディカルブリュー'};
+var $author$project$Ark$Consumable$mejoberry = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Berry_Mejoberry.PrimalItemConsumable_Berry_Mejoberry\'', b: 'PrimalItemConsumable_Berry_Mejoberry_C', c: 100, Y: 'メジョベリー'};
+var $author$project$Ark$Consumable$mindwipeTonic = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/BaseBPs/PrimalItemConsumableRespecSoup.PrimalItemConsumableRespecSoup\'', b: 'PrimalItemConsumableRespecSoup_C', c: 100, Y: 'マインドワイプトニック'};
+var $author$project$Ark$Consumable$mushroomBrew = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Soup_MushroomSoup.PrimalItemConsumable_Soup_MushroomSoup\'', b: 'PrimalItemConsumable_Soup_MushroomSoup_C', c: 100, Y: 'マッシュルームブリュー'};
+var $author$project$Ark$Consumable$namelessVenom = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Resources/PrimalItemConsumable_NamelessVenom.PrimalItemConsumable_NamelessVenom\'', b: 'PrimalItemConsumable_NamelessVenom_C', c: 1, Y: 'ネームレスの毒'};
+var $author$project$Ark$Consumable$narcoberry = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Berry_Narcoberry.PrimalItemConsumable_Berry_Narcoberry\'', b: 'PrimalItemConsumable_Berry_Narcoberry_C', c: 100, Y: 'ナルコベリー'};
+var $author$project$Ark$Consumable$primeMeatJerky = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_CookedPrimeMeat_Jerky.PrimalItemConsumable_CookedPrimeMeat_Jerky\'', b: 'PrimalItemConsumable_CookedPrimeMeat_Jerky_C', c: 30, Y: '霜降り干し肉'};
+var $author$project$Ark$Consumable$rawFishMeat = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_RawMeat_Fish.PrimalItemConsumable_RawMeat_Fish\'', b: 'PrimalItemConsumable_RawMeat_Fish_C', c: 20, Y: '魚肉'};
+var $author$project$Ark$Consumable$rawMeat = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_RawMeat.PrimalItemConsumable_RawMeat\'', b: 'PrimalItemConsumable_RawMeat_C', c: 40, Y: '生肉'};
+var $author$project$Ark$Consumable$rawMutton = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_RawMutton.PrimalItemConsumable_RawMutton\'', b: 'PrimalItemConsumable_RawMutton_C', c: 1, Y: '羊肉'};
+var $author$project$Ark$Consumable$rawPrimeFishMeat = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_RawPrimeMeat_Fish.PrimalItemConsumable_RawPrimeMeat_Fish\'', b: 'PrimalItemConsumable_RawPrimeMeat_Fish_C', c: 1, Y: '大トロ'};
+var $author$project$Ark$Consumable$rawPrimeMeat = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_RawPrimeMeat.PrimalItemConsumable_RawPrimeMeat\'', b: 'PrimalItemConsumable_RawPrimeMeat_C', c: 1, Y: '霜降り肉'};
+var $author$project$Ark$Consumable$reaperPheromoneGland = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Resources/PrimalItemResource_XenomorphPheromoneGland.PrimalItemResource_XenomorphPheromoneGland\'', b: 'PrimalItemResource_XenomorphPheromoneGland_C', c: 100, Y: 'リーパーのフェロモン腺'};
+var $author$project$Ark$Consumable$regularAugmentedKibble = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_Medium_EX.PrimalItemConsumable_Kibble_Base_Medium_EX\'', b: 'PrimalItemConsumable_Kibble_Base_Medium_EX_C', c: 100, Y: '増強キブル(通常)'};
+var $author$project$Ark$Consumable$regularKibble = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_Medium.PrimalItemConsumable_Kibble_Base_Medium\'', b: 'PrimalItemConsumable_Kibble_Base_Medium_C', c: 100, Y: 'キブル(通常)'};
+var $author$project$Ark$Consumable$rockarrot = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Veggie_Rockarrot.PrimalItemConsumable_Veggie_Rockarrot\'', b: 'PrimalItemConsumable_Veggie_Rockarrot_C', c: 100, Y: 'ニンジン'};
+var $author$project$Ark$Consumable$savoroot = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Veggie_Savoroot.PrimalItemConsumable_Veggie_Savoroot\'', b: 'PrimalItemConsumable_Veggie_Savoroot_C', c: 100, Y: 'ジャガイモ'};
+var $author$project$Ark$Consumable$shadowSteakSaute = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Soup_ShadowSteak.PrimalItemConsumable_Soup_ShadowSteak\'', b: 'PrimalItemConsumable_Soup_ShadowSteak_C', c: 100, Y: 'シャドウステーキ'};
+var $author$project$Ark$Consumable$simpleAugmentedKibble = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_Small_EX.PrimalItemConsumable_Kibble_Base_Small_EX\'', b: 'PrimalItemConsumable_Kibble_Base_Small_EX_C', c: 100, Y: '増強キブル(簡易)'};
+var $author$project$Ark$Consumable$simpleKibble = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_Small.PrimalItemConsumable_Kibble_Base_Small\'', b: 'PrimalItemConsumable_Kibble_Base_Small_C', c: 100, Y: 'キブル(簡易)'};
+var $author$project$Ark$Consumable$soap = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/BaseBPs/PrimalItemConsumableSoap.PrimalItemConsumableSoap\'', b: 'PrimalItemConsumableSoap_C', c: 100, Y: '石鹸'};
+var $author$project$Ark$Consumable$spoiledMeat = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_SpoiledMeat.PrimalItemConsumable_SpoiledMeat\'', b: 'PrimalItemConsumable_SpoiledMeat_C', c: 100, Y: '腐った肉'};
+var $author$project$Ark$Consumable$stimberry = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Berry_Stimberry.PrimalItemConsumable_Berry_Stimberry\'', b: 'PrimalItemConsumable_Berry_Stimberry_C', c: 100, Y: 'スティムベリー'};
+var $author$project$Ark$Consumable$superiorAugmentedKibble = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_Large_EX.PrimalItemConsumable_Kibble_Base_Large_EX\'', b: 'PrimalItemConsumable_Kibble_Base_Large_EX_C', c: 100, Y: '増強キブル(優)'};
+var $author$project$Ark$Consumable$superiorKibble = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Kibble_Base_Large.PrimalItemConsumable_Kibble_Base_Large\'', b: 'PrimalItemConsumable_Kibble_Base_Large_C', c: 100, Y: 'キブル(優)'};
+var $author$project$Ark$Consumable$sweetVegetableCake = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_SweetVeggieCake.PrimalItemConsumable_SweetVeggieCake\'', b: 'PrimalItemConsumable_SweetVeggieCake_C', c: 10, Y: 'スイートベジタブルケーキ'};
+var $author$project$Ark$Consumable$tintoberry = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Berry_Tintoberry.PrimalItemConsumable_Berry_Tintoberry\'', b: 'PrimalItemConsumable_Berry_Tintoberry_C', c: 100, Y: 'ティントベリー'};
+var $author$project$Ark$Consumable$unassembledEnforcer = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Items/PrimalItem_Spawner_Enforcer.PrimalItem_Spawner_Enforcer\'', b: 'PrimalItem_Spawner_Enforcer_C', c: 1, Y: '未完成エンフォーサー'};
+var $author$project$Ark$Consumable$unassembledMek = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Items/PrimalItem_Spawner_Mek.PrimalItem_Spawner_Mek\'', b: 'PrimalItem_Spawner_Mek_C', c: 1, Y: '未完成MEK'};
+var $author$project$Ark$Consumable$waterJarEmpty = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_WaterJarCraftable.PrimalItemConsumable_WaterJarCraftable\'', b: 'PrimalItemConsumable_WaterJarCraftable_C', c: 1, Y: '水瓶(空)'};
+var $author$project$Ark$Consumable$waterJarFull = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_WaterJarRefill.PrimalItemConsumable_WaterJarRefill\'', b: 'PrimalItemConsumable_WaterJarRefill_C', c: 1, Y: '水瓶(フル)'};
+var $author$project$Ark$Consumable$waterskinEmpty = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_WaterskinCraftable.PrimalItemConsumable_WaterskinCraftable\'', b: 'PrimalItemConsumable_WaterskinCraftable_C', c: 1, Y: '皮袋(空)'};
+var $author$project$Ark$Consumable$waterskinFilled = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_WaterskinRefill.PrimalItemConsumable_WaterskinRefill\'', b: 'PrimalItemConsumable_WaterskinRefill_C', c: 1, Y: '皮袋(フル)'};
+var $author$project$Ark$Consumable$wyvernMilk = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/BaseBPs/PrimalItemConsumable_WyvernMilk.PrimalItemConsumable_WyvernMilk\'', b: 'PrimalItemConsumable_WyvernMilk_C', c: 1, Y: 'ワイバーンミルク'};
 var $author$project$Ark$Consumable$items = _List_fromArray(
 	[$author$project$Ark$Consumable$rawMeat, $author$project$Ark$Consumable$spoiledMeat, $author$project$Ark$Consumable$cookedMeat, $author$project$Ark$Consumable$rawPrimeMeat, $author$project$Ark$Consumable$cookedPrimeMeat, $author$project$Ark$Consumable$cookedMeatJerky, $author$project$Ark$Consumable$primeMeatJerky, $author$project$Ark$Consumable$rawFishMeat, $author$project$Ark$Consumable$cookedFishMeat, $author$project$Ark$Consumable$rawPrimeFishMeat, $author$project$Ark$Consumable$cookedPrimeFishMeat, $author$project$Ark$Consumable$rawMutton, $author$project$Ark$Consumable$cookedLambChop, $author$project$Ark$Consumable$filledFishBasket, $author$project$Ark$Consumable$wyvernMilk, $author$project$Ark$Consumable$amarberry, $author$project$Ark$Consumable$azulberry, $author$project$Ark$Consumable$mejoberry, $author$project$Ark$Consumable$narcoberry, $author$project$Ark$Consumable$stimberry, $author$project$Ark$Consumable$tintoberry, $author$project$Ark$Consumable$cactusSap, $author$project$Ark$Consumable$citronal, $author$project$Ark$Consumable$longrass, $author$project$Ark$Consumable$rockarrot, $author$project$Ark$Consumable$savoroot, $author$project$Ark$Consumable$aggeravicMushroom, $author$project$Ark$Consumable$aquaticMushroom, $author$project$Ark$Consumable$ascerbicMushroom, $author$project$Ark$Consumable$auricMushroom, $author$project$Ark$Consumable$mushroomBrew, $author$project$Ark$Consumable$waterskinEmpty, $author$project$Ark$Consumable$waterskinFilled, $author$project$Ark$Consumable$waterJarEmpty, $author$project$Ark$Consumable$waterJarFull, $author$project$Ark$Consumable$icedWaterJarEmpty, $author$project$Ark$Consumable$icedWaterJarFull, $author$project$Ark$Consumable$canteenEmpty, $author$project$Ark$Consumable$canteenFull, $author$project$Ark$Consumable$icedCanteenEmpty, $author$project$Ark$Consumable$icedCanteenFull, $author$project$Ark$Consumable$beerLiquid, $author$project$Ark$Consumable$beerJar, $author$project$Ark$Consumable$bioToxin, $author$project$Ark$Consumable$medicalBrew, $author$project$Ark$Consumable$energyBrew, $author$project$Ark$Consumable$battleTartare, $author$project$Ark$Consumable$brothofEnlightenment, $author$project$Ark$Consumable$bugRepellant, $author$project$Ark$Consumable$cactusBroth, $author$project$Ark$Consumable$calienSoup, $author$project$Ark$Consumable$enduroStew, $author$project$Ark$Consumable$focalChili, $author$project$Ark$Consumable$friaCurry, $author$project$Ark$Consumable$lazarusChowder, $author$project$Ark$Consumable$lesserAntidote, $author$project$Ark$Consumable$mindwipeTonic, $author$project$Ark$Consumable$shadowSteakSaute, $author$project$Ark$Consumable$soap, $author$project$Ark$Consumable$sweetVegetableCake, $author$project$Ark$Consumable$giantBeeHoney, $author$project$Ark$Consumable$basicKibble, $author$project$Ark$Consumable$simpleKibble, $author$project$Ark$Consumable$regularKibble, $author$project$Ark$Consumable$superiorKibble, $author$project$Ark$Consumable$exceptionalKibble, $author$project$Ark$Consumable$extraordinaryKibble, $author$project$Ark$Consumable$basicAugmentedKibble, $author$project$Ark$Consumable$simpleAugmentedKibble, $author$project$Ark$Consumable$regularAugmentedKibble, $author$project$Ark$Consumable$superiorAugmentedKibble, $author$project$Ark$Consumable$exceptionalAugmentedKibble, $author$project$Ark$Consumable$extraordinaryAugmentedKibble, $author$project$Ark$Consumable$evilEmote, $author$project$Ark$Consumable$gachaCrystal, $author$project$Ark$Consumable$unassembledEnforcer, $author$project$Ark$Consumable$unassembledMek, $author$project$Ark$Consumable$namelessVenom, $author$project$Ark$Consumable$reaperPheromoneGland]);
-var $author$project$Ark$Resource$absorbentSubstrate = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_SubstrateAbsorbent.PrimalItemResource_SubstrateAbsorbent\'', b: 'PrimalItemResource_SubstrateAbsorbent_C', c: 100, d: '吸収性基材'};
-var $author$project$Ark$Resource$achatinaPaste = {a: 'Blueprint\'/Game/PrimalEarth/Dinos/Achatina/PrimalItemResource_SnailPaste.PrimalItemResource_SnailPaste\'', b: 'PrimalItemResource_SnailPaste_C', c: 100, d: 'アフリカマイマイの分泌物'};
-var $author$project$Ark$Resource$ambergris = {a: 'Blueprint\'/Game/Genesis/Dinos/SpaceWhale/PrimalItemResource_Ambergris.PrimalItemResource_Ambergris\'', b: 'PrimalItemResource_Ambergris_C', c: 1, d: 'アンバーグリス'};
-var $author$project$Ark$Resource$ammoniteBile = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_AmmoniteBlood.PrimalItemResource_AmmoniteBlood\'', b: 'PrimalItemResource_AmmoniteBlood_C', c: 50, d: 'アンモナイトの胆汁'};
-var $author$project$Ark$Resource$anglerGel = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_AnglerGel.PrimalItemResource_AnglerGel\'', b: 'PrimalItemResource_AnglerGel_C', c: 100, d: 'アンコウのジェル'};
-var $author$project$Ark$Resource$blackPearl = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_BlackPearl.PrimalItemResource_BlackPearl\'', b: 'PrimalItemResource_BlackPearl_C', c: 200, d: '黒真珠'};
-var $author$project$Ark$Resource$bloodPack = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_BloodPack.PrimalItemConsumable_BloodPack\'', b: 'PrimalItemConsumable_BloodPack_C', c: 100, d: '血液パック'};
-var $author$project$Ark$Resource$blueCrystalizedSap = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_BlueSap.PrimalItemResource_BlueSap\'', b: 'PrimalItemResource_BlueSap_C', c: 100, d: '結晶化した青い樹液'};
-var $author$project$Ark$Resource$blueGem = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Resources/PrimalItemResource_Gem_BioLum.PrimalItemResource_Gem_BioLum\'', b: 'PrimalItemResource_Gem_BioLum_C', c: 100, d: '青い宝石'};
-var $author$project$Ark$Resource$cementingPaste = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_ChitinPaste.PrimalItemResource_ChitinPaste\'', b: 'PrimalItemResource_ChitinPaste_C', c: 100, d: 'セメント'};
-var $author$project$Ark$Resource$charcoal = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Charcoal.PrimalItemResource_Charcoal\'', b: 'PrimalItemResource_Charcoal_C', c: 100, d: '木炭'};
-var $author$project$Ark$Resource$chargeBattery = {a: 'Blueprint\'/Game/Aberration/WeaponGlowStickCharge/PrimalItem_ChargeBattery.PrimalItem_ChargeBattery\'', b: 'PrimalItem_ChargeBattery_C', c: 1, d: '充電式バッテリー'};
-var $author$project$Ark$Resource$chitin = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Chitin.PrimalItemResource_Chitin\'', b: 'PrimalItemResource_Chitin_C', c: 100, d: 'キチン'};
-var $author$project$Ark$Resource$clay = {a: 'Blueprint\'/Game/ScorchedEarth/CoreBlueprints/Resources/PrimalItemResource_Clay.PrimalItemResource_Clay\'', b: 'PrimalItemResource_Clay_C', c: 100, d: '粘土'};
-var $author$project$Ark$Resource$condensedGas = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_CondensedGas.PrimalItemResource_CondensedGas\'', b: 'PrimalItemResource_CondensedGas_C', c: 100, d: '濃縮されたガス'};
-var $author$project$Ark$Resource$congealedGasBall = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Resources/PrimalItemResource_Gas.PrimalItemResource_Gas\'', b: 'PrimalItemResource_Gas_C', c: 100, d: '凝固ガスボール'};
-var $author$project$Ark$Resource$corruptedNodule = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_CorruptedPolymer.PrimalItemResource_CorruptedPolymer\'', b: 'PrimalItemResource_CorruptedPolymer_C', c: 10, d: '汚染された小瘤'};
-var $author$project$Ark$Resource$corruptedWood = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_CorruptedWood.PrimalItemResource_CorruptedWood\'', b: 'PrimalItemResource_CorruptedWood_C', c: 100, d: 'Corrupted Wood'};
-var $author$project$Ark$Resource$craftedElementDust = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_ElementDustFromShards.PrimalItemResource_ElementDustFromShards\'', b: 'PrimalItemResource_ElementDustFromShards_C', c: 1000, d: 'Crafted Element Dust'};
-var $author$project$Ark$Resource$crystal = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Crystal.PrimalItemResource_Crystal\'', b: 'PrimalItemResource_Crystal_C', c: 100, d: '水晶'};
-var $author$project$Ark$Resource$dermis = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Items/PrimalItem_TaxidermyDermis.PrimalItem_TaxidermyDermis\'', b: 'PrimalItem_TaxidermyDermis_C', c: 1, d: '真皮'};
-var $author$project$Ark$Resource$dinosaurBone = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_ARKBone.PrimalItemResource_ARKBone\'', b: 'PrimalItemResource_ARKBone_C', c: 200, d: '恐竜の骨'};
-var $author$project$Ark$Resource$electronics = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Electronics.PrimalItemResource_Electronics\'', b: 'PrimalItemResource_Electronics_C', c: 100, d: '電子基板'};
-var $author$project$Ark$Resource$element = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Element.PrimalItemResource_Element\'', b: 'PrimalItemResource_Element_C', c: 100, d: 'エレメント'};
-var $author$project$Ark$Resource$elementDust = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_ElementDust.PrimalItemResource_ElementDust\'', b: 'PrimalItemResource_ElementDust_C', c: 1000, d: 'Element Dust'};
-var $author$project$Ark$Resource$elementOre = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Resources/PrimalItemResource_ElementOre.PrimalItemResource_ElementOre\'', b: 'PrimalItemResource_ElementOre_C', c: 100, d: 'エレメント鉱石'};
-var $author$project$Ark$Resource$elementShard = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_ElementShard.PrimalItemResource_ElementShard\'', b: 'PrimalItemResource_ElementShard_C', c: 1000, d: 'エレメントシャード'};
-var $author$project$Ark$Resource$fertilizer = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Fertilizer_Compost.PrimalItemConsumable_Fertilizer_Compost\'', b: 'PrimalItemConsumable_Fertilizer_Compost_C', c: 1, d: '肥料'};
-var $author$project$Ark$Resource$fiber = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Fibers.PrimalItemResource_Fibers\'', b: 'PrimalItemResource_Fibers_C', c: 300, d: '繊維'};
-var $author$project$Ark$Resource$flint = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Flint.PrimalItemResource_Flint\'', b: 'PrimalItemResource_Flint_C', c: 100, d: '火打石'};
-var $author$project$Ark$Resource$fragmentedGreenGem = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_FracturedGem.PrimalItemResource_FracturedGem\'', b: 'PrimalItemResource_FracturedGem_C', c: 100, d: '緑の宝石のかけら'};
-var $author$project$Ark$Resource$fungalWood = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Resources/PrimalItemResource_FungalWood.PrimalItemResource_FungalWood\'', b: 'PrimalItemResource_FungalWood_C', c: 100, d: '真菌のきのこ'};
-var $author$project$Ark$Resource$gasoline = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Gasoline.PrimalItemResource_Gasoline\'', b: 'PrimalItemResource_Gasoline_C', c: 100, d: 'ガソリン'};
-var $author$project$Ark$Resource$goldenNugget = {a: 'Blueprint\'/Game/Genesis/Missions/Retrieve/RetrieveItems/GoldenNugget/PrimalItemResource_GoldenNugget.PrimalItemResource_GoldenNugget\'', b: 'PrimalItemResource_GoldenNugget_C', c: 1, d: 'ゴールデン・ナゲット'};
-var $author$project$Ark$Resource$greenGem = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Resources/PrimalItemResource_Gem_Fertile.PrimalItemResource_Gem_Fertile\'', b: 'PrimalItemResource_Gem_Fertile_C', c: 100, d: '緑の宝石'};
-var $author$project$Ark$Resource$gunpowder = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Gunpowder.PrimalItemResource_Gunpowder\'', b: 'PrimalItemResource_Gunpowder_C', c: 100, d: '火薬'};
-var $author$project$Ark$Resource$hide = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Hide.PrimalItemResource_Hide\'', b: 'PrimalItemResource_Hide_C', c: 200, d: '皮'};
-var $author$project$Ark$Resource$highQualityPollen = {a: 'Blueprint\'/Game/Genesis/Missions/Retrieve/RetrieveItems/HighQualityPollen/PrimalItemResource_HighQualityPollen.PrimalItemResource_HighQualityPollen\'', b: 'PrimalItemResource_HighQualityPollen_C', c: 1, d: '高品質の花粉'};
-var $author$project$Ark$Resource$humanHair = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Hair.PrimalItemResource_Hair\'', b: 'PrimalItemResource_Hair_C', c: 200, d: '髪の毛'};
-var $author$project$Ark$Resource$keratin = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Keratin.PrimalItemResource_Keratin\'', b: 'PrimalItemResource_Keratin_C', c: 100, d: 'ケラチン'};
-var $author$project$Ark$Resource$leechBlood = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_LeechBlood.PrimalItemResource_LeechBlood\'', b: 'PrimalItemResource_LeechBlood_C', c: 50, d: 'ヒルの血液'};
-var $author$project$Ark$Resource$metal = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Metal.PrimalItemResource_Metal\'', b: 'PrimalItemResource_Metal_C', c: 200, d: '金属鉱石'};
-var $author$project$Ark$Resource$metalIngot = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_MetalIngot.PrimalItemResource_MetalIngot\'', b: 'PrimalItemResource_MetalIngot_C', c: 200, d: '金属のインゴット'};
-var $author$project$Ark$Resource$mutagel = {a: 'Blueprint\'/Game/Genesis2/CoreBlueprints/Environment/Mutagen/PrimalItemConsumable_Mutagel.PrimalItemConsumable_Mutagel\'', b: 'PrimalItemConsumable_Mutagel_C', c: 100, d: '変異ゲル'};
-var $author$project$Ark$Resource$mutagen = {a: 'Blueprint\'/Game/Genesis2/CoreBlueprints/Environment/Mutagen/PrimalItemConsumable_Mutagen.PrimalItemConsumable_Mutagen\'', b: 'PrimalItemConsumable_Mutagen_C', c: 100, d: '変異原'};
-var $author$project$Ark$Resource$narcotic = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Narcotic.PrimalItemConsumable_Narcotic\'', b: 'PrimalItemConsumable_Narcotic_C', c: 100, d: '麻酔薬'};
-var $author$project$Ark$Resource$obsidian = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Obsidian.PrimalItemResource_Obsidian\'', b: 'PrimalItemResource_Obsidian_C', c: 100, d: '黒曜石'};
-var $author$project$Ark$Resource$oil = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Oil.PrimalItemResource_Oil\'', b: 'PrimalItemResource_Oil_C', c: 100, d: '原油'};
-var $author$project$Ark$Resource$oilTusoteuthis = {a: 'Blueprint\'/Game/PrimalEarth/Dinos/Tusoteuthis/PrimalItemResource_SquidOil.PrimalItemResource_SquidOil\'', b: 'PrimalItemResource_SquidOil_C', c: 100, d: '原油(トゥソテウティス)'};
-var $author$project$Ark$Resource$organicPolymer = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Polymer_Organic.PrimalItemResource_Polymer_Organic\'', b: 'PrimalItemResource_Polymer_Organic_C', c: 20, d: '有機ポリマー'};
-var $author$project$Ark$Resource$pelt = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Pelt.PrimalItemResource_Pelt\'', b: 'PrimalItemResource_Pelt_C', c: 200, d: '毛皮'};
-var $author$project$Ark$Resource$polymer = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Polymer.PrimalItemResource_Polymer\'', b: 'PrimalItemResource_Polymer_C', c: 100, d: 'ポリマー'};
-var $author$project$Ark$Resource$preservingSalt = {a: 'Blueprint\'/Game/ScorchedEarth/CoreBlueprints/Resources/PrimalItemResource_PreservingSalt.PrimalItemResource_PreservingSalt\'', b: 'PrimalItemResource_PreservingSalt_C', c: 6, d: '食料保存塩'};
-var $author$project$Ark$Resource$primalCrystal = {a: 'Blueprint\'/Game/PrimalEarth/Dinos/CrystalWyvern/CrystalResources/Primal/PrimalItemResource_Crystal_IslesPrimal.PrimalItemResource_Crystal_IslesPrimal\'', b: 'PrimalItemResource_Crystal_IslesPrimal_C', c: 1, d: 'プライマル・クリスタル'};
-var $author$project$Ark$Resource$propellant = {a: 'Blueprint\'/Game/ScorchedEarth/CoreBlueprints/Resources/PrimalItemResource_Propellant.PrimalItemResource_Propellant\'', b: 'PrimalItemResource_Propellant_C', c: 100, d: '推進剤'};
-var $author$project$Ark$Resource$rareFlower = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_RareFlower.PrimalItemResource_RareFlower\'', b: 'PrimalItemResource_RareFlower_C', c: 100, d: 'レアフラワー'};
-var $author$project$Ark$Resource$rawSalt = {a: 'Blueprint\'/Game/ScorchedEarth/CoreBlueprints/Resources/PrimalItemResource_RawSalt.PrimalItemResource_RawSalt\'', b: 'PrimalItemResource_RawSalt_C', c: 100, d: '塩'};
-var $author$project$Ark$Resource$reFertilizer = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/BaseBPs/PrimalItemConsumableMiracleGro.PrimalItemConsumableMiracleGro\'', b: 'PrimalItemConsumableMiracleGro_C', c: 100, d: '再生肥料'};
-var $author$project$Ark$Resource$redCrystalizedSap = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_RedSap.PrimalItemResource_RedSap\'', b: 'PrimalItemResource_RedSap_C', c: 100, d: '結晶化した赤い樹液'};
-var $author$project$Ark$Resource$redGem = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Resources/PrimalItemResource_Gem_Element.PrimalItemResource_Gem_Element\'', b: 'PrimalItemResource_Gem_Element_C', c: 100, d: '赤い宝石'};
-var $author$project$Ark$Resource$sand = {a: 'Blueprint\'/Game/ScorchedEarth/CoreBlueprints/Resources/PrimalItemResource_Sand.PrimalItemResource_Sand\'', b: 'PrimalItemResource_Sand_C', c: 100, d: '砂'};
-var $author$project$Ark$Resource$sap = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Sap.PrimalItemResource_Sap\'', b: 'PrimalItemResource_Sap_C', c: 30, d: '樹液'};
-var $author$project$Ark$Resource$scrapMetal = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_ScrapMetal.PrimalItemResource_ScrapMetal\'', b: 'PrimalItemResource_ScrapMetal_C', c: 200, d: 'くず鉄'};
-var $author$project$Ark$Resource$scrapMetalIngot = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_ScrapMetalIngot.PrimalItemResource_ScrapMetalIngot\'', b: 'PrimalItemResource_ScrapMetalIngot_C', c: 200, d: 'くず鉄のインゴット'};
-var $author$project$Ark$Resource$shellFragment = {a: 'Blueprint\'/Game/Genesis/CoreBlueprints/Resources/PrimalItemResource_TurtleShell.PrimalItemResource_TurtleShell\'', b: 'PrimalItemResource_TurtleShell_C', c: 100, d: 'シェル・フラグメント'};
-var $author$project$Ark$Resource$silicaPearls = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Silicon.PrimalItemResource_Silicon\'', b: 'PrimalItemResource_Silicon_C', c: 100, d: 'シリカ真珠'};
-var $author$project$Ark$Resource$silicate = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_Silicate.PrimalItemResource_Silicate\'', b: 'PrimalItemResource_Silicate_C', c: 100, d: 'ケイ酸塩'};
-var $author$project$Ark$Resource$silk = {a: 'Blueprint\'/Game/ScorchedEarth/CoreBlueprints/Resources/PrimalItemResource_Silk.PrimalItemResource_Silk\'', b: 'PrimalItemResource_Silk_C', c: 200, d: '絹'};
-var $author$project$Ark$Resource$sparkpowder = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Sparkpowder.PrimalItemResource_Sparkpowder\'', b: 'PrimalItemResource_Sparkpowder_C', c: 100, d: '発火粉'};
-var $author$project$Ark$Resource$stimulant = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Stimulant.PrimalItemConsumable_Stimulant\'', b: 'PrimalItemConsumable_Stimulant_C', c: 100, d: '興奮剤'};
-var $author$project$Ark$Resource$stone = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Stone.PrimalItemResource_Stone\'', b: 'PrimalItemResource_Stone_C', c: 100, d: '石'};
-var $author$project$Ark$Resource$sulfur = {a: 'Blueprint\'/Game/ScorchedEarth/CoreBlueprints/Resources/PrimalItemResource_Sulfur.PrimalItemResource_Sulfur\'', b: 'PrimalItemResource_Sulfur_C', c: 100, d: '硫黄'};
-var $author$project$Ark$Resource$thatch = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Thatch.PrimalItemResource_Thatch\'', b: 'PrimalItemResource_Thatch_C', c: 200, d: 'わら'};
-var $author$project$Ark$Resource$unstableElement = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_ElementRefined.PrimalItemResource_ElementRefined\'', b: 'PrimalItemResource_ElementRefined_C', c: 1, d: '不安定なエレメント'};
-var $author$project$Ark$Resource$unstableElementShard = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_ShardRefined.PrimalItemResource_ShardRefined\'', b: 'PrimalItemResource_ShardRefined_C', c: 1, d: '不安定なエレメントシャード'};
-var $author$project$Ark$Resource$wood = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Wood.PrimalItemResource_Wood\'', b: 'PrimalItemResource_Wood_C', c: 100, d: '木材'};
-var $author$project$Ark$Resource$wool = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Wool.PrimalItemResource_Wool\'', b: 'PrimalItemResource_Wool_C', c: 200, d: '羊毛'};
+var $author$project$Ark$Resource$absorbentSubstrate = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_SubstrateAbsorbent.PrimalItemResource_SubstrateAbsorbent\'', b: 'PrimalItemResource_SubstrateAbsorbent_C', c: 100, Y: '吸収性基材'};
+var $author$project$Ark$Resource$achatinaPaste = {a: 'Blueprint\'/Game/PrimalEarth/Dinos/Achatina/PrimalItemResource_SnailPaste.PrimalItemResource_SnailPaste\'', b: 'PrimalItemResource_SnailPaste_C', c: 100, Y: 'アフリカマイマイの分泌物'};
+var $author$project$Ark$Resource$ambergris = {a: 'Blueprint\'/Game/Genesis/Dinos/SpaceWhale/PrimalItemResource_Ambergris.PrimalItemResource_Ambergris\'', b: 'PrimalItemResource_Ambergris_C', c: 1, Y: 'アンバーグリス'};
+var $author$project$Ark$Resource$ammoniteBile = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_AmmoniteBlood.PrimalItemResource_AmmoniteBlood\'', b: 'PrimalItemResource_AmmoniteBlood_C', c: 50, Y: 'アンモナイトの胆汁'};
+var $author$project$Ark$Resource$anglerGel = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_AnglerGel.PrimalItemResource_AnglerGel\'', b: 'PrimalItemResource_AnglerGel_C', c: 100, Y: 'アンコウのジェル'};
+var $author$project$Ark$Resource$blackPearl = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_BlackPearl.PrimalItemResource_BlackPearl\'', b: 'PrimalItemResource_BlackPearl_C', c: 200, Y: '黒真珠'};
+var $author$project$Ark$Resource$bloodPack = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_BloodPack.PrimalItemConsumable_BloodPack\'', b: 'PrimalItemConsumable_BloodPack_C', c: 100, Y: '血液パック'};
+var $author$project$Ark$Resource$blueCrystalizedSap = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_BlueSap.PrimalItemResource_BlueSap\'', b: 'PrimalItemResource_BlueSap_C', c: 100, Y: '結晶化した青い樹液'};
+var $author$project$Ark$Resource$blueGem = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Resources/PrimalItemResource_Gem_BioLum.PrimalItemResource_Gem_BioLum\'', b: 'PrimalItemResource_Gem_BioLum_C', c: 100, Y: '青い宝石'};
+var $author$project$Ark$Resource$cementingPaste = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_ChitinPaste.PrimalItemResource_ChitinPaste\'', b: 'PrimalItemResource_ChitinPaste_C', c: 100, Y: 'セメント'};
+var $author$project$Ark$Resource$charcoal = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Charcoal.PrimalItemResource_Charcoal\'', b: 'PrimalItemResource_Charcoal_C', c: 100, Y: '木炭'};
+var $author$project$Ark$Resource$chargeBattery = {a: 'Blueprint\'/Game/Aberration/WeaponGlowStickCharge/PrimalItem_ChargeBattery.PrimalItem_ChargeBattery\'', b: 'PrimalItem_ChargeBattery_C', c: 1, Y: '充電式バッテリー'};
+var $author$project$Ark$Resource$chitin = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Chitin.PrimalItemResource_Chitin\'', b: 'PrimalItemResource_Chitin_C', c: 100, Y: 'キチン'};
+var $author$project$Ark$Resource$clay = {a: 'Blueprint\'/Game/ScorchedEarth/CoreBlueprints/Resources/PrimalItemResource_Clay.PrimalItemResource_Clay\'', b: 'PrimalItemResource_Clay_C', c: 100, Y: '粘土'};
+var $author$project$Ark$Resource$condensedGas = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_CondensedGas.PrimalItemResource_CondensedGas\'', b: 'PrimalItemResource_CondensedGas_C', c: 100, Y: '濃縮されたガス'};
+var $author$project$Ark$Resource$congealedGasBall = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Resources/PrimalItemResource_Gas.PrimalItemResource_Gas\'', b: 'PrimalItemResource_Gas_C', c: 100, Y: '凝固ガスボール'};
+var $author$project$Ark$Resource$corruptedNodule = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_CorruptedPolymer.PrimalItemResource_CorruptedPolymer\'', b: 'PrimalItemResource_CorruptedPolymer_C', c: 10, Y: '汚染された小瘤'};
+var $author$project$Ark$Resource$corruptedWood = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_CorruptedWood.PrimalItemResource_CorruptedWood\'', b: 'PrimalItemResource_CorruptedWood_C', c: 100, Y: 'Corrupted Wood'};
+var $author$project$Ark$Resource$craftedElementDust = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_ElementDustFromShards.PrimalItemResource_ElementDustFromShards\'', b: 'PrimalItemResource_ElementDustFromShards_C', c: 1000, Y: 'Crafted Element Dust'};
+var $author$project$Ark$Resource$crystal = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Crystal.PrimalItemResource_Crystal\'', b: 'PrimalItemResource_Crystal_C', c: 100, Y: '水晶'};
+var $author$project$Ark$Resource$dermis = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Items/PrimalItem_TaxidermyDermis.PrimalItem_TaxidermyDermis\'', b: 'PrimalItem_TaxidermyDermis_C', c: 1, Y: '真皮'};
+var $author$project$Ark$Resource$dinosaurBone = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_ARKBone.PrimalItemResource_ARKBone\'', b: 'PrimalItemResource_ARKBone_C', c: 200, Y: '恐竜の骨'};
+var $author$project$Ark$Resource$electronics = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Electronics.PrimalItemResource_Electronics\'', b: 'PrimalItemResource_Electronics_C', c: 100, Y: '電子基板'};
+var $author$project$Ark$Resource$element = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Element.PrimalItemResource_Element\'', b: 'PrimalItemResource_Element_C', c: 100, Y: 'エレメント'};
+var $author$project$Ark$Resource$elementDust = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_ElementDust.PrimalItemResource_ElementDust\'', b: 'PrimalItemResource_ElementDust_C', c: 1000, Y: 'Element Dust'};
+var $author$project$Ark$Resource$elementOre = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Resources/PrimalItemResource_ElementOre.PrimalItemResource_ElementOre\'', b: 'PrimalItemResource_ElementOre_C', c: 100, Y: 'エレメント鉱石'};
+var $author$project$Ark$Resource$elementShard = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_ElementShard.PrimalItemResource_ElementShard\'', b: 'PrimalItemResource_ElementShard_C', c: 1000, Y: 'エレメントシャード'};
+var $author$project$Ark$Resource$fertilizer = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Fertilizer_Compost.PrimalItemConsumable_Fertilizer_Compost\'', b: 'PrimalItemConsumable_Fertilizer_Compost_C', c: 1, Y: '肥料'};
+var $author$project$Ark$Resource$fiber = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Fibers.PrimalItemResource_Fibers\'', b: 'PrimalItemResource_Fibers_C', c: 300, Y: '繊維'};
+var $author$project$Ark$Resource$flint = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Flint.PrimalItemResource_Flint\'', b: 'PrimalItemResource_Flint_C', c: 100, Y: '火打石'};
+var $author$project$Ark$Resource$fragmentedGreenGem = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_FracturedGem.PrimalItemResource_FracturedGem\'', b: 'PrimalItemResource_FracturedGem_C', c: 100, Y: '緑の宝石のかけら'};
+var $author$project$Ark$Resource$fungalWood = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Resources/PrimalItemResource_FungalWood.PrimalItemResource_FungalWood\'', b: 'PrimalItemResource_FungalWood_C', c: 100, Y: '真菌のきのこ'};
+var $author$project$Ark$Resource$gasoline = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Gasoline.PrimalItemResource_Gasoline\'', b: 'PrimalItemResource_Gasoline_C', c: 100, Y: 'ガソリン'};
+var $author$project$Ark$Resource$goldenNugget = {a: 'Blueprint\'/Game/Genesis/Missions/Retrieve/RetrieveItems/GoldenNugget/PrimalItemResource_GoldenNugget.PrimalItemResource_GoldenNugget\'', b: 'PrimalItemResource_GoldenNugget_C', c: 1, Y: 'ゴールデン・ナゲット'};
+var $author$project$Ark$Resource$greenGem = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Resources/PrimalItemResource_Gem_Fertile.PrimalItemResource_Gem_Fertile\'', b: 'PrimalItemResource_Gem_Fertile_C', c: 100, Y: '緑の宝石'};
+var $author$project$Ark$Resource$gunpowder = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Gunpowder.PrimalItemResource_Gunpowder\'', b: 'PrimalItemResource_Gunpowder_C', c: 100, Y: '火薬'};
+var $author$project$Ark$Resource$hide = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Hide.PrimalItemResource_Hide\'', b: 'PrimalItemResource_Hide_C', c: 200, Y: '皮'};
+var $author$project$Ark$Resource$highQualityPollen = {a: 'Blueprint\'/Game/Genesis/Missions/Retrieve/RetrieveItems/HighQualityPollen/PrimalItemResource_HighQualityPollen.PrimalItemResource_HighQualityPollen\'', b: 'PrimalItemResource_HighQualityPollen_C', c: 1, Y: '高品質の花粉'};
+var $author$project$Ark$Resource$humanHair = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Hair.PrimalItemResource_Hair\'', b: 'PrimalItemResource_Hair_C', c: 200, Y: '髪の毛'};
+var $author$project$Ark$Resource$keratin = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Keratin.PrimalItemResource_Keratin\'', b: 'PrimalItemResource_Keratin_C', c: 100, Y: 'ケラチン'};
+var $author$project$Ark$Resource$leechBlood = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_LeechBlood.PrimalItemResource_LeechBlood\'', b: 'PrimalItemResource_LeechBlood_C', c: 50, Y: 'ヒルの血液'};
+var $author$project$Ark$Resource$metal = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Metal.PrimalItemResource_Metal\'', b: 'PrimalItemResource_Metal_C', c: 200, Y: '金属鉱石'};
+var $author$project$Ark$Resource$metalIngot = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_MetalIngot.PrimalItemResource_MetalIngot\'', b: 'PrimalItemResource_MetalIngot_C', c: 200, Y: '金属のインゴット'};
+var $author$project$Ark$Resource$mutagel = {a: 'Blueprint\'/Game/Genesis2/CoreBlueprints/Environment/Mutagen/PrimalItemConsumable_Mutagel.PrimalItemConsumable_Mutagel\'', b: 'PrimalItemConsumable_Mutagel_C', c: 100, Y: '変異ゲル'};
+var $author$project$Ark$Resource$mutagen = {a: 'Blueprint\'/Game/Genesis2/CoreBlueprints/Environment/Mutagen/PrimalItemConsumable_Mutagen.PrimalItemConsumable_Mutagen\'', b: 'PrimalItemConsumable_Mutagen_C', c: 100, Y: '変異原'};
+var $author$project$Ark$Resource$narcotic = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Narcotic.PrimalItemConsumable_Narcotic\'', b: 'PrimalItemConsumable_Narcotic_C', c: 100, Y: '麻酔薬'};
+var $author$project$Ark$Resource$obsidian = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Obsidian.PrimalItemResource_Obsidian\'', b: 'PrimalItemResource_Obsidian_C', c: 100, Y: '黒曜石'};
+var $author$project$Ark$Resource$oil = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Oil.PrimalItemResource_Oil\'', b: 'PrimalItemResource_Oil_C', c: 100, Y: '原油'};
+var $author$project$Ark$Resource$oilTusoteuthis = {a: 'Blueprint\'/Game/PrimalEarth/Dinos/Tusoteuthis/PrimalItemResource_SquidOil.PrimalItemResource_SquidOil\'', b: 'PrimalItemResource_SquidOil_C', c: 100, Y: '原油(トゥソテウティス)'};
+var $author$project$Ark$Resource$organicPolymer = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Polymer_Organic.PrimalItemResource_Polymer_Organic\'', b: 'PrimalItemResource_Polymer_Organic_C', c: 20, Y: '有機ポリマー'};
+var $author$project$Ark$Resource$pelt = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Pelt.PrimalItemResource_Pelt\'', b: 'PrimalItemResource_Pelt_C', c: 200, Y: '毛皮'};
+var $author$project$Ark$Resource$polymer = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Polymer.PrimalItemResource_Polymer\'', b: 'PrimalItemResource_Polymer_C', c: 100, Y: 'ポリマー'};
+var $author$project$Ark$Resource$preservingSalt = {a: 'Blueprint\'/Game/ScorchedEarth/CoreBlueprints/Resources/PrimalItemResource_PreservingSalt.PrimalItemResource_PreservingSalt\'', b: 'PrimalItemResource_PreservingSalt_C', c: 6, Y: '食料保存塩'};
+var $author$project$Ark$Resource$primalCrystal = {a: 'Blueprint\'/Game/PrimalEarth/Dinos/CrystalWyvern/CrystalResources/Primal/PrimalItemResource_Crystal_IslesPrimal.PrimalItemResource_Crystal_IslesPrimal\'', b: 'PrimalItemResource_Crystal_IslesPrimal_C', c: 1, Y: 'プライマル・クリスタル'};
+var $author$project$Ark$Resource$propellant = {a: 'Blueprint\'/Game/ScorchedEarth/CoreBlueprints/Resources/PrimalItemResource_Propellant.PrimalItemResource_Propellant\'', b: 'PrimalItemResource_Propellant_C', c: 100, Y: '推進剤'};
+var $author$project$Ark$Resource$rareFlower = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_RareFlower.PrimalItemResource_RareFlower\'', b: 'PrimalItemResource_RareFlower_C', c: 100, Y: 'レアフラワー'};
+var $author$project$Ark$Resource$rawSalt = {a: 'Blueprint\'/Game/ScorchedEarth/CoreBlueprints/Resources/PrimalItemResource_RawSalt.PrimalItemResource_RawSalt\'', b: 'PrimalItemResource_RawSalt_C', c: 100, Y: '塩'};
+var $author$project$Ark$Resource$reFertilizer = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/BaseBPs/PrimalItemConsumableMiracleGro.PrimalItemConsumableMiracleGro\'', b: 'PrimalItemConsumableMiracleGro_C', c: 100, Y: '再生肥料'};
+var $author$project$Ark$Resource$redCrystalizedSap = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_RedSap.PrimalItemResource_RedSap\'', b: 'PrimalItemResource_RedSap_C', c: 100, Y: '結晶化した赤い樹液'};
+var $author$project$Ark$Resource$redGem = {a: 'Blueprint\'/Game/Aberration/CoreBlueprints/Resources/PrimalItemResource_Gem_Element.PrimalItemResource_Gem_Element\'', b: 'PrimalItemResource_Gem_Element_C', c: 100, Y: '赤い宝石'};
+var $author$project$Ark$Resource$sand = {a: 'Blueprint\'/Game/ScorchedEarth/CoreBlueprints/Resources/PrimalItemResource_Sand.PrimalItemResource_Sand\'', b: 'PrimalItemResource_Sand_C', c: 100, Y: '砂'};
+var $author$project$Ark$Resource$sap = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Sap.PrimalItemResource_Sap\'', b: 'PrimalItemResource_Sap_C', c: 30, Y: '樹液'};
+var $author$project$Ark$Resource$scrapMetal = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_ScrapMetal.PrimalItemResource_ScrapMetal\'', b: 'PrimalItemResource_ScrapMetal_C', c: 200, Y: 'くず鉄'};
+var $author$project$Ark$Resource$scrapMetalIngot = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_ScrapMetalIngot.PrimalItemResource_ScrapMetalIngot\'', b: 'PrimalItemResource_ScrapMetalIngot_C', c: 200, Y: 'くず鉄のインゴット'};
+var $author$project$Ark$Resource$shellFragment = {a: 'Blueprint\'/Game/Genesis/CoreBlueprints/Resources/PrimalItemResource_TurtleShell.PrimalItemResource_TurtleShell\'', b: 'PrimalItemResource_TurtleShell_C', c: 100, Y: 'シェル・フラグメント'};
+var $author$project$Ark$Resource$silicaPearls = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Silicon.PrimalItemResource_Silicon\'', b: 'PrimalItemResource_Silicon_C', c: 100, Y: 'シリカ真珠'};
+var $author$project$Ark$Resource$silicate = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_Silicate.PrimalItemResource_Silicate\'', b: 'PrimalItemResource_Silicate_C', c: 100, Y: 'ケイ酸塩'};
+var $author$project$Ark$Resource$silk = {a: 'Blueprint\'/Game/ScorchedEarth/CoreBlueprints/Resources/PrimalItemResource_Silk.PrimalItemResource_Silk\'', b: 'PrimalItemResource_Silk_C', c: 200, Y: '絹'};
+var $author$project$Ark$Resource$sparkpowder = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Sparkpowder.PrimalItemResource_Sparkpowder\'', b: 'PrimalItemResource_Sparkpowder_C', c: 100, Y: '発火粉'};
+var $author$project$Ark$Resource$stimulant = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/PrimalItemConsumable_Stimulant.PrimalItemConsumable_Stimulant\'', b: 'PrimalItemConsumable_Stimulant_C', c: 100, Y: '興奮剤'};
+var $author$project$Ark$Resource$stone = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Stone.PrimalItemResource_Stone\'', b: 'PrimalItemResource_Stone_C', c: 100, Y: '石'};
+var $author$project$Ark$Resource$sulfur = {a: 'Blueprint\'/Game/ScorchedEarth/CoreBlueprints/Resources/PrimalItemResource_Sulfur.PrimalItemResource_Sulfur\'', b: 'PrimalItemResource_Sulfur_C', c: 100, Y: '硫黄'};
+var $author$project$Ark$Resource$thatch = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Thatch.PrimalItemResource_Thatch\'', b: 'PrimalItemResource_Thatch_C', c: 200, Y: 'わら'};
+var $author$project$Ark$Resource$unstableElement = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_ElementRefined.PrimalItemResource_ElementRefined\'', b: 'PrimalItemResource_ElementRefined_C', c: 1, Y: '不安定なエレメント'};
+var $author$project$Ark$Resource$unstableElementShard = {a: 'Blueprint\'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_ShardRefined.PrimalItemResource_ShardRefined\'', b: 'PrimalItemResource_ShardRefined_C', c: 1, Y: '不安定なエレメントシャード'};
+var $author$project$Ark$Resource$wood = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Wood.PrimalItemResource_Wood\'', b: 'PrimalItemResource_Wood_C', c: 100, Y: '木材'};
+var $author$project$Ark$Resource$wool = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Resources/PrimalItemResource_Wool.PrimalItemResource_Wool\'', b: 'PrimalItemResource_Wool_C', c: 200, Y: '羊毛'};
 var $author$project$Ark$Resource$items = _List_fromArray(
 	[$author$project$Ark$Resource$absorbentSubstrate, $author$project$Ark$Resource$achatinaPaste, $author$project$Ark$Resource$ambergris, $author$project$Ark$Resource$ammoniteBile, $author$project$Ark$Resource$anglerGel, $author$project$Ark$Resource$blackPearl, $author$project$Ark$Resource$bloodPack, $author$project$Ark$Resource$blueCrystalizedSap, $author$project$Ark$Resource$blueGem, $author$project$Ark$Resource$cementingPaste, $author$project$Ark$Resource$charcoal, $author$project$Ark$Resource$chargeBattery, $author$project$Ark$Resource$chitin, $author$project$Ark$Resource$clay, $author$project$Ark$Resource$condensedGas, $author$project$Ark$Resource$congealedGasBall, $author$project$Ark$Resource$corruptedNodule, $author$project$Ark$Resource$corruptedWood, $author$project$Ark$Resource$craftedElementDust, $author$project$Ark$Resource$crystal, $author$project$Ark$Resource$dermis, $author$project$Ark$Resource$dinosaurBone, $author$project$Ark$Resource$electronics, $author$project$Ark$Resource$element, $author$project$Ark$Resource$elementDust, $author$project$Ark$Resource$elementOre, $author$project$Ark$Resource$elementShard, $author$project$Ark$Resource$fertilizer, $author$project$Ark$Resource$fiber, $author$project$Ark$Resource$flint, $author$project$Ark$Resource$fragmentedGreenGem, $author$project$Ark$Resource$fungalWood, $author$project$Ark$Resource$gasoline, $author$project$Ark$Resource$goldenNugget, $author$project$Ark$Resource$greenGem, $author$project$Ark$Resource$gunpowder, $author$project$Ark$Resource$hide, $author$project$Ark$Resource$highQualityPollen, $author$project$Ark$Resource$humanHair, $author$project$Ark$Resource$keratin, $author$project$Ark$Resource$leechBlood, $author$project$Ark$Resource$metal, $author$project$Ark$Resource$metalIngot, $author$project$Ark$Resource$mutagel, $author$project$Ark$Resource$mutagen, $author$project$Ark$Resource$narcotic, $author$project$Ark$Resource$obsidian, $author$project$Ark$Resource$oil, $author$project$Ark$Resource$oilTusoteuthis, $author$project$Ark$Resource$organicPolymer, $author$project$Ark$Resource$pelt, $author$project$Ark$Resource$polymer, $author$project$Ark$Resource$preservingSalt, $author$project$Ark$Resource$primalCrystal, $author$project$Ark$Resource$propellant, $author$project$Ark$Resource$rareFlower, $author$project$Ark$Resource$rawSalt, $author$project$Ark$Resource$redCrystalizedSap, $author$project$Ark$Resource$redGem, $author$project$Ark$Resource$reFertilizer, $author$project$Ark$Resource$sand, $author$project$Ark$Resource$sap, $author$project$Ark$Resource$scrapMetal, $author$project$Ark$Resource$scrapMetalIngot, $author$project$Ark$Resource$shellFragment, $author$project$Ark$Resource$silicaPearls, $author$project$Ark$Resource$silicate, $author$project$Ark$Resource$silk, $author$project$Ark$Resource$sparkpowder, $author$project$Ark$Resource$stimulant, $author$project$Ark$Resource$stone, $author$project$Ark$Resource$sulfur, $author$project$Ark$Resource$thatch, $author$project$Ark$Resource$unstableElement, $author$project$Ark$Resource$unstableElementShard, $author$project$Ark$Resource$wood, $author$project$Ark$Resource$wool]);
-var $author$project$Ark$Seed$amarberrySeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Amarberry.PrimalItemConsumable_Seed_Amarberry\'', b: 'PrimalItemConsumable_Seed_Amarberry_C', c: 100, d: 'アマルベリーの種'};
-var $author$project$Ark$Seed$azulberrySeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Azulberry.PrimalItemConsumable_Seed_Azulberry\'', b: 'PrimalItemConsumable_Seed_Azulberry_C', c: 100, d: 'アズールベリーの種'};
-var $author$project$Ark$Seed$citronalSeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Citronal.PrimalItemConsumable_Seed_Citronal\'', b: 'PrimalItemConsumable_Seed_Citronal_C', c: 100, d: 'レモンの種'};
-var $author$project$Ark$Seed$longrassSeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Longrass.PrimalItemConsumable_Seed_Longrass\'', b: 'PrimalItemConsumable_Seed_Longrass_C', c: 100, d: 'トウモロコシの種'};
-var $author$project$Ark$Seed$mejoberrySeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Mejoberry.PrimalItemConsumable_Seed_Mejoberry\'', b: 'PrimalItemConsumable_Seed_Mejoberry_C', c: 100, d: 'メジョベリーの種'};
-var $author$project$Ark$Seed$narcoberrySeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Narcoberry.PrimalItemConsumable_Seed_Narcoberry\'', b: 'PrimalItemConsumable_Seed_Narcoberry_C', c: 100, d: 'ナルコベリーの種'};
-var $author$project$Ark$Seed$plantSpeciesXSeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_DefensePlant.PrimalItemConsumable_Seed_DefensePlant\'', b: 'PrimalItemConsumable_Seed_DefensePlant_C', c: 100, d: 'プラントXの種'};
-var $author$project$Ark$Seed$plantSpeciesYSeed = {a: 'Blueprint\'/Game/ScorchedEarth/WeaponPlantSpeciesY/PrimalItemConsumable_Seed_PlantSpeciesY.PrimalItemConsumable_Seed_PlantSpeciesY\'', b: 'PrimalItemConsumable_Seed_PlantSpeciesY_C', c: 100, d: 'プラントYの種'};
-var $author$project$Ark$Seed$plantSpeciesZSeed = {a: 'Blueprint\'/Game/Aberration/WeaponPlantSpeciesZ/PrimalItemConsumable_Seed_PlantSpeciesZ.PrimalItemConsumable_Seed_PlantSpeciesZ\'', b: 'PrimalItemConsumable_Seed_PlantSpeciesZ_C', c: 100, d: 'プラントZの種'};
-var $author$project$Ark$Seed$rockarrotSeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Rockarrot.PrimalItemConsumable_Seed_Rockarrot\'', b: 'PrimalItemConsumable_Seed_Rockarrot_C', c: 100, d: 'ニンジンの種'};
-var $author$project$Ark$Seed$savorootSeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Savoroot.PrimalItemConsumable_Seed_Savoroot\'', b: 'PrimalItemConsumable_Seed_Savoroot_C', c: 100, d: 'ジャガイモの種'};
-var $author$project$Ark$Seed$stimberrySeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Stimberry.PrimalItemConsumable_Seed_Stimberry\'', b: 'PrimalItemConsumable_Seed_Stimberry_C', c: 100, d: 'スティムベリーの種'};
-var $author$project$Ark$Seed$tintoberrySeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Tintoberry.PrimalItemConsumable_Seed_Tintoberry\'', b: 'PrimalItemConsumable_Seed_Tintoberry_C', c: 100, d: 'ティントベリーの種'};
+var $author$project$Ark$Seed$amarberrySeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Amarberry.PrimalItemConsumable_Seed_Amarberry\'', b: 'PrimalItemConsumable_Seed_Amarberry_C', c: 100, Y: 'アマルベリーの種'};
+var $author$project$Ark$Seed$azulberrySeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Azulberry.PrimalItemConsumable_Seed_Azulberry\'', b: 'PrimalItemConsumable_Seed_Azulberry_C', c: 100, Y: 'アズールベリーの種'};
+var $author$project$Ark$Seed$citronalSeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Citronal.PrimalItemConsumable_Seed_Citronal\'', b: 'PrimalItemConsumable_Seed_Citronal_C', c: 100, Y: 'レモンの種'};
+var $author$project$Ark$Seed$longrassSeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Longrass.PrimalItemConsumable_Seed_Longrass\'', b: 'PrimalItemConsumable_Seed_Longrass_C', c: 100, Y: 'トウモロコシの種'};
+var $author$project$Ark$Seed$mejoberrySeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Mejoberry.PrimalItemConsumable_Seed_Mejoberry\'', b: 'PrimalItemConsumable_Seed_Mejoberry_C', c: 100, Y: 'メジョベリーの種'};
+var $author$project$Ark$Seed$narcoberrySeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Narcoberry.PrimalItemConsumable_Seed_Narcoberry\'', b: 'PrimalItemConsumable_Seed_Narcoberry_C', c: 100, Y: 'ナルコベリーの種'};
+var $author$project$Ark$Seed$plantSpeciesXSeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_DefensePlant.PrimalItemConsumable_Seed_DefensePlant\'', b: 'PrimalItemConsumable_Seed_DefensePlant_C', c: 100, Y: 'プラントXの種'};
+var $author$project$Ark$Seed$plantSpeciesYSeed = {a: 'Blueprint\'/Game/ScorchedEarth/WeaponPlantSpeciesY/PrimalItemConsumable_Seed_PlantSpeciesY.PrimalItemConsumable_Seed_PlantSpeciesY\'', b: 'PrimalItemConsumable_Seed_PlantSpeciesY_C', c: 100, Y: 'プラントYの種'};
+var $author$project$Ark$Seed$plantSpeciesZSeed = {a: 'Blueprint\'/Game/Aberration/WeaponPlantSpeciesZ/PrimalItemConsumable_Seed_PlantSpeciesZ.PrimalItemConsumable_Seed_PlantSpeciesZ\'', b: 'PrimalItemConsumable_Seed_PlantSpeciesZ_C', c: 100, Y: 'プラントZの種'};
+var $author$project$Ark$Seed$rockarrotSeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Rockarrot.PrimalItemConsumable_Seed_Rockarrot\'', b: 'PrimalItemConsumable_Seed_Rockarrot_C', c: 100, Y: 'ニンジンの種'};
+var $author$project$Ark$Seed$savorootSeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Savoroot.PrimalItemConsumable_Seed_Savoroot\'', b: 'PrimalItemConsumable_Seed_Savoroot_C', c: 100, Y: 'ジャガイモの種'};
+var $author$project$Ark$Seed$stimberrySeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Stimberry.PrimalItemConsumable_Seed_Stimberry\'', b: 'PrimalItemConsumable_Seed_Stimberry_C', c: 100, Y: 'スティムベリーの種'};
+var $author$project$Ark$Seed$tintoberrySeed = {a: 'Blueprint\'/Game/PrimalEarth/CoreBlueprints/Items/Consumables/Seeds/PrimalItemConsumable_Seed_Tintoberry.PrimalItemConsumable_Seed_Tintoberry\'', b: 'PrimalItemConsumable_Seed_Tintoberry_C', c: 100, Y: 'ティントベリーの種'};
 var $author$project$Ark$Seed$items = _List_fromArray(
 	[$author$project$Ark$Seed$amarberrySeed, $author$project$Ark$Seed$azulberrySeed, $author$project$Ark$Seed$mejoberrySeed, $author$project$Ark$Seed$narcoberrySeed, $author$project$Ark$Seed$stimberrySeed, $author$project$Ark$Seed$tintoberrySeed, $author$project$Ark$Seed$citronalSeed, $author$project$Ark$Seed$longrassSeed, $author$project$Ark$Seed$rockarrotSeed, $author$project$Ark$Seed$savorootSeed, $author$project$Ark$Seed$plantSpeciesXSeed, $author$project$Ark$Seed$plantSpeciesYSeed, $author$project$Ark$Seed$plantSpeciesZSeed]);
 var $author$project$Ark$Item$defaultItemMaxQuantities = function () {
@@ -5544,7 +5544,7 @@ var $author$project$Ark$Item$defaultItemMaxQuantities = function () {
 		_List_fromArray(
 			[$author$project$Ark$Resource$items, $author$project$Ark$Consumable$items, $author$project$Ark$Seed$items]));
 	var gen = function (item) {
-		return {bX: false, b0: item, c: item.c};
+		return {cx: false, cC: item, c: item.c};
 	};
 	return A2($elm$core$List$map, gen, items);
 }();
@@ -5559,51 +5559,175 @@ var $etaque$elm_response$Response$withNone = function (model) {
 };
 var $author$project$Main$init = function (_v0) {
 	return $etaque$elm_response$Response$withNone(
-		{t: $author$project$Ark$Item$defaultItemMaxQuantities});
+		{z: $author$project$Ark$Item$defaultItemMaxQuantities});
 };
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
 var $author$project$Main$subscriptions = function (model) {
 	return $elm$core$Platform$Sub$none;
 };
+var $author$project$Ark$ArkIni$ArkIni = $elm$core$Basics$identity;
+var $author$project$Ark$ArkIni$create = $elm$core$Basics$identity;
+var $author$project$Ark$ArkIni$KeyValue = F2(
+	function (a, b) {
+		return {$: 0, a: a, b: b};
+	});
+var $author$project$Ark$ArkIni$Object = function (a) {
+	return {$: 1, a: a};
+};
+var $author$project$Ark$ArkIni$VBool = function (a) {
+	return {$: 0, a: a};
+};
+var $author$project$Ark$ArkIni$VInt = function (a) {
+	return {$: 1, a: a};
+};
+var $author$project$Ark$ArkIni$VString = function (a) {
+	return {$: 2, a: a};
+};
+var $author$project$Ark$Generator$toConfigOverrideItemMaxQuantity = function (itemMaxQuantity) {
+	return $author$project$Ark$ArkIni$Object(
+		{
+			Y: 'ConfigOverrideItemMaxQuantity',
+			ai: _List_fromArray(
+				[
+					A2(
+					$author$project$Ark$ArkIni$KeyValue,
+					'ItemClassString',
+					$author$project$Ark$ArkIni$VString(itemMaxQuantity.cC.b)),
+					$author$project$Ark$ArkIni$Object(
+					{
+						Y: 'Quantity',
+						ai: _List_fromArray(
+							[
+								A2(
+								$author$project$Ark$ArkIni$KeyValue,
+								'MaxItemQuantity',
+								$author$project$Ark$ArkIni$VInt(itemMaxQuantity.c)),
+								A2(
+								$author$project$Ark$ArkIni$KeyValue,
+								'bIgnoreMultiplier',
+								$author$project$Ark$ArkIni$VBool(itemMaxQuantity.cx))
+							])
+					})
+				])
+		});
+};
+var $author$project$Ark$Generator$toArkGameIni = function (data) {
+	return $author$project$Ark$ArkIni$create(
+		{
+			bU: _List_fromArray(
+				[
+					{
+					Y: '/Script/ShooterGame.ShooterGameMode',
+					ai: $elm$core$List$concat(
+						_List_fromArray(
+							[
+								A2($elm$core$List$map, $author$project$Ark$Generator$toConfigOverrideItemMaxQuantity, data.bw)
+							]))
+				}
+				])
+		});
+};
 var $author$project$Util$String$fromBool = function (b) {
 	return b ? 'true' : 'false';
 };
-var $author$project$Ark$Generator$generateConfigOverrideItemMaxQuantity = function (itemMaxQuantity) {
-	var quantity = A2(
-		$elm$core$String$join,
-		'',
-		_List_fromArray(
-			[
-				'Quantity=(',
-				'MaxItemQuantity=' + ($elm$core$String$fromInt(itemMaxQuantity.c) + ','),
-				'bIgnoreMultiplier=' + $author$project$Util$String$fromBool(itemMaxQuantity.bX),
-				')'
-			]));
-	return A2(
-		$elm$core$String$join,
-		'',
-		_List_fromArray(
-			['ConfigOverrideItemMaxQuantity=(', 'ItemClassString=\"' + (itemMaxQuantity.b0.b + '\",'), quantity, ')']));
+var $author$project$Ark$ArkIni$valueToString = function (v) {
+	switch (v.$) {
+		case 0:
+			var b = v.a;
+			return $author$project$Util$String$fromBool(b);
+		case 1:
+			var n = v.a;
+			return $elm$core$String$fromInt(n);
+		case 2:
+			var s = v.a;
+			return '\"' + (s + '\"');
+		default:
+			var s = v.a;
+			return s;
+	}
 };
-var $author$project$Ark$Generator$gameIni = function (data) {
+var $author$project$Ark$ArkIni$arkObjectValueToString = function (arkObjectValue) {
+	if (!arkObjectValue.$) {
+		var k = arkObjectValue.a;
+		var val = arkObjectValue.b;
+		return k + ('=' + $author$project$Ark$ArkIni$valueToString(val));
+	} else {
+		var o = arkObjectValue.a;
+		return o.Y + ('=' + $author$project$Ark$ArkIni$objectValuesToString(o.ai));
+	}
+};
+var $author$project$Ark$ArkIni$objectValuesToString = function (values) {
+	return '(' + (A2(
+		$elm$core$String$join,
+		',',
+		A2($elm$core$List$map, $author$project$Ark$ArkIni$arkObjectValueToString, values)) + ')');
+};
+var $author$project$Ark$ArkIni$arkObjectValueToKeyValue = function (v) {
+	if (!v.$) {
+		var k = v.a;
+		var val = v.b;
+		return _Utils_Tuple2(
+			k,
+			$author$project$Ark$ArkIni$valueToString(val));
+	} else {
+		var o = v.a;
+		return _Utils_Tuple2(
+			o.Y,
+			$author$project$Ark$ArkIni$objectValuesToString(o.ai));
+	}
+};
+var $author$project$Ini$Ini = $elm$core$Basics$identity;
+var $author$project$Ini$create = $elm$core$Basics$identity;
+var $author$project$Ark$ArkIni$toIni = function (_v0) {
+	var arkIni = _v0;
+	return $author$project$Ini$create(
+		{
+			bU: A2(
+				$elm$core$List$map,
+				function (x) {
+					return {
+						cD: A2($elm$core$List$map, $author$project$Ark$ArkIni$arkObjectValueToKeyValue, x.ai),
+						Y: x.Y
+					};
+				},
+				arkIni.bU)
+		});
+};
+var $author$project$Ini$generateKeyValue = function (_v0) {
+	var key = _v0.a;
+	var value = _v0.b;
+	return key + ('=' + value);
+};
+var $author$project$Ini$generateSection = function (section) {
 	return A2(
 		$elm$core$String$join,
 		'\n',
-		_List_fromArray(
-			[
-				'[/Script/ShooterGame.ShooterGameMode]',
-				A2(
-				$elm$core$String$join,
-				'\n',
-				A2($elm$core$List$map, $author$project$Ark$Generator$generateConfigOverrideItemMaxQuantity, data.a8))
-			]));
+		$elm$core$List$concat(
+			_List_fromArray(
+				[
+					_List_fromArray(
+					['[' + (section.Y + ']')]),
+					A2($elm$core$List$map, $author$project$Ini$generateKeyValue, section.cD)
+				])));
 };
-var $author$project$Ark$GameIni$defaultGameIni = {ao: false, ap: false, aq: false, as: false, at: 1.0, au: 1.0, av: 1.0, aw: 1.0, ax: 1.0, ay: 1.0, az: 1.0, aD: 1.0, aE: 1.0, aF: 1.0, aG: 1.0, aI: 3.2, aJ: false, aK: false, aL: 1.0, aP: 1.0, aR: false, aT: 1.0, aU: 1.0, a0: 1.0, a3: 1.0, a4: 1.0, a5: 100, a8: $author$project$Ark$Item$defaultItemMaxQuantities, a9: 1.0, bc: 1.0, bd: 1.0, bj: false, bx: 180, bz: 1.0, bD: 1.0, bE: false};
+var $author$project$Ini$toString = function (_v0) {
+	var ini = _v0;
+	return A2(
+		$elm$core$String$join,
+		'\n\n',
+		A2($elm$core$List$map, $author$project$Ini$generateSection, ini.bU));
+};
+var $author$project$Ark$Generator$gameIni = function (data) {
+	return $author$project$Ini$toString(
+		$author$project$Ark$ArkIni$toIni(
+			$author$project$Ark$Generator$toArkGameIni(data)));
+};
+var $author$project$Ark$GameIni$defaultGameIni = {aE: false, aF: false, aG: false, aJ: false, aK: 1.0, aL: 1.0, aM: 1.0, aN: 1.0, aO: 1.0, aP: 1.0, aQ: 1.0, aV: 1.0, aW: 1.0, aX: 1.0, aY: 1.0, a$: 3.2, a0: false, a1: false, a2: 1.0, a6: 1.0, a8: false, bc: 1.0, bd: 1.0, bn: 1.0, bq: 1.0, br: 1.0, bs: 100, bw: $author$project$Ark$Item$defaultItemMaxQuantities, bx: 1.0, bA: 1.0, bB: 1.0, bH: false, b_: 180, b1: 1.0, b5: 1.0, b6: false};
 var $author$project$Main$generateGameIni = function (model) {
 	return _Utils_update(
 		$author$project$Ark$GameIni$defaultGameIni,
-		{a8: model.t});
+		{bw: model.z});
 };
 var $elm$time$Time$Posix = $elm$core$Basics$identity;
 var $elm$time$Time$millisToPosix = $elm$core$Basics$identity;
@@ -5632,7 +5756,7 @@ var $author$project$Main$updateIgnoreMultiplier = F2(
 	function (b, itemMaxQuantity) {
 		return _Utils_update(
 			itemMaxQuantity,
-			{bX: b});
+			{cx: b});
 	});
 var $author$project$Main$updateMaxQuantity = F2(
 	function (n, itemMaxQuantity) {
@@ -5701,7 +5825,7 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							t: $miyamoen$select_list$SelectList$toList(newSelectList)
+							z: $miyamoen$select_list$SelectList$toList(newSelectList)
 						}));
 			case 2:
 				var sl = msg.a;
@@ -5714,18 +5838,18 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							t: $miyamoen$select_list$SelectList$toList(newSelectList)
+							z: $miyamoen$select_list$SelectList$toList(newSelectList)
 						}));
 			default:
 				var checked = msg.a;
 				var newItemMaxQuantities = A2(
 					$elm$core$List$map,
 					$author$project$Main$updateIgnoreMultiplier(checked),
-					model.t);
+					model.z);
 				return $etaque$elm_response$Response$withNone(
 					_Utils_update(
 						model,
-						{t: newItemMaxQuantities}));
+						{z: newItemMaxQuantities}));
 		}
 	});
 var $miyamoen$elm_origami$Origami$VirtualDom$Attribute = F2(
@@ -6331,7 +6455,7 @@ var $miyamoen$elm_origami$Origami$Css$Style$FlatAnimationStyle = F2(
 	});
 var $robinheghan$murmur3$Murmur3$HashData = F4(
 	function (shift, seed, hash, charsProcessed) {
-		return {K: charsProcessed, M: hash, F: seed, N: shift};
+		return {P: charsProcessed, R: hash, v: seed, S: shift};
 	});
 var $robinheghan$murmur3$Murmur3$c1 = 3432918353;
 var $robinheghan$murmur3$Murmur3$c2 = 461845907;
@@ -6350,14 +6474,14 @@ var $robinheghan$murmur3$Murmur3$rotlBy = F2(
 	});
 var $elm$core$Bitwise$xor = _Bitwise_xor;
 var $robinheghan$murmur3$Murmur3$finalize = function (data) {
-	var acc = (!(!data.M)) ? (data.F ^ A2(
+	var acc = (!(!data.R)) ? (data.v ^ A2(
 		$robinheghan$murmur3$Murmur3$multiplyBy,
 		$robinheghan$murmur3$Murmur3$c2,
 		A2(
 			$robinheghan$murmur3$Murmur3$rotlBy,
 			15,
-			A2($robinheghan$murmur3$Murmur3$multiplyBy, $robinheghan$murmur3$Murmur3$c1, data.M)))) : data.F;
-	var h0 = acc ^ data.K;
+			A2($robinheghan$murmur3$Murmur3$multiplyBy, $robinheghan$murmur3$Murmur3$c1, data.R)))) : data.v;
+	var h0 = acc ^ data.P;
 	var h1 = A2($robinheghan$murmur3$Murmur3$multiplyBy, 2246822507, h0 ^ (h0 >>> 16));
 	var h2 = A2($robinheghan$murmur3$Murmur3$multiplyBy, 3266489909, h1 ^ (h1 >>> 13));
 	return (h2 ^ (h2 >>> 16)) >>> 0;
@@ -6381,17 +6505,17 @@ var $robinheghan$murmur3$Murmur3$mix = F2(
 	});
 var $robinheghan$murmur3$Murmur3$hashFold = F2(
 	function (c, data) {
-		var res = data.M | ((255 & $elm$core$Char$toCode(c)) << data.N);
-		var _v0 = data.N;
+		var res = data.R | ((255 & $elm$core$Char$toCode(c)) << data.S);
+		var _v0 = data.S;
 		if (_v0 === 24) {
 			return {
-				K: data.K + 1,
-				M: 0,
-				F: A2($robinheghan$murmur3$Murmur3$mix, data.F, res),
-				N: 0
+				P: data.P + 1,
+				R: 0,
+				v: A2($robinheghan$murmur3$Murmur3$mix, data.v, res),
+				S: 0
 			};
 		} else {
-			return {K: data.K + 1, M: res, F: data.F, N: data.N + 8};
+			return {P: data.P + 1, R: res, v: data.v, S: data.S + 8};
 		}
 	});
 var $robinheghan$murmur3$Murmur3$hashString = F2(
@@ -7082,7 +7206,7 @@ var $elm$core$List$all = F2(
 	});
 var $author$project$Main$isAllIgnoreMultiplier = $elm$core$List$all(
 	function ($) {
-		return $.bX;
+		return $.cx;
 	});
 var $miyamoen$elm_origami$Origami$Html$label = $miyamoen$elm_origami$Origami$Html$node('label');
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
@@ -7287,7 +7411,7 @@ var $author$project$Main$viewItemMaxQuantity = function (sl) {
 					[$author$project$Madlib$Layout$centerY]),
 				_List_fromArray(
 					[
-						$miyamoen$elm_origami$Origami$Html$text(selected.b0.d)
+						$miyamoen$elm_origami$Origami$Html$text(selected.cC.Y)
 					])),
 				A2(
 				$miyamoen$elm_origami$Origami$Html$input,
@@ -7319,7 +7443,7 @@ var $author$project$Main$viewItemMaxQuantity = function (sl) {
 						_List_fromArray(
 							[
 								$miyamoen$elm_origami$Origami$Html$Attributes$type_('checkbox'),
-								$miyamoen$elm_origami$Origami$Html$Attributes$checked(selected.bX),
+								$miyamoen$elm_origami$Origami$Html$Attributes$checked(selected.cx),
 								$miyamoen$elm_origami$Origami$Html$Events$onCheck(
 								$author$project$Main$CheckIgnoreMultiplier(sl))
 							]),
@@ -7340,7 +7464,7 @@ var $author$project$Main$viewItemMaxQuantities = function (model) {
 						A2($miyamoen$elm_origami$Origami$property, 'gap', '0.5rem')
 					]))
 			]),
-		A2($miyamoen$select_list$SelectList$selectedMapForList, $author$project$Main$viewItemMaxQuantity, model.t));
+		A2($miyamoen$select_list$SelectList$selectedMapForList, $author$project$Main$viewItemMaxQuantity, model.z));
 };
 var $author$project$Main$viewMain = function (model) {
 	return A3(
@@ -7421,7 +7545,7 @@ var $author$project$Main$viewMain = function (model) {
 											[
 												$miyamoen$elm_origami$Origami$Html$Attributes$type_('checkbox'),
 												$miyamoen$elm_origami$Origami$Html$Attributes$checked(
-												$author$project$Main$isAllIgnoreMultiplier(model.t)),
+												$author$project$Main$isAllIgnoreMultiplier(model.z)),
 												$miyamoen$elm_origami$Origami$Html$Events$onCheck($author$project$Main$CheckAllIgnoreMultiplier)
 											]),
 										_List_Nil),
@@ -7434,7 +7558,7 @@ var $author$project$Main$viewMain = function (model) {
 };
 var $author$project$Main$view = function (model) {
 	return {
-		bN: _List_fromArray(
+		cg: _List_fromArray(
 			[
 				$miyamoen$elm_origami$Origami$Html$toHtml(
 				A3(
@@ -7452,10 +7576,10 @@ var $author$project$Main$view = function (model) {
 							$author$project$Main$viewMain(model)
 						])))
 			]),
-		ch: 'ARK Setting Generator'
+		c5: 'ARK Setting Generator'
 	};
 };
 var $author$project$Main$main = $elm$browser$Browser$document(
-	{b_: $author$project$Main$init, cf: $author$project$Main$subscriptions, ci: $author$project$Main$update, cj: $author$project$Main$view});
+	{cA: $author$project$Main$init, c1: $author$project$Main$subscriptions, c6: $author$project$Main$update, c7: $author$project$Main$view});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(0))(0)}});}(this));
