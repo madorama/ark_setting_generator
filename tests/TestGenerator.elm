@@ -18,10 +18,17 @@ testGameIni =
                             [ { item = Ark.Resource.stone
                               , maxQuantity = 500
                               , ignoreMultiplier = False
+                              , applyChange = True
                               }
                             , { item = Ark.Resource.fiber
                               , maxQuantity = 1000
                               , ignoreMultiplier = True
+                              , applyChange = True
+                              }
+                            , { item = Ark.Resource.blackPearl
+                              , maxQuantity = 1
+                              , ignoreMultiplier = False
+                              , applyChange = False
                               }
                             ]
                     }

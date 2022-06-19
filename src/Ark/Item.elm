@@ -10,6 +10,7 @@ type alias ItemMaxQuantity =
     { item : Item
     , maxQuantity : Int
     , ignoreMultiplier : Bool
+    , applyChange : Bool
     }
 
 
@@ -27,6 +28,7 @@ defaultItemMaxQuantities =
             { item = item
             , maxQuantity = item.maxQuantity
             , ignoreMultiplier = False
+            , applyChange = True
             }
     in
     items

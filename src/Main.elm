@@ -34,6 +34,8 @@ type Msg
     | ChangeQuantity (SelectList ItemMaxQuantity) String
     | CheckIgnoreMultiplier (SelectList ItemMaxQuantity) Bool
     | CheckAllIgnoreMultiplier Bool
+    | CheckApplyChange (SelectList ItemMaxQuantity) Bool
+    | CheckAllApplyChange Bool
 
 
 generateGameIni : Model -> GameIni
@@ -54,6 +56,13 @@ updateIgnoreMultiplier : Bool -> ItemMaxQuantity -> ItemMaxQuantity
 updateIgnoreMultiplier b itemMaxQuantity =
     { itemMaxQuantity
         | ignoreMultiplier = b
+    }
+
+
+updateApplyChange : Bool -> ItemMaxQuantity -> ItemMaxQuantity
+updateApplyChange b itemMaxQuantity =
+    { itemMaxQuantity
+        | applyChange = b
     }
 
 
@@ -94,15 +103,25 @@ update msg model =
             }
                 |> withNone
 
+        CheckApplyChange sl checked ->
+            { model
+                | itemMaxQuantities =
+                    SelectList.updateSelected (updateApplyChange checked) sl
+                        |> SelectList.toList
+            }
+                |> withNone
+
+        CheckAllApplyChange checked ->
+            { model
+                | itemMaxQuantities =
+                    List.map (updateApplyChange checked) model.itemMaxQuantities
+            }
+                |> withNone
+
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.none
-
-
-isAllIgnoreMultiplier : List ItemMaxQuantity -> Bool
-isAllIgnoreMultiplier =
-    List.all .ignoreMultiplier
 
 
 view : Model -> Document Msg
@@ -148,7 +167,21 @@ viewSettings model =
         ]
         [ row div
             []
-            [ h3 [] [ text "アイテムスタック数のオーバーライド" ]
+            [ h3 []
+                [ label
+                    [ Attr.css
+                        [ property "user-select" "none"
+                        ]
+                    ]
+                    [ input
+                        [ Attr.type_ "checkbox"
+                        , Attr.checked (List.all .applyChange model.itemMaxQuantities)
+                        , Ev.onCheck CheckAllApplyChange
+                        ]
+                        []
+                    , text "アイテムスタック数のオーバーライド"
+                    ]
+                ]
             , row label
                 [ centerY
                 , Attr.css
@@ -157,7 +190,7 @@ viewSettings model =
                 ]
                 [ input
                     [ Attr.type_ "checkbox"
-                    , Attr.checked (isAllIgnoreMultiplier model.itemMaxQuantities)
+                    , Attr.checked (List.all .ignoreMultiplier model.itemMaxQuantities)
                     , Ev.onCheck CheckAllIgnoreMultiplier
                     ]
                     []
@@ -191,11 +224,16 @@ viewItemMaxQuantity sl =
             , property "grid-template-columns" "1fr 1fr 1fr"
             ]
         ]
-        [ column div
+        [ row label
             [ centerY
-            , rightAdjust
             ]
-            [ text selected.item.name
+            [ input
+                [ Attr.type_ "checkbox"
+                , Attr.checked selected.applyChange
+                , Ev.onCheck (CheckApplyChange sl)
+                ]
+                []
+            , text selected.item.name
             ]
         , input
             [ Attr.value <| String.fromInt selected.maxQuantity

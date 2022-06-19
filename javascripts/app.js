@@ -1857,9 +1857,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.cA,
-		impl.c6,
-		impl.c1,
+		impl.cB,
+		impl.c7,
+		impl.c2,
 		function() { return function() {} }
 	);
 });
@@ -3928,11 +3928,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.cA,
-		impl.c6,
-		impl.c1,
+		impl.cB,
+		impl.c7,
+		impl.c2,
 		function(sendToApp, initialModel) {
-			var view = impl.c7;
+			var view = impl.c8;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3964,12 +3964,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.cA,
-		impl.c6,
-		impl.c1,
+		impl.cB,
+		impl.c7,
+		impl.c2,
 		function(sendToApp, initialModel) {
 			var divertHrefToApp = impl.aw && impl.aw(sendToApp)
-			var view = impl.c7;
+			var view = impl.c8;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3977,12 +3977,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.cg);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.ch);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.c5) && (_VirtualDom_doc.title = title = doc.c5);
+				(title !== doc.c6) && (_VirtualDom_doc.title = title = doc.c6);
 			});
 		}
 	);
@@ -4038,8 +4038,8 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.cR;
-	var onUrlRequest = impl.cS;
+	var onUrlChange = impl.cS;
+	var onUrlRequest = impl.cT;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
@@ -4069,13 +4069,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		cA: function(flags)
+		cB: function(flags)
 		{
-			return A3(impl.cA, flags, _Browser_getUrl(), key);
+			return A3(impl.cB, flags, _Browser_getUrl(), key);
 		},
+		c8: impl.c8,
 		c7: impl.c7,
-		c6: impl.c6,
-		c1: impl.c1
+		c2: impl.c2
 	});
 }
 
@@ -4141,17 +4141,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { cw: 'hidden', cj: 'visibilitychange' }
+		? { cx: 'hidden', ck: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { cw: 'mozHidden', cj: 'mozvisibilitychange' }
+		? { cx: 'mozHidden', ck: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { cw: 'msHidden', cj: 'msvisibilitychange' }
+		? { cx: 'msHidden', ck: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { cw: 'webkitHidden', cj: 'webkitvisibilitychange' }
-		: { cw: 'hidden', cj: 'visibilitychange' };
+		? { cx: 'webkitHidden', ck: 'webkitvisibilitychange' }
+		: { cx: 'hidden', ck: 'visibilitychange' };
 }
 
 
@@ -4316,7 +4316,7 @@ function _Browser_getElement(id)
 				b8: _Browser_doc.documentElement.clientWidth,
 				bf: _Browser_doc.documentElement.clientHeight
 			},
-			co: {
+			cp: {
 				b9: x + rect.left,
 				ca: y + rect.top,
 				b8: rect.width,
@@ -5544,7 +5544,7 @@ var $author$project$Ark$Item$defaultItemMaxQuantities = function () {
 		_List_fromArray(
 			[$author$project$Ark$Resource$items, $author$project$Ark$Consumable$items, $author$project$Ark$Seed$items]));
 	var gen = function (item) {
-		return {cx: false, cC: item, c: item.c};
+		return {ce: true, cy: false, cD: item, c: item.c};
 	};
 	return A2($elm$core$List$map, gen, items);
 }();
@@ -5559,7 +5559,7 @@ var $etaque$elm_response$Response$withNone = function (model) {
 };
 var $author$project$Main$init = function (_v0) {
 	return $etaque$elm_response$Response$withNone(
-		{z: $author$project$Ark$Item$defaultItemMaxQuantities});
+		{p: $author$project$Ark$Item$defaultItemMaxQuantities});
 };
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
@@ -5568,6 +5568,17 @@ var $author$project$Main$subscriptions = function (model) {
 };
 var $author$project$Ark$ArkIni$ArkIni = $elm$core$Basics$identity;
 var $author$project$Ark$ArkIni$create = $elm$core$Basics$identity;
+var $elm$core$List$filter = F2(
+	function (isGood, list) {
+		return A3(
+			$elm$core$List$foldr,
+			F2(
+				function (x, xs) {
+					return isGood(x) ? A2($elm$core$List$cons, x, xs) : xs;
+				}),
+			_List_Nil,
+			list);
+	});
 var $author$project$Ark$ArkIni$KeyValue = F2(
 	function (a, b) {
 		return {$: 0, a: a, b: b};
@@ -5593,7 +5604,7 @@ var $author$project$Ark$Generator$toConfigOverrideItemMaxQuantity = function (it
 					A2(
 					$author$project$Ark$ArkIni$KeyValue,
 					'ItemClassString',
-					$author$project$Ark$ArkIni$VString(itemMaxQuantity.cC.b)),
+					$author$project$Ark$ArkIni$VString(itemMaxQuantity.cD.b)),
 					$author$project$Ark$ArkIni$Object(
 					{
 						Y: 'Quantity',
@@ -5606,7 +5617,7 @@ var $author$project$Ark$Generator$toConfigOverrideItemMaxQuantity = function (it
 								A2(
 								$author$project$Ark$ArkIni$KeyValue,
 								'bIgnoreMultiplier',
-								$author$project$Ark$ArkIni$VBool(itemMaxQuantity.cx))
+								$author$project$Ark$ArkIni$VBool(itemMaxQuantity.cy))
 							])
 					})
 				])
@@ -5622,7 +5633,15 @@ var $author$project$Ark$Generator$toArkGameIni = function (data) {
 					ai: $elm$core$List$concat(
 						_List_fromArray(
 							[
-								A2($elm$core$List$map, $author$project$Ark$Generator$toConfigOverrideItemMaxQuantity, data.bw)
+								A2(
+								$elm$core$List$map,
+								$author$project$Ark$Generator$toConfigOverrideItemMaxQuantity,
+								A2(
+									$elm$core$List$filter,
+									function ($) {
+										return $.ce;
+									},
+									data.bw))
 							]))
 				}
 				])
@@ -5687,7 +5706,7 @@ var $author$project$Ark$ArkIni$toIni = function (_v0) {
 				$elm$core$List$map,
 				function (x) {
 					return {
-						cD: A2($elm$core$List$map, $author$project$Ark$ArkIni$arkObjectValueToKeyValue, x.ai),
+						cE: A2($elm$core$List$map, $author$project$Ark$ArkIni$arkObjectValueToKeyValue, x.ai),
 						Y: x.Y
 					};
 				},
@@ -5708,7 +5727,7 @@ var $author$project$Ini$generateSection = function (section) {
 				[
 					_List_fromArray(
 					['[' + (section.Y + ']')]),
-					A2($elm$core$List$map, $author$project$Ini$generateKeyValue, section.cD)
+					A2($elm$core$List$map, $author$project$Ini$generateKeyValue, section.cE)
 				])));
 };
 var $author$project$Ini$toString = function (_v0) {
@@ -5727,7 +5746,7 @@ var $author$project$Ark$GameIni$defaultGameIni = {aE: false, aF: false, aG: fals
 var $author$project$Main$generateGameIni = function (model) {
 	return _Utils_update(
 		$author$project$Ark$GameIni$defaultGameIni,
-		{bw: model.z});
+		{bw: model.p});
 };
 var $elm$time$Time$Posix = $elm$core$Basics$identity;
 var $elm$time$Time$millisToPosix = $elm$core$Basics$identity;
@@ -5752,11 +5771,17 @@ var $miyamoen$select_list$Types$toList = function (_v0) {
 		A2($elm$core$List$cons, a, after));
 };
 var $miyamoen$select_list$SelectList$toList = $miyamoen$select_list$Types$toList;
+var $author$project$Main$updateApplyChange = F2(
+	function (b, itemMaxQuantity) {
+		return _Utils_update(
+			itemMaxQuantity,
+			{ce: b});
+	});
 var $author$project$Main$updateIgnoreMultiplier = F2(
 	function (b, itemMaxQuantity) {
 		return _Utils_update(
 			itemMaxQuantity,
-			{cx: b});
+			{cy: b});
 	});
 var $author$project$Main$updateMaxQuantity = F2(
 	function (n, itemMaxQuantity) {
@@ -5825,7 +5850,7 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							z: $miyamoen$select_list$SelectList$toList(newSelectList)
+							p: $miyamoen$select_list$SelectList$toList(newSelectList)
 						}));
 			case 2:
 				var sl = msg.a;
@@ -5838,18 +5863,42 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							z: $miyamoen$select_list$SelectList$toList(newSelectList)
+							p: $miyamoen$select_list$SelectList$toList(newSelectList)
 						}));
-			default:
+			case 3:
 				var checked = msg.a;
 				var newItemMaxQuantities = A2(
 					$elm$core$List$map,
 					$author$project$Main$updateIgnoreMultiplier(checked),
-					model.z);
+					model.p);
 				return $etaque$elm_response$Response$withNone(
 					_Utils_update(
 						model,
-						{z: newItemMaxQuantities}));
+						{p: newItemMaxQuantities}));
+			case 4:
+				var sl = msg.a;
+				var checked = msg.b;
+				return $etaque$elm_response$Response$withNone(
+					_Utils_update(
+						model,
+						{
+							p: $miyamoen$select_list$SelectList$toList(
+								A2(
+									$miyamoen$select_list$SelectList$updateSelected,
+									$author$project$Main$updateApplyChange(checked),
+									sl))
+						}));
+			default:
+				var checked = msg.a;
+				return $etaque$elm_response$Response$withNone(
+					_Utils_update(
+						model,
+						{
+							p: A2(
+								$elm$core$List$map,
+								$author$project$Main$updateApplyChange(checked),
+								model.p)
+						}));
 		}
 	});
 var $miyamoen$elm_origami$Origami$VirtualDom$Attribute = F2(
@@ -6469,7 +6518,7 @@ var $miyamoen$elm_origami$Origami$Css$Style$FlatAnimationStyle = F2(
 	});
 var $robinheghan$murmur3$Murmur3$HashData = F4(
 	function (shift, seed, hash, charsProcessed) {
-		return {P: charsProcessed, R: hash, v: seed, S: shift};
+		return {P: charsProcessed, R: hash, w: seed, S: shift};
 	});
 var $robinheghan$murmur3$Murmur3$c1 = 3432918353;
 var $robinheghan$murmur3$Murmur3$c2 = 461845907;
@@ -6488,13 +6537,13 @@ var $robinheghan$murmur3$Murmur3$rotlBy = F2(
 	});
 var $elm$core$Bitwise$xor = _Bitwise_xor;
 var $robinheghan$murmur3$Murmur3$finalize = function (data) {
-	var acc = (!(!data.R)) ? (data.v ^ A2(
+	var acc = (!(!data.R)) ? (data.w ^ A2(
 		$robinheghan$murmur3$Murmur3$multiplyBy,
 		$robinheghan$murmur3$Murmur3$c2,
 		A2(
 			$robinheghan$murmur3$Murmur3$rotlBy,
 			15,
-			A2($robinheghan$murmur3$Murmur3$multiplyBy, $robinheghan$murmur3$Murmur3$c1, data.R)))) : data.v;
+			A2($robinheghan$murmur3$Murmur3$multiplyBy, $robinheghan$murmur3$Murmur3$c1, data.R)))) : data.w;
 	var h0 = acc ^ data.P;
 	var h1 = A2($robinheghan$murmur3$Murmur3$multiplyBy, 2246822507, h0 ^ (h0 >>> 16));
 	var h2 = A2($robinheghan$murmur3$Murmur3$multiplyBy, 3266489909, h1 ^ (h1 >>> 13));
@@ -6525,11 +6574,11 @@ var $robinheghan$murmur3$Murmur3$hashFold = F2(
 			return {
 				P: data.P + 1,
 				R: 0,
-				v: A2($robinheghan$murmur3$Murmur3$mix, data.v, res),
+				w: A2($robinheghan$murmur3$Murmur3$mix, data.w, res),
 				S: 0
 			};
 		} else {
-			return {P: data.P + 1, R: res, v: data.v, S: data.S + 8};
+			return {P: data.P + 1, R: res, w: data.w, S: data.S + 8};
 		}
 	});
 var $robinheghan$murmur3$Murmur3$hashString = F2(
@@ -7209,9 +7258,20 @@ var $elm$core$Basics$composeL = F3(
 	});
 var $miyamoen$elm_origami$Origami$VirtualDom$text = A2($elm$core$Basics$composeL, $miyamoen$elm_origami$Origami$VirtualDom$PlainNode, $elm$virtual_dom$VirtualDom$text);
 var $miyamoen$elm_origami$Origami$Html$text = $miyamoen$elm_origami$Origami$VirtualDom$text;
+var $author$project$Main$CheckAllApplyChange = function (a) {
+	return {$: 5, a: a};
+};
 var $author$project$Main$CheckAllIgnoreMultiplier = function (a) {
 	return {$: 3, a: a};
 };
+var $elm$core$Basics$not = _Basics_not;
+var $elm$core$List$all = F2(
+	function (isOkay, list) {
+		return !A2(
+			$elm$core$List$any,
+			A2($elm$core$Basics$composeL, $elm$core$Basics$not, isOkay),
+			list);
+	});
 var $miyamoen$elm_origami$Origami$VirtualDom$property = F2(
 	function (key, value) {
 		return $miyamoen$elm_origami$Origami$VirtualDom$plainAttribute(
@@ -7237,18 +7297,6 @@ var $miyamoen$elm_origami$Origami$Html$Attributes$boolProperty = F2(
 var $miyamoen$elm_origami$Origami$Html$Attributes$checked = $miyamoen$elm_origami$Origami$Html$Attributes$boolProperty('checked');
 var $miyamoen$elm_origami$Origami$Html$h3 = $miyamoen$elm_origami$Origami$Html$node('h3');
 var $miyamoen$elm_origami$Origami$Html$input = $miyamoen$elm_origami$Origami$Html$node('input');
-var $elm$core$Basics$not = _Basics_not;
-var $elm$core$List$all = F2(
-	function (isOkay, list) {
-		return !A2(
-			$elm$core$List$any,
-			A2($elm$core$Basics$composeL, $elm$core$Basics$not, isOkay),
-			list);
-	});
-var $author$project$Main$isAllIgnoreMultiplier = $elm$core$List$all(
-	function ($) {
-		return $.cx;
-	});
 var $miyamoen$elm_origami$Origami$Html$label = $miyamoen$elm_origami$Origami$Html$node('label');
 var $elm$json$Json$Decode$field = _Json_decodeField;
 var $elm$json$Json$Decode$at = F2(
@@ -7391,6 +7439,10 @@ var $author$project$Main$ChangeQuantity = F2(
 	function (a, b) {
 		return {$: 1, a: a, b: b};
 	});
+var $author$project$Main$CheckApplyChange = F2(
+	function (a, b) {
+		return {$: 4, a: a, b: b};
+	});
 var $author$project$Main$CheckIgnoreMultiplier = F2(
 	function (a, b) {
 		return {$: 2, a: a, b: b};
@@ -7409,7 +7461,6 @@ var $author$project$Madlib$Html$Events$onChange = function (f) {
 					['target', 'value']),
 				$elm$json$Json$Decode$string)));
 };
-var $author$project$Madlib$Layout$rightAdjust = $miyamoen$elm_origami$Origami$Html$Attributes$class('right');
 var $miyamoen$select_list$Types$selected = function (_v0) {
 	var a = _v0.b;
 	return a;
@@ -7434,13 +7485,23 @@ var $author$project$Main$viewItemMaxQuantity = function (sl) {
 		_List_fromArray(
 			[
 				A3(
-				$author$project$Madlib$Layout$column,
-				$miyamoen$elm_origami$Origami$Html$div,
+				$author$project$Madlib$Layout$row,
+				$miyamoen$elm_origami$Origami$Html$label,
 				_List_fromArray(
-					[$author$project$Madlib$Layout$centerY, $author$project$Madlib$Layout$rightAdjust]),
+					[$author$project$Madlib$Layout$centerY]),
 				_List_fromArray(
 					[
-						$miyamoen$elm_origami$Origami$Html$text(selected.cC.Y)
+						A2(
+						$miyamoen$elm_origami$Origami$Html$input,
+						_List_fromArray(
+							[
+								$miyamoen$elm_origami$Origami$Html$Attributes$type_('checkbox'),
+								$miyamoen$elm_origami$Origami$Html$Attributes$checked(selected.ce),
+								$miyamoen$elm_origami$Origami$Html$Events$onCheck(
+								$author$project$Main$CheckApplyChange(sl))
+							]),
+						_List_Nil),
+						$miyamoen$elm_origami$Origami$Html$text(selected.cD.Y)
 					])),
 				A2(
 				$miyamoen$elm_origami$Origami$Html$input,
@@ -7477,7 +7538,7 @@ var $author$project$Main$viewItemMaxQuantity = function (sl) {
 						_List_fromArray(
 							[
 								$miyamoen$elm_origami$Origami$Html$Attributes$type_('checkbox'),
-								$miyamoen$elm_origami$Origami$Html$Attributes$checked(selected.cx),
+								$miyamoen$elm_origami$Origami$Html$Attributes$checked(selected.cy),
 								$miyamoen$elm_origami$Origami$Html$Events$onCheck(
 								$author$project$Main$CheckIgnoreMultiplier(sl))
 							]),
@@ -7498,7 +7559,7 @@ var $author$project$Main$viewItemMaxQuantities = function (model) {
 						A2($miyamoen$elm_origami$Origami$property, 'gap', '0.5rem')
 					]))
 			]),
-		A2($miyamoen$select_list$SelectList$selectedMapForList, $author$project$Main$viewItemMaxQuantity, model.z));
+		A2($miyamoen$select_list$SelectList$selectedMapForList, $author$project$Main$viewItemMaxQuantity, model.p));
 };
 var $author$project$Main$viewSettings = function (model) {
 	return A3(
@@ -7525,7 +7586,35 @@ var $author$project$Main$viewSettings = function (model) {
 						_List_Nil,
 						_List_fromArray(
 							[
-								$miyamoen$elm_origami$Origami$Html$text('アイテムスタック数のオーバーライド')
+								A2(
+								$miyamoen$elm_origami$Origami$Html$label,
+								_List_fromArray(
+									[
+										$miyamoen$elm_origami$Origami$Html$Attributes$css(
+										_List_fromArray(
+											[
+												A2($miyamoen$elm_origami$Origami$property, 'user-select', 'none')
+											]))
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$miyamoen$elm_origami$Origami$Html$input,
+										_List_fromArray(
+											[
+												$miyamoen$elm_origami$Origami$Html$Attributes$type_('checkbox'),
+												$miyamoen$elm_origami$Origami$Html$Attributes$checked(
+												A2(
+													$elm$core$List$all,
+													function ($) {
+														return $.ce;
+													},
+													model.p)),
+												$miyamoen$elm_origami$Origami$Html$Events$onCheck($author$project$Main$CheckAllApplyChange)
+											]),
+										_List_Nil),
+										$miyamoen$elm_origami$Origami$Html$text('アイテムスタック数のオーバーライド')
+									]))
 							])),
 						A3(
 						$author$project$Madlib$Layout$row,
@@ -7547,7 +7636,12 @@ var $author$project$Main$viewSettings = function (model) {
 									[
 										$miyamoen$elm_origami$Origami$Html$Attributes$type_('checkbox'),
 										$miyamoen$elm_origami$Origami$Html$Attributes$checked(
-										$author$project$Main$isAllIgnoreMultiplier(model.z)),
+										A2(
+											$elm$core$List$all,
+											function ($) {
+												return $.cy;
+											},
+											model.p)),
 										$miyamoen$elm_origami$Origami$Html$Events$onCheck($author$project$Main$CheckAllIgnoreMultiplier)
 									]),
 								_List_Nil),
@@ -7595,7 +7689,7 @@ var $author$project$Main$viewMain = function (model) {
 };
 var $author$project$Main$view = function (model) {
 	return {
-		cg: _List_fromArray(
+		ch: _List_fromArray(
 			[
 				$miyamoen$elm_origami$Origami$Html$toHtml(
 				A3(
@@ -7613,10 +7707,10 @@ var $author$project$Main$view = function (model) {
 							$author$project$Main$viewMain(model)
 						])))
 			]),
-		c5: 'ARK Setting Generator'
+		c6: 'ARK Setting Generator'
 	};
 };
 var $author$project$Main$main = $elm$browser$Browser$document(
-	{cA: $author$project$Main$init, c1: $author$project$Main$subscriptions, c6: $author$project$Main$update, c7: $author$project$Main$view});
+	{cB: $author$project$Main$init, c2: $author$project$Main$subscriptions, c7: $author$project$Main$update, c8: $author$project$Main$view});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(0))(0)}});}(this));

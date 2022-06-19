@@ -19,7 +19,9 @@ toArkGameIni data =
         { sections =
             [ { name = "/Script/ShooterGame.ShooterGameMode"
               , values =
-                    [ List.map toConfigOverrideItemMaxQuantity data.overrideItemMaxQuantities
+                    [ data.overrideItemMaxQuantities
+                        |> List.filter .applyChange
+                        |> List.map toConfigOverrideItemMaxQuantity
                     ]
                         |> List.concat
               }
