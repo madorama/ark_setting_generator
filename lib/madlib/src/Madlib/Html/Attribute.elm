@@ -6,28 +6,28 @@ import Origami.Html.Attributes as Attr
 
 openNewTab : Attribute msg
 openNewTab =
-  Attr.batchAttributes
-    [ Attr.target "_blank"
-    , Attr.rel "noopener noreferrer"
-    ]
+    Attr.batchAttributes
+        [ Attr.target "_blank"
+        , Attr.rel "noopener noreferrer"
+        ]
 
 
 when : Bool -> Attribute msg -> Attribute msg
 when c attr =
-  if c then
-    attr
+    if c then
+        attr
 
-  else
-    Attr.noAttribute
+    else
+        Attr.noAttribute
 
 
 unless : Bool -> Attribute msg -> Attribute msg
 unless =
-  not >> when
+    not >> when
 
 
 maybe : Maybe a -> (a -> Attribute msg) -> Attribute msg
 maybe m f =
-  m
-    |> Maybe.map f
-    |> Maybe.withDefault Attr.noAttribute
+    m
+        |> Maybe.map f
+        |> Maybe.withDefault Attr.noAttribute

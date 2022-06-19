@@ -1857,7 +1857,7 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.cB,
+		impl.cz,
 		impl.c7,
 		impl.c2,
 		function() { return function() {} }
@@ -3928,7 +3928,7 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.cB,
+		impl.cz,
 		impl.c7,
 		impl.c2,
 		function(sendToApp, initialModel) {
@@ -3964,7 +3964,7 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.cB,
+		impl.cz,
 		impl.c7,
 		impl.c2,
 		function(sendToApp, initialModel) {
@@ -3977,7 +3977,7 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.ch);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.cf);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
@@ -4038,8 +4038,8 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.cS;
-	var onUrlRequest = impl.cT;
+	var onUrlChange = impl.cR;
+	var onUrlRequest = impl.cS;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
@@ -4059,9 +4059,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.bG === next.bG
+							&& curr.bF === next.bF
 							&& curr.bg === next.bg
-							&& curr.bC.a === next.bC.a
+							&& curr.bB.a === next.bB.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -4069,9 +4069,9 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		cB: function(flags)
+		cz: function(flags)
 		{
-			return A3(impl.cB, flags, _Browser_getUrl(), key);
+			return A3(impl.cz, flags, _Browser_getUrl(), key);
 		},
 		c8: impl.c8,
 		c7: impl.c7,
@@ -4141,17 +4141,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { cx: 'hidden', ck: 'visibilitychange' }
+		? { cv: 'hidden', ci: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { cx: 'mozHidden', ck: 'mozvisibilitychange' }
+		? { cv: 'mozHidden', ci: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { cx: 'msHidden', ck: 'msvisibilitychange' }
+		? { cv: 'msHidden', ci: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { cx: 'webkitHidden', ck: 'webkitvisibilitychange' }
-		: { cx: 'hidden', ck: 'visibilitychange' };
+		? { cv: 'webkitHidden', ci: 'webkitvisibilitychange' }
+		: { cv: 'hidden', ci: 'visibilitychange' };
 }
 
 
@@ -4232,11 +4232,11 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		bT: _Browser_getScene(),
-		b7: {
-			b9: _Browser_window.pageXOffset,
-			ca: _Browser_window.pageYOffset,
-			b8: _Browser_doc.documentElement.clientWidth,
+		bR: _Browser_getScene(),
+		b5: {
+			b7: _Browser_window.pageXOffset,
+			b8: _Browser_window.pageYOffset,
+			b6: _Browser_doc.documentElement.clientWidth,
 			bf: _Browser_doc.documentElement.clientHeight
 		}
 	};
@@ -4247,7 +4247,7 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		b8: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		b6: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
 		bf: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
@@ -4271,14 +4271,14 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			bT: {
-				b8: node.scrollWidth,
+			bR: {
+				b6: node.scrollWidth,
 				bf: node.scrollHeight
 			},
-			b7: {
-				b9: node.scrollLeft,
-				ca: node.scrollTop,
-				b8: node.clientWidth,
+			b5: {
+				b7: node.scrollLeft,
+				b8: node.scrollTop,
+				b6: node.clientWidth,
 				bf: node.clientHeight
 			}
 		};
@@ -4309,17 +4309,17 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			bT: _Browser_getScene(),
-			b7: {
-				b9: x,
-				ca: y,
-				b8: _Browser_doc.documentElement.clientWidth,
+			bR: _Browser_getScene(),
+			b5: {
+				b7: x,
+				b8: y,
+				b6: _Browser_doc.documentElement.clientWidth,
 				bf: _Browser_doc.documentElement.clientHeight
 			},
-			cp: {
-				b9: x + rect.left,
-				ca: y + rect.top,
-				b8: rect.width,
+			cn: {
+				b7: x + rect.left,
+				b8: y + rect.top,
+				b6: rect.width,
 				bf: rect.height
 			}
 		};
@@ -5074,7 +5074,7 @@ var $elm$url$Url$Http = 0;
 var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {a9: fragment, bg: host, by: path, bC: port_, bG: protocol, bI: query};
+		return {a9: fragment, bg: host, bx: path, bB: port_, bF: protocol, bH: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5544,7 +5544,7 @@ var $author$project$Ark$Item$defaultItemMaxQuantities = function () {
 		_List_fromArray(
 			[$author$project$Ark$Resource$items, $author$project$Ark$Consumable$items, $author$project$Ark$Seed$items]));
 	var gen = function (item) {
-		return {ce: true, cy: false, cD: item, c: item.c};
+		return {cc: true, cw: false, cB: item, c: item.c};
 	};
 	return A2($elm$core$List$map, gen, items);
 }();
@@ -5604,7 +5604,7 @@ var $author$project$Ark$Generator$toConfigOverrideItemMaxQuantity = function (it
 					A2(
 					$author$project$Ark$ArkIni$KeyValue,
 					'ItemClassString',
-					$author$project$Ark$ArkIni$VString(itemMaxQuantity.cD.b)),
+					$author$project$Ark$ArkIni$VString(itemMaxQuantity.cB.b)),
 					$author$project$Ark$ArkIni$Object(
 					{
 						Y: 'Quantity',
@@ -5617,7 +5617,7 @@ var $author$project$Ark$Generator$toConfigOverrideItemMaxQuantity = function (it
 								A2(
 								$author$project$Ark$ArkIni$KeyValue,
 								'bIgnoreMultiplier',
-								$author$project$Ark$ArkIni$VBool(itemMaxQuantity.cy))
+								$author$project$Ark$ArkIni$VBool(itemMaxQuantity.cw))
 							])
 					})
 				])
@@ -5626,7 +5626,7 @@ var $author$project$Ark$Generator$toConfigOverrideItemMaxQuantity = function (it
 var $author$project$Ark$Generator$toArkGameIni = function (data) {
 	return $author$project$Ark$ArkIni$create(
 		{
-			bU: _List_fromArray(
+			bS: _List_fromArray(
 				[
 					{
 					Y: '/Script/ShooterGame.ShooterGameMode',
@@ -5639,9 +5639,9 @@ var $author$project$Ark$Generator$toArkGameIni = function (data) {
 								A2(
 									$elm$core$List$filter,
 									function ($) {
-										return $.ce;
+										return $.cc;
 									},
-									data.bw))
+									data.bv))
 							]))
 				}
 				])
@@ -5702,15 +5702,15 @@ var $author$project$Ark$ArkIni$toIni = function (_v0) {
 	var arkIni = _v0;
 	return $author$project$Ini$create(
 		{
-			bU: A2(
+			bS: A2(
 				$elm$core$List$map,
 				function (x) {
 					return {
-						cE: A2($elm$core$List$map, $author$project$Ark$ArkIni$arkObjectValueToKeyValue, x.ai),
+						cC: A2($elm$core$List$map, $author$project$Ark$ArkIni$arkObjectValueToKeyValue, x.ai),
 						Y: x.Y
 					};
 				},
-				arkIni.bU)
+				arkIni.bS)
 		});
 };
 var $author$project$Ini$generateKeyValue = function (_v0) {
@@ -5727,7 +5727,7 @@ var $author$project$Ini$generateSection = function (section) {
 				[
 					_List_fromArray(
 					['[' + (section.Y + ']')]),
-					A2($elm$core$List$map, $author$project$Ini$generateKeyValue, section.cE)
+					A2($elm$core$List$map, $author$project$Ini$generateKeyValue, section.cC)
 				])));
 };
 var $author$project$Ini$toString = function (_v0) {
@@ -5735,18 +5735,18 @@ var $author$project$Ini$toString = function (_v0) {
 	return A2(
 		$elm$core$String$join,
 		'\n\n',
-		A2($elm$core$List$map, $author$project$Ini$generateSection, ini.bU));
+		A2($elm$core$List$map, $author$project$Ini$generateSection, ini.bS));
 };
 var $author$project$Ark$Generator$gameIni = function (data) {
 	return $author$project$Ini$toString(
 		$author$project$Ark$ArkIni$toIni(
 			$author$project$Ark$Generator$toArkGameIni(data)));
 };
-var $author$project$Ark$GameIni$defaultGameIni = {aE: false, aF: false, aG: false, aJ: false, aK: 1.0, aL: 1.0, aM: 1.0, aN: 1.0, aO: 1.0, aP: 1.0, aQ: 1.0, aV: 1.0, aW: 1.0, aX: 1.0, aY: 1.0, a$: 3.2, a0: false, a1: false, a2: 1.0, a6: 1.0, a8: false, bc: 1.0, bd: 1.0, bn: 1.0, bq: 1.0, br: 1.0, bs: 100, bw: $author$project$Ark$Item$defaultItemMaxQuantities, bx: 1.0, bA: 1.0, bB: 1.0, bH: false, b_: 180, b1: 1.0, b5: 1.0, b6: false};
+var $author$project$Ark$GameIni$defaultGameIni = {aE: false, aF: false, aG: false, aJ: false, aK: 1.0, aL: 1.0, aM: 1.0, aN: 1.0, aO: 1.0, aP: 1.0, aQ: 1.0, aV: 1.0, aW: 1.0, aX: 1.0, aY: 1.0, a$: 3.2, a0: false, a1: false, a2: 1.0, a6: 1.0, a8: false, bc: 1.0, bd: 1.0, bn: 1.0, bp: 1.0, bq: 1.0, br: 100, bv: $author$project$Ark$Item$defaultItemMaxQuantities, bw: 1.0, bz: 1.0, bA: 1.0, bG: false, bY: 180, b$: 1.0, b3: 1.0, b4: false};
 var $author$project$Main$generateGameIni = function (model) {
 	return _Utils_update(
 		$author$project$Ark$GameIni$defaultGameIni,
-		{bw: model.p});
+		{bv: model.p});
 };
 var $elm$time$Time$Posix = $elm$core$Basics$identity;
 var $elm$time$Time$millisToPosix = $elm$core$Basics$identity;
@@ -5775,13 +5775,13 @@ var $author$project$Main$updateApplyChange = F2(
 	function (b, itemMaxQuantity) {
 		return _Utils_update(
 			itemMaxQuantity,
-			{ce: b});
+			{cc: b});
 	});
 var $author$project$Main$updateIgnoreMultiplier = F2(
 	function (b, itemMaxQuantity) {
 		return _Utils_update(
 			itemMaxQuantity,
-			{cy: b});
+			{cw: b});
 	});
 var $author$project$Main$updateMaxQuantity = F2(
 	function (n, itemMaxQuantity) {
@@ -7497,12 +7497,12 @@ var $author$project$Main$viewItemMaxQuantity = function (sl) {
 						_List_fromArray(
 							[
 								$miyamoen$elm_origami$Origami$Html$Attributes$type_('checkbox'),
-								$miyamoen$elm_origami$Origami$Html$Attributes$checked(selected.ce),
+								$miyamoen$elm_origami$Origami$Html$Attributes$checked(selected.cc),
 								$miyamoen$elm_origami$Origami$Html$Events$onCheck(
 								$author$project$Main$CheckApplyChange(sl))
 							]),
 						_List_Nil),
-						$miyamoen$elm_origami$Origami$Html$text(selected.cD.Y)
+						$miyamoen$elm_origami$Origami$Html$text(selected.cB.Y)
 					])),
 				A2(
 				$miyamoen$elm_origami$Origami$Html$input,
@@ -7539,7 +7539,7 @@ var $author$project$Main$viewItemMaxQuantity = function (sl) {
 						_List_fromArray(
 							[
 								$miyamoen$elm_origami$Origami$Html$Attributes$type_('checkbox'),
-								$miyamoen$elm_origami$Origami$Html$Attributes$checked(selected.cy),
+								$miyamoen$elm_origami$Origami$Html$Attributes$checked(selected.cw),
 								$miyamoen$elm_origami$Origami$Html$Events$onCheck(
 								$author$project$Main$CheckIgnoreMultiplier(sl))
 							]),
@@ -7608,7 +7608,7 @@ var $author$project$Main$viewSettings = function (model) {
 												A2(
 													$elm$core$List$all,
 													function ($) {
-														return $.ce;
+														return $.cc;
 													},
 													model.p)),
 												$miyamoen$elm_origami$Origami$Html$Events$onCheck($author$project$Main$CheckAllApplyChange)
@@ -7640,7 +7640,7 @@ var $author$project$Main$viewSettings = function (model) {
 										A2(
 											$elm$core$List$all,
 											function ($) {
-												return $.cy;
+												return $.cw;
 											},
 											model.p)),
 										$miyamoen$elm_origami$Origami$Html$Events$onCheck($author$project$Main$CheckAllIgnoreMultiplier)
@@ -7690,7 +7690,7 @@ var $author$project$Main$viewMain = function (model) {
 };
 var $author$project$Main$view = function (model) {
 	return {
-		ch: _List_fromArray(
+		cf: _List_fromArray(
 			[
 				$miyamoen$elm_origami$Origami$Html$toHtml(
 				A3(
@@ -7712,6 +7712,6 @@ var $author$project$Main$view = function (model) {
 	};
 };
 var $author$project$Main$main = $elm$browser$Browser$document(
-	{cB: $author$project$Main$init, c2: $author$project$Main$subscriptions, c7: $author$project$Main$update, c8: $author$project$Main$view});
+	{cz: $author$project$Main$init, c2: $author$project$Main$subscriptions, c7: $author$project$Main$update, c8: $author$project$Main$view});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(0))(0)}});}(this));
