@@ -35,6 +35,7 @@ testGameIni =
 
                 expected =
                     [ "[/Script/ShooterGame.ShooterGameMode]"
+                    , "bAllowUnlimitedRespecs=false"
                     , "ConfigOverrideItemMaxQuantity=(ItemClassString=\"" ++ Ark.Resource.stone.class ++ "\",Quantity=(MaxItemQuantity=500,bIgnoreMultiplier=false))"
                     , "ConfigOverrideItemMaxQuantity=(ItemClassString=\"" ++ Ark.Resource.fiber.class ++ "\",Quantity=(MaxItemQuantity=1000,bIgnoreMultiplier=true))"
                     ]

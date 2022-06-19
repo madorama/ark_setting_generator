@@ -14,16 +14,19 @@ import Origami.Html.Events as Ev
 import Response exposing (..)
 import SelectList exposing (SelectList)
 import Style
+import Util.Html exposing (checkBox)
 
 
 type alias Model =
     { itemMaxQuantities : List ItemMaxQuantity
+    , allowUnlimitedRespecs : Bool
     }
 
 
 init : () -> Response Model Msg
 init _ =
     { itemMaxQuantities = Item.defaultItemMaxQuantities
+    , allowUnlimitedRespecs = False
     }
         |> withNone
 
@@ -35,6 +38,7 @@ type Msg
     | CheckAllIgnoreMultiplier Bool
     | CheckApplyChange (SelectList ItemMaxQuantity) Bool
     | CheckAllApplyChange Bool
+    | CheckAllowUnlimitedRespecs Bool
 
 
 generateGameIni : Model -> GameIni
@@ -110,6 +114,12 @@ update msg model =
             }
                 |> withNone
 
+        CheckAllowUnlimitedRespecs checked ->
+            { model
+                | allowUnlimitedRespecs = checked
+            }
+                |> withNone
+
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -157,10 +167,19 @@ viewSettings model =
             [ property "gap" "1rem"
             ]
         ]
-        [ row div
+        [ checkBox
+            [ Attr.css
+                [ property "user-select" "none"
+                ]
+            ]
+            { label = text "マインドワイプトニックのクールダウンを無くす"
+            , checked = model.allowUnlimitedRespecs
+            , onCheck = CheckAllowUnlimitedRespecs
+            }
+        , row div
             []
             [ h3 []
-                [ label
+                [ row label
                     [ Attr.css
                         [ property "user-select" "none"
                         ]

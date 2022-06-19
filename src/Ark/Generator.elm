@@ -19,7 +19,9 @@ toArkGameIni data =
         { sections =
             [ { name = "/Script/ShooterGame.ShooterGameMode"
               , values =
-                    [ data.overrideItemMaxQuantities
+                    [ [ KeyValue "bAllowUnlimitedRespecs" (VBool data.allowUnlimitedRespecs)
+                      ]
+                    , data.overrideItemMaxQuantities
                         |> List.filter .applyChange
                         |> List.map toConfigOverrideItemMaxQuantity
                     ]

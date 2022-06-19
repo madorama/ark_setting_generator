@@ -1857,9 +1857,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.cz,
-		impl.c7,
-		impl.c2,
+		impl.cA,
+		impl.da,
+		impl.c5,
 		function() { return function() {} }
 	);
 });
@@ -3928,11 +3928,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.cz,
-		impl.c7,
-		impl.c2,
+		impl.cA,
+		impl.da,
+		impl.c5,
 		function(sendToApp, initialModel) {
-			var view = impl.c8;
+			var view = impl.db;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3964,12 +3964,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.cz,
-		impl.c7,
-		impl.c2,
+		impl.cA,
+		impl.da,
+		impl.c5,
 		function(sendToApp, initialModel) {
 			var divertHrefToApp = impl.aw && impl.aw(sendToApp)
-			var view = impl.c8;
+			var view = impl.db;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3982,7 +3982,7 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.c6) && (_VirtualDom_doc.title = title = doc.c6);
+				(title !== doc.c9) && (_VirtualDom_doc.title = title = doc.c9);
 			});
 		}
 	);
@@ -4038,8 +4038,8 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.cR;
-	var onUrlRequest = impl.cS;
+	var onUrlChange = impl.cU;
+	var onUrlRequest = impl.cV;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
@@ -4069,13 +4069,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		cz: function(flags)
+		cA: function(flags)
 		{
-			return A3(impl.cz, flags, _Browser_getUrl(), key);
+			return A3(impl.cA, flags, _Browser_getUrl(), key);
 		},
-		c8: impl.c8,
-		c7: impl.c7,
-		c2: impl.c2
+		db: impl.db,
+		da: impl.da,
+		c5: impl.c5
 	});
 }
 
@@ -4141,17 +4141,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { cv: 'hidden', ci: 'visibilitychange' }
+		? { cw: 'hidden', ci: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { cv: 'mozHidden', ci: 'mozvisibilitychange' }
+		? { cw: 'mozHidden', ci: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { cv: 'msHidden', ci: 'msvisibilitychange' }
+		? { cw: 'msHidden', ci: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { cv: 'webkitHidden', ci: 'webkitvisibilitychange' }
-		: { cv: 'hidden', ci: 'visibilitychange' };
+		? { cw: 'webkitHidden', ci: 'webkitvisibilitychange' }
+		: { cw: 'hidden', ci: 'visibilitychange' };
 }
 
 
@@ -4316,7 +4316,7 @@ function _Browser_getElement(id)
 				b6: _Browser_doc.documentElement.clientWidth,
 				bf: _Browser_doc.documentElement.clientHeight
 			},
-			cn: {
+			co: {
 				b7: x + rect.left,
 				b8: y + rect.top,
 				b6: rect.width,
@@ -5544,7 +5544,7 @@ var $author$project$Ark$Item$defaultItemMaxQuantities = function () {
 		_List_fromArray(
 			[$author$project$Ark$Resource$items, $author$project$Ark$Consumable$items, $author$project$Ark$Seed$items]));
 	var gen = function (item) {
-		return {cc: true, cw: false, cB: item, c: item.c};
+		return {cc: true, cx: false, cC: item, c: item.c};
 	};
 	return A2($elm$core$List$map, gen, items);
 }();
@@ -5559,12 +5559,19 @@ var $etaque$elm_response$Response$withNone = function (model) {
 };
 var $author$project$Main$init = function (_v0) {
 	return $etaque$elm_response$Response$withNone(
-		{p: $author$project$Ark$Item$defaultItemMaxQuantities});
+		{aG: false, p: $author$project$Ark$Item$defaultItemMaxQuantities});
 };
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
 var $author$project$Main$subscriptions = function (model) {
 	return $elm$core$Platform$Sub$none;
+};
+var $author$project$Ark$ArkIni$KeyValue = F2(
+	function (a, b) {
+		return {$: 0, a: a, b: b};
+	});
+var $author$project$Ark$ArkIni$VBool = function (a) {
+	return {$: 0, a: a};
 };
 var $author$project$Ark$ArkIni$ArkIni = $elm$core$Basics$identity;
 var $author$project$Ark$ArkIni$create = $elm$core$Basics$identity;
@@ -5579,15 +5586,8 @@ var $elm$core$List$filter = F2(
 			_List_Nil,
 			list);
 	});
-var $author$project$Ark$ArkIni$KeyValue = F2(
-	function (a, b) {
-		return {$: 0, a: a, b: b};
-	});
 var $author$project$Ark$ArkIni$Object = function (a) {
 	return {$: 1, a: a};
-};
-var $author$project$Ark$ArkIni$VBool = function (a) {
-	return {$: 0, a: a};
 };
 var $author$project$Ark$ArkIni$VInt = function (a) {
 	return {$: 1, a: a};
@@ -5604,7 +5604,7 @@ var $author$project$Ark$Generator$toConfigOverrideItemMaxQuantity = function (it
 					A2(
 					$author$project$Ark$ArkIni$KeyValue,
 					'ItemClassString',
-					$author$project$Ark$ArkIni$VString(itemMaxQuantity.cB.b)),
+					$author$project$Ark$ArkIni$VString(itemMaxQuantity.cC.b)),
 					$author$project$Ark$ArkIni$Object(
 					{
 						Y: 'Quantity',
@@ -5617,7 +5617,7 @@ var $author$project$Ark$Generator$toConfigOverrideItemMaxQuantity = function (it
 								A2(
 								$author$project$Ark$ArkIni$KeyValue,
 								'bIgnoreMultiplier',
-								$author$project$Ark$ArkIni$VBool(itemMaxQuantity.cw))
+								$author$project$Ark$ArkIni$VBool(itemMaxQuantity.cx))
 							])
 					})
 				])
@@ -5633,6 +5633,13 @@ var $author$project$Ark$Generator$toArkGameIni = function (data) {
 					ai: $elm$core$List$concat(
 						_List_fromArray(
 							[
+								_List_fromArray(
+								[
+									A2(
+									$author$project$Ark$ArkIni$KeyValue,
+									'bAllowUnlimitedRespecs',
+									$author$project$Ark$ArkIni$VBool(data.aG))
+								]),
 								A2(
 								$elm$core$List$map,
 								$author$project$Ark$Generator$toConfigOverrideItemMaxQuantity,
@@ -5706,7 +5713,7 @@ var $author$project$Ark$ArkIni$toIni = function (_v0) {
 				$elm$core$List$map,
 				function (x) {
 					return {
-						cC: A2($elm$core$List$map, $author$project$Ark$ArkIni$arkObjectValueToKeyValue, x.ai),
+						cD: A2($elm$core$List$map, $author$project$Ark$ArkIni$arkObjectValueToKeyValue, x.ai),
 						Y: x.Y
 					};
 				},
@@ -5727,7 +5734,7 @@ var $author$project$Ini$generateSection = function (section) {
 				[
 					_List_fromArray(
 					['[' + (section.Y + ']')]),
-					A2($elm$core$List$map, $author$project$Ini$generateKeyValue, section.cC)
+					A2($elm$core$List$map, $author$project$Ini$generateKeyValue, section.cD)
 				])));
 };
 var $author$project$Ini$toString = function (_v0) {
@@ -5781,7 +5788,7 @@ var $author$project$Main$updateIgnoreMultiplier = F2(
 	function (b, itemMaxQuantity) {
 		return _Utils_update(
 			itemMaxQuantity,
-			{cw: b});
+			{cx: b});
 	});
 var $author$project$Main$updateMaxQuantity = F2(
 	function (n, itemMaxQuantity) {
@@ -5889,7 +5896,7 @@ var $author$project$Main$update = F2(
 									$author$project$Main$updateApplyChange(checked),
 									sl))
 						}));
-			default:
+			case 5:
 				var checked = msg.a;
 				return $etaque$elm_response$Response$withNone(
 					_Utils_update(
@@ -5900,6 +5907,12 @@ var $author$project$Main$update = F2(
 								$author$project$Main$updateApplyChange(checked),
 								model.p)
 						}));
+			default:
+				var checked = msg.a;
+				return $etaque$elm_response$Response$withNone(
+					_Utils_update(
+						model,
+						{aG: checked}));
 		}
 	});
 var $miyamoen$elm_origami$Origami$VirtualDom$Attribute = F2(
@@ -7265,6 +7278,9 @@ var $author$project$Main$CheckAllApplyChange = function (a) {
 var $author$project$Main$CheckAllIgnoreMultiplier = function (a) {
 	return {$: 3, a: a};
 };
+var $author$project$Main$CheckAllowUnlimitedRespecs = function (a) {
+	return {$: 6, a: a};
+};
 var $elm$core$Basics$not = _Basics_not;
 var $elm$core$List$all = F2(
 	function (isOkay, list) {
@@ -7296,7 +7312,6 @@ var $miyamoen$elm_origami$Origami$Html$Attributes$boolProperty = F2(
 			$elm$json$Json$Encode$bool(bool));
 	});
 var $miyamoen$elm_origami$Origami$Html$Attributes$checked = $miyamoen$elm_origami$Origami$Html$Attributes$boolProperty('checked');
-var $miyamoen$elm_origami$Origami$Html$h3 = $miyamoen$elm_origami$Origami$Html$node('h3');
 var $miyamoen$elm_origami$Origami$Html$input = $miyamoen$elm_origami$Origami$Html$node('input');
 var $miyamoen$elm_origami$Origami$Html$label = $miyamoen$elm_origami$Origami$Html$node('label');
 var $elm$json$Json$Decode$field = _Json_decodeField;
@@ -7363,6 +7378,27 @@ var $author$project$Madlib$Layout$flexRow = F3(
 	});
 var $author$project$Madlib$Layout$row = $author$project$Madlib$Layout$flexRow(false);
 var $miyamoen$elm_origami$Origami$Html$Attributes$type_ = $miyamoen$elm_origami$Origami$Html$Attributes$stringProperty('type');
+var $author$project$Util$Html$checkBox = F2(
+	function (attrs, opt) {
+		return A3(
+			$author$project$Madlib$Layout$row,
+			$miyamoen$elm_origami$Origami$Html$label,
+			attrs,
+			_List_fromArray(
+				[
+					A2(
+					$miyamoen$elm_origami$Origami$Html$input,
+					_List_fromArray(
+						[
+							$miyamoen$elm_origami$Origami$Html$Attributes$type_('checkbox'),
+							$miyamoen$elm_origami$Origami$Html$Attributes$checked(opt.cj),
+							$miyamoen$elm_origami$Origami$Html$Events$onCheck(opt.cT)
+						]),
+					_List_Nil),
+					opt.cE
+				]));
+	});
+var $miyamoen$elm_origami$Origami$Html$h3 = $miyamoen$elm_origami$Origami$Html$node('h3');
 var $miyamoen$select_list$Select$allAfter = function (_v0) {
 	var before = _v0.a;
 	var a = _v0.b;
@@ -7502,7 +7538,7 @@ var $author$project$Main$viewItemMaxQuantity = function (sl) {
 								$author$project$Main$CheckApplyChange(sl))
 							]),
 						_List_Nil),
-						$miyamoen$elm_origami$Origami$Html$text(selected.cB.Y)
+						$miyamoen$elm_origami$Origami$Html$text(selected.cC.Y)
 					])),
 				A2(
 				$miyamoen$elm_origami$Origami$Html$input,
@@ -7539,7 +7575,7 @@ var $author$project$Main$viewItemMaxQuantity = function (sl) {
 						_List_fromArray(
 							[
 								$miyamoen$elm_origami$Origami$Html$Attributes$type_('checkbox'),
-								$miyamoen$elm_origami$Origami$Html$Attributes$checked(selected.cw),
+								$miyamoen$elm_origami$Origami$Html$Attributes$checked(selected.cx),
 								$miyamoen$elm_origami$Origami$Html$Events$onCheck(
 								$author$project$Main$CheckIgnoreMultiplier(sl))
 							]),
@@ -7576,6 +7612,21 @@ var $author$project$Main$viewSettings = function (model) {
 			]),
 		_List_fromArray(
 			[
+				A2(
+				$author$project$Util$Html$checkBox,
+				_List_fromArray(
+					[
+						$miyamoen$elm_origami$Origami$Html$Attributes$css(
+						_List_fromArray(
+							[
+								A2($miyamoen$elm_origami$Origami$property, 'user-select', 'none')
+							]))
+					]),
+				{
+					cj: model.aG,
+					cE: $miyamoen$elm_origami$Origami$Html$text('マインドワイプトニックのクールダウンを無くす'),
+					cT: $author$project$Main$CheckAllowUnlimitedRespecs
+				}),
 				A3(
 				$author$project$Madlib$Layout$row,
 				$miyamoen$elm_origami$Origami$Html$div,
@@ -7587,7 +7638,8 @@ var $author$project$Main$viewSettings = function (model) {
 						_List_Nil,
 						_List_fromArray(
 							[
-								A2(
+								A3(
+								$author$project$Madlib$Layout$row,
 								$miyamoen$elm_origami$Origami$Html$label,
 								_List_fromArray(
 									[
@@ -7640,7 +7692,7 @@ var $author$project$Main$viewSettings = function (model) {
 										A2(
 											$elm$core$List$all,
 											function ($) {
-												return $.cw;
+												return $.cx;
 											},
 											model.p)),
 										$miyamoen$elm_origami$Origami$Html$Events$onCheck($author$project$Main$CheckAllIgnoreMultiplier)
@@ -7708,10 +7760,10 @@ var $author$project$Main$view = function (model) {
 							$author$project$Main$viewMain(model)
 						])))
 			]),
-		c6: 'ARK Setting Generator'
+		c9: 'ARK Setting Generator'
 	};
 };
 var $author$project$Main$main = $elm$browser$Browser$document(
-	{cz: $author$project$Main$init, c2: $author$project$Main$subscriptions, c7: $author$project$Main$update, c8: $author$project$Main$view});
+	{cA: $author$project$Main$init, c5: $author$project$Main$subscriptions, da: $author$project$Main$update, db: $author$project$Main$view});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(0))(0)}});}(this));
