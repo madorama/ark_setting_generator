@@ -241,7 +241,7 @@ elementDust : Item
 elementDust =
     { class = "PrimalItemResource_ElementDust_C"
     , bpPath = "Blueprint'/Game/Extinction/CoreBlueprints/Resources/PrimalItemResource_ElementDust.PrimalItemResource_ElementDust'"
-    , name = "Element Dust"
+    , name = "エレメントダスト"
     , maxQuantity = 1000
     }
 
