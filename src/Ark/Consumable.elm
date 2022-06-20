@@ -756,16 +756,6 @@ items =
     , ascerbicMushroom
     , auricMushroom
     , mushroomBrew
-    , waterskinEmpty
-    , waterskinFilled
-    , waterJarEmpty
-    , waterJarFull
-    , icedWaterJarEmpty
-    , icedWaterJarFull
-    , canteenEmpty
-    , canteenFull
-    , icedCanteenEmpty
-    , icedCanteenFull
     , beerLiquid
     , beerJar
     , bioToxin
